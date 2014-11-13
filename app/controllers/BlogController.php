@@ -65,7 +65,7 @@ class BuildController extends \BaseController {
 		$safeURLTitle = stringHelpers::safeURLSlug($buildTitle);
 
 		// add the build to the database
-   	$build = new Build;
+   	$build = new Blog;
    	$build->build_title = $buildTitle;
    	$build->build_image = $savedImageName;
    	$build->build_tags  = $tags;
