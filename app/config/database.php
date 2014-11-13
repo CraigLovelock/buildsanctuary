@@ -55,7 +55,7 @@ return array(
 		'mysql' => array(
 			'driver'    => 'mysql',
 			'host'      => '10.168.1.45',
-			'database'  => 'build_2014',
+			'database'  => 'buildsan_2014',
 			'username'  => 'buildsan_admin',
 			'password'  => '+W!q ]3%{)3_-.p',
 			'charset'   => 'utf8',
