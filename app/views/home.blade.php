@@ -20,7 +20,7 @@
 
   	foreach ($builds as $build)
   	{
-      $safeURLSlug = stringHelpers::safeURLSlug($build->build_title);
+      $safeURLSlug = stringHelpers::safeURLSlug($build->blogtitle);
   	  echo "
         <a href='viewbuild/$build->id/$safeURLSlug'>
         <div id='$build->id' class='item col-md-3'>
