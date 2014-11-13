@@ -5,9 +5,9 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{{ isset($pageTitle) ? $pageTitle : 'BuildSanctuary' }}</title>
-    <link rel="stylesheet" href="/public_html/css/main.css" />
+    <link rel="stylesheet" href="/css/main.css" />
     <link rel="stylesheet" href="http://getbootstrap.com/examples/sticky-footer-navbar/sticky-footer-navbar.css" />
-    <link rel="stylesheet" href="/public_html/css/custom.css" />
+    <link rel="stylesheet" href="/css/custom.css" />
     <meta name="_token" content="{{ csrf_token() }}"/>
 </head>
 <body>
