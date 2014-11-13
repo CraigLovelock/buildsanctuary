@@ -24,8 +24,8 @@
   	  echo "
         <a href='viewbuild/$build->id/$safeURLSlug'>
         <div id='$build->id' class='item col-md-3'>
-          <div class='build-image'><img class='decoded' src='uploads/coverimages/$build->build_image'/></div>
-          <p class='number'>($build->id) - $build->build_title</p>
+          <div class='build-image'><img class='decoded' src='uploads/coverimages/'/></div>
+          <p class='number'>($build->id) - $build->blogtitle</p>
         </div>
         </a>
       ";

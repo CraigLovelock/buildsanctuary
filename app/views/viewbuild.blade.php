@@ -27,16 +27,16 @@
 
     <?php 
 
-    $posts = DB::table('posts')->where('buildid', '=', "$build->id")->paginate(4);
+    $posts = DB::table('posts')->where('buildID', '=', "$build->id")->paginate(4);
 
     foreach ($posts as $post)
     {
       echo "
         <div class='panel panel-default'>
           <div class='panel-body'>
-            $post->postcontent
+            $post->text
           </div>
-          <div class='panel-footer'>$post->id | added: $post->created_at</div>
+          <div class='panel-footer'>$post->postID | added: </div>
         </div>
       ";
     }
