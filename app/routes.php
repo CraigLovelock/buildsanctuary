@@ -53,7 +53,7 @@ Route::get('startbuild', array('before' => 'auth', function()
 
 Route::get('viewbuild/{build_id?}/{build_title?}', function($build_id = null, $build_title = null)
 {
-  $build = Build::find($build_id);
+  $build = Blog::find($build_id);
   if (!is_null($build)) {
   	return View::make('viewbuild', compact('build'));
 	} else {
