@@ -18,7 +18,7 @@
 |
 */
 
-require '/var/sites/b/beta.buildsanctuary.com/bootstrap/autoload.php';
+require __DIR__.'/../bootstrap/autoload.php';
 
 /*
 |--------------------------------------------------------------------------
