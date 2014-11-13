@@ -1,0 +1,204 @@
+body {
+	background-color: #efefef;
+}
+
+/* Overides */
+
+.navbar-default {
+	background-color: #fff;
+}
+
+.nav li:hover {
+	background-color: #efefef;
+}
+
+.modal-white {
+	background-color: #fff;
+	padding: 20px;
+	border-radius: 4px;
+	border: 1px solid #ddd;
+	margin-top: 20px !important;
+}
+
+.small-form {
+	width: 100%;
+	max-width: 400px;
+	margin: auto;
+	text-align: center;
+}
+
+/* Given to any element that needs to be 100% its container width*/
+.full-width {
+	width: 100%;
+}
+
+.three-width {
+	width: 100%;
+}
+
+/* */
+
+/* custom header and text styling */
+
+.no-top-margin {
+	margin-top: 0;
+	margin-bottom: 20px;
+}
+
+.form-control {
+	margin-bottom: 20px;
+}
+
+.form-control-ultagit {
+	height: auto;
+}
+
+.input-message {
+	text-align: left;
+	margin-top: -10px;
+}
+
+.input-error {
+ 	color: #A94442;
+}
+
+.centre-menu {
+	text-align: center;
+}
+
+.add-build-btn {
+	color: green;
+}
+
+/* Masonry */
+
+.item {
+	margin-bottom: 10px;
+	padding: 0;
+	opacity: 0.9;
+}
+
+.item:hover {
+	opacity: 1;
+}
+
+.build-image {
+}
+
+.build-image img {
+	width: 100%;
+	height: auto;
+}
+
+.col-md-3 {
+    width: calc(25% - 20px);
+    float: left;
+    margin: 10px;
+    background-color: #fff;
+    height: auto;
+    word-wrap: break-word;
+}
+ 
+/* Portrait tablet to landscape and desktop */
+@media (min-width: 768px) and (max-width: 979px) {
+	.col-md-3 {
+    width: calc(33% - 20px);
+	}
+}
+ 
+/* Landscape phone to portrait tablet */
+@media (max-width: 767px) {
+	.col-md-3 {
+    width: calc(50% - 20px);
+	}
+}
+ 
+/* Landscape phones and down */
+@media (max-width: 480px) {
+	.col-md-3 {
+    width: calc(100% - 20px);
+	}
+}
+
+.file-btn {
+	opacity: 0;
+	margin-top: -9999999px;
+	position: absolute;
+}
+
+.btn-left {
+	float: left;
+}
+
+.upload-fake-btn:hover {
+	cursor: pointer;
+}
+
+.upload-fake-btn {
+	margin-left: -1px;
+	margin-top: -1px;
+}
+
+.upload-btn {
+	margin-bottom: 20px;
+	height: 34px;
+	border: 1px solid #ccc;
+	border-radius: 6px;
+	line-height: 35px;
+	color: #aaa;
+	text-align: left;
+}
+
+.fake-btn-filename {
+	margin-left: 10px;
+}
+
+.build-information {
+	height: 48px;
+	line-height: 48px;
+	font-size: 20px;
+	color: #333;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+.buildimage {
+	width: 103.5%;
+	margin-left: -1.6%;
+	margin-top: 10px; margin-bottom: 10px;
+}
+
+.new-post-btn {
+	float: right;
+	margin-top: 7px;
+}
+
+.build-title {
+	float: left;
+	width: 50%;
+	text-align: left;
+}
+
+.glyphicon {
+}
+
+.centre-text {
+	text-align: center;
+}
+
+.no-padding {
+	padding: 0;
+}
+
+.form-control-addupdate {
+	width: calc(100% - 20px);
+	border: 0;
+	margin-left: 10px;
+	resize: none;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.insert-image {
+	float: right;
+}
