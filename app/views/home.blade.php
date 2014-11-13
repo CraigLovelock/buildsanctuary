@@ -11,7 +11,7 @@
 
   <?php 
 
-  $builds = DB::table('builds')->get();
+  /*$builds = DB::table('builds')->get();
   $countBuilds = count($builds);
 
   $path = 'laravelcms/public';
@@ -34,7 +34,7 @@
   } else {
     echo "No builds returned";
     echo $countBuilds;
-  }
+  }*/
 
 	?>
 
