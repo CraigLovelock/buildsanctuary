@@ -3,14 +3,14 @@
 @section('body')
 
 <div class="build-information">
-  <div class="build-title">{{ $build->build_title }}</div>
+  <div class="build-title">{{ $build->blogtitle }}</div>
   <button class="btn btn-primary new-post-btn" data-toggle="modal" data-target="#myModal">
-    @if (Auth::user()->id == $build->build_creator_id)
+    <!--@if (Auth::user()->id == $build->build_creator_id)-->
     <span class="glyphicon glyphicon-pencil"></span>
-    @endif
+    <!--@endif-->
   </button>
 </div>
-
+<!--
 @if ($build->build_status == 1 && Auth::user()->id == 6)
   <div class="alert alert-success centre-text" role="alert">
     <strong>Sweet, Your build is created!</strong>
@@ -22,6 +22,7 @@
     <strong>Sorry! This build is not yet published!</strong>
   </div>
 @else
+-->
 
   <div id="posts" class="row">
 
@@ -47,7 +48,7 @@
 
   <?php echo $posts->links(); ?>
 
-@endif
+<!--@endif-->
 
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
