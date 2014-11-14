@@ -67,7 +67,7 @@
 <script>
 $(document).ready(function() 
 {
-  var lastScrollTop = 0;
+ /* var lastScrollTop = 0;
   $(window).scroll(function(event){
      var st = $(this).scrollTop();
      if (st > lastScrollTop){
@@ -91,7 +91,7 @@ $(document).ready(function()
      lastScrollTop = st;
   });
 
-  /*var $win = $(window);
+  var $win = $(window);
   $win.scroll(function () {
     if ($win.scrollTop() == 0) {
       $(".build-information")
