@@ -3,7 +3,7 @@
 @section('body')
 
 <div class="build-information">
-  <div class="build-title">{{ $build->blogtitle }}</div>
+  <div class="build-title"></div>
   <button class="btn btn-primary new-post-btn" data-toggle="modal" data-target="#myModal">
     <!--@if (Auth::user()->id == $build->build_creator_id)-->
     <span class="glyphicon glyphicon-pencil"></span>
