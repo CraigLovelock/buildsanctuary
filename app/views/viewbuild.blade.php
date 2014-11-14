@@ -19,7 +19,7 @@
     {
       echo "
         <div class='panel panel-default'>
-          <div class='panel-body'>
+          <div class='panel-body update'>
             $post->text
           </div>
           <div class='panel-footer'>$post->postID | added: </div>
