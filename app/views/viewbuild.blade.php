@@ -3,13 +3,64 @@
 @section('body')
 
 <div class="build-information">
-  <div class="build-title"></div>
+  <div class="build-title">{{ $build->blogtitle }}</div>
   <button class="btn btn-primary new-post-btn" data-toggle="modal" data-target="#myModal">
-    <!--@if (Auth::user()->id == $build->build_creator_id)-->
     <span class="glyphicon glyphicon-pencil"></span>
-    <!--@endif-->
   </button>
 </div>
+
+  <div id="posts" class="row">
+
+    <?php 
+
+    $posts = DB::table('posts')->where('buildID', '=', "$build->id")->paginate(4);
+
+    foreach ($posts as $post)
+    {
+      echo "
+        <div class='panel panel-default'>
+          <div class='panel-body'>
+            $post->text
+          </div>
+          <div class='panel-footer'>$post->postID | added: </div>
+        </div>
+      ";
+    }
+
+    ?>
+
+  </div>
+
+  <?php echo $posts->links(); ?>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="btn btn-primary insert-image" data-dismiss="modal"><span class="glyphicon glyphicon-picture"></span></button>
+        <h4 class="modal-title" id="myModalLabel">New Update</h4>
+      </div>
+      <div class="modal-body no-padding">
+      {{ Form::open(array('url' => 'createpostaction', 'class' => 'newupdateform')) }}
+        {{ Form::textarea('newupdate-text', Input::old('newupdate-text'), array(
+          'class' => 'form-control-addupdate',
+          'placeholder' => 'Add update here'
+          ))
+        }}
+        {{ Form::hidden('buildid', "$build->id")}}
+        {{ Form::hidden('buildtitle', "$build->blogtitle")}}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        {{ Form::submit('Post Update', array('class' => 'btn btn-primary submit-newupdate-btn')) }}
+      </div>
+      {{ Form::close() }}
+    </div>
+  </div>
+</div>
+
+@stop
 
 @section('scripts')
 
