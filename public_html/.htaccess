@@ -1,6 +1,6 @@
 RewriteEngine On
 RewriteBase /
-RewriteCond %{REMOTE_HOST} !^86.144.23.71
+RewriteCond %{REMOTE_HOST} !^86.186.243.116
 RewriteRule .* https://www.facebook.com/buildsanctuary/posts/522660147878638 [R=302,L]
 
 <IfModule mod_rewrite.c>
