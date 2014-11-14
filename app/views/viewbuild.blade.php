@@ -91,7 +91,7 @@ $(document).ready(function()
      lastScrollTop = st;
   });
 
-  var $win = $(window);
+  /*var $win = $(window);
   $win.scroll(function () {
     if ($win.scrollTop() == 0) {
       $(".build-information")
@@ -101,7 +101,7 @@ $(document).ready(function()
         .css('text-align', 'left')
         .css('top', '');
     }
-  });
+  });*/
 
     $('.newupdateform').submit(function() {
       $(".submit-newupdate-btn").addClass('disabled');
