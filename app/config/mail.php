@@ -28,7 +28,7 @@ return array(
 	|
 	*/
 
-	'host' => 'smtp.mailgun.org',
+	'host' => 'mail3.gridhost.co.uk',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -54,7 +54,7 @@ return array(
 	|
 	*/
 
-	'from' => array('address' => 'craiglovelock54@hotmail.co.uk', 'name' => 'Admin - BuildSanctuary'),
+	'from' => array('address' => 'craig@buildsanctuary.com', 'name' => 'Admin - BuildSanctuary'),
 
 	/*
 	|--------------------------------------------------------------------------
@@ -80,7 +80,7 @@ return array(
 	|
 	*/
 
-	'username' => null,
+	'username' => 'admin@buildsanctuary.com',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -93,7 +93,7 @@ return array(
 	|
 	*/
 
-	'password' => null,
+	'password' => 'wireless123',
 
 	/*
 	|--------------------------------------------------------------------------
