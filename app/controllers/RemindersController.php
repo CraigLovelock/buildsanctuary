@@ -12,11 +12,6 @@ class RemindersController extends Controller {
 		return View::make('password.remind');
 	}
 
-	Password::remind(Input::only('email'), function($message)
-	{
-	    $message->subject('Password Reminder');
-	});
-
 	/**
 	 * Handle a POST request to remind a user of their password.
 	 *
