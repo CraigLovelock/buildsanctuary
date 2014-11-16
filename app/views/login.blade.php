@@ -32,8 +32,14 @@
       	<p class="input-message input-error full-width">Incorrect username / password.</p>
       @endif
 
-      {{ Form::submit('Login', array('class' => 'btn btn-success full-width')) }}
+      {{ Form::label('rememberme', 'Keep me logged in:') }}
+      {{ Form::checkbox('rememberme', 1, true) }}
       <br><br>
+
+      {{ Form::submit('Login', array('class' => 'btn btn-success full-width')) }}
+      
+      <br><br>
+      <a href="password_reminder">Password Issues? Reset Here</a>
 
     {{ Form::close() }}
 

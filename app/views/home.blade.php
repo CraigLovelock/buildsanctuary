@@ -3,8 +3,16 @@
 @section('body')
 
 <div id="sorts" class="button-group">
-  <button data-sort-by="number" class="btn btn-primary">original order</button>
-  <button data-sort-by="random" class="btn btn-primary">other</button>
+@if (Auth::check())
+  <button data-sort-by="random" class="btn btn-primary">Newest</button>
+  <button data-sort-by="number" class="btn btn-primary">Following</button>
+  <button data-sort-by="random" class="btn btn-primary">Trending</button>
+  <button data-sort-by="random" class="btn btn-primary">Random</button>
+@else
+  <button data-sort-by="random" class="btn btn-primary">Newest</button>
+  <button data-sort-by="random" class="btn btn-primary">Trending</button>
+  <button data-sort-by="random" class="btn btn-primary">Random</button>
+@endif
 </div>
 
   <div id="posts" class="row">
@@ -14,7 +22,7 @@
   $builds = DB::table('blogs')->get();
   $countBuilds = count($builds);
 
-  $path = 'laravelcms/public';
+  $path = '';
 
   if ($builds) {
 
@@ -24,7 +32,7 @@
   	  echo "
         <a href='viewbuild/$build->id/$safeURLSlug'>
         <div id='$build->id' class='item col-md-3'>
-          <div class='build-image'><img class='decoded' src='uploads/coverimages/'/></div>
+          <div class='build-image'><img class='decoded' src='../user_uploads/cover_images/$build->coverimage.jpeg' /></div>
           <p class='number'>($build->id) - $build->blogtitle</p>
         </div>
         </a>

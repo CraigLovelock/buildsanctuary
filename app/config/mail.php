@@ -54,7 +54,7 @@ return array(
 	|
 	*/
 
-	'from' => array('address' => null, 'name' => null),
+	'from' => array('address' => 'craiglovelock54@hotmail.co.uk', 'name' => 'Admin - BuildSanctuary'),
 
 	/*
 	|--------------------------------------------------------------------------

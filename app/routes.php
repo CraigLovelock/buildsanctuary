@@ -51,6 +51,11 @@ Route::get('startbuild', array('before' => 'auth', function()
 	return View::make('createbuild');
 }));
 
+Route::get('password_reminder', function()
+{
+	return View::make('passwordremind');
+});
+
 Route::get('viewbuild/{build_id?}/{build_title?}', function($build_id = null, $build_title = null)
 {
   $build = Blog::find($build_id);
@@ -68,6 +73,8 @@ Validator::extend('checkMatch', function($attribute, $value, $parameters)
 
    return Hash::check($value, $parameters[0]);
 });
+
+Route::controller('password', 'RemindersController');
 
 Route::post('registerUser', array('uses' => 'UserController@registerUser'));
 Route::post('loginUser', array('uses' => 'UserController@loginUser'));
