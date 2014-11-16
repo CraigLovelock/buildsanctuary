@@ -28,7 +28,7 @@ return array(
 	|
 	*/
 
-	'host' => 'mail.buildsanctuary.com',
+	'host' => 'mail3.gridhost.co.uk',
 
 	/*
 	|--------------------------------------------------------------------------
