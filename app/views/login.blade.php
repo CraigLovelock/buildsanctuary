@@ -13,6 +13,13 @@
       	</div>
       @endif
 
+      @if(Session::has('successPassReset'))
+        <div class="alert alert-success" role="alert">
+          <span class="glyphicon glyphicon-ok"></span>
+            Password reset, Login to confirm.
+        </div>
+      @endif
+
       {{ Form::text('username', Input::old('username'), array(
       	'class' => 'form-control',
       	'placeholder' => 'Username'

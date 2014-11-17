@@ -32,7 +32,7 @@
   	  echo "
         <a href='viewbuild/$build->id/$safeURLSlug'>
         <div id='$build->id' class='item col-md-3'>
-          <div class='build-image'><img class='decoded' src='../user_uploads/cover_images/$build->coverimage.jpeg' /></div>
+          <div class='build-image'><img class='decoded' src='user_uploads/cover_images/$build->coverimage.jpeg' /></div>
           <p class='number'>($build->id) - $build->blogtitle</p>
         </div>
         </a>
