@@ -1,6 +1,6 @@
 <?php
 
-class BuildController extends \BaseController {
+class BlogController extends \BaseController {
 
 	/**
 	 * Display a listing of the resource.
@@ -37,8 +37,8 @@ class BuildController extends \BaseController {
 		{
 			Input::flash();
 			$errors = $validator->messages();
-      return Redirect::to('/startbuild')->withErrors($validator)->withInput()->with('tags', Input::get('tags'));
-    }
+      		return Redirect::to('/startbuild')->withErrors($validator)->withInput()->with('tags', Input::get('tags'));
+    	}
 
     // create random string for prefix
     $randomString = substr( md5(rand()), 0, 10);
@@ -65,16 +65,16 @@ class BuildController extends \BaseController {
 		$safeURLTitle = stringHelpers::safeURLSlug($buildTitle);
 
 		// add the build to the database
-   	$build = new Blog;
-   	$build->build_title = $buildTitle;
-   	$build->build_image = $savedImageName;
-   	$build->build_tags  = $tags;
-   	$build->build_status = 1; // 1 = unpublished
-   	$build->build_creator_id = Auth::user()->id;
-   	$build->save();
-   	$lastInsertID = $build->id;
+	   	$build = new Blog;
+	   	$build->build_title = $buildTitle;
+	   	$build->build_image = $savedImageName;
+	   	$build->build_tags  = $tags;
+	   	$build->build_status = 1; // 1 = unpublished
+	   	$build->build_creator_id = Auth::user()->id;
+	   	$build->save();
+	   	$lastInsertID = $build->id;
 
-   	return Redirect::to("/viewbuild/$lastInsertID/$safeURLTitle");
+	   	return Redirect::to("/viewbuild/$lastInsertID/$safeURLTitle");
 	}
 
 

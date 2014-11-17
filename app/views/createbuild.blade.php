@@ -26,6 +26,10 @@
       <p class="input-message input-error full-width">{{ $errors->first('image') }}</p>
     @endif
 
+    <div class="image_preview_container">
+      <img id="image_preview" src="#" alt="your image" />
+    </div>
+
     <ul id="myTags" class="form-control form-control-ultagit">
       @if(Session::has('tags'))
         @foreach (Input::old('tags') as $tag)
@@ -34,11 +38,12 @@
       @endif
     </ul>
   
-   @if($errors->has('tags'))
+    @if($errors->has('tags'))
       <p class="input-message input-error full-width">{{ $errors->first('tags') }}</p>
     @endif
 
     {{ Form::submit('Start Build', array('class' => 'btn btn-success full-width')) }}
+
     <br><br>
 
   {{ Form::close() }}
@@ -86,6 +91,26 @@ $(document).ready(function() {
     }
     return title;
   }
+
+  function readURL(input) {
+
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            $('.image_preview_container').fadeIn();
+            $('#image_preview').attr('src', e.target.result);
+            $('.upload-fake-btn').html('Change Image');
+        }
+
+        reader.readAsDataURL(input.files[0]);
+    }
+  }
+
+  $(".file-btn").change(function(){
+      readURL(this);
+      $('.image_preview_container').fadeOut();
+  });
 
 });
 </script>

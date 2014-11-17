@@ -81,5 +81,5 @@ Route::post('loginUser', array('uses' => 'UserController@loginUser'));
 Route::get('logout', array('uses' => 'UserController@logout'));
 Route::post('updatepasswordaction', array('uses' => 'UserController@updatepassword'));
 Route::post('updatecontactaction', array('uses' => 'UserController@updatecontact'));
-Route::post('createbuildaction', array('uses' => 'BuildController@create'));
+Route::post('createbuildaction', array('uses' => 'BlogController@create'));
 Route::post('createpostaction', array('uses' => 'PostController@create'));
