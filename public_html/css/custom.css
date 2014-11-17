@@ -254,3 +254,7 @@ code {
 	margin: auto;
 	margin-left: -6%;
 }
+
+#posts {
+	overflow: hidden;
+}
