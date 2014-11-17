@@ -53,7 +53,7 @@
 @section('scripts')
   <script src="http://isotope.metafizzy.co/isotope.pkgd.min.js"></script>
 
-  <script>/*
+  <script>
     $(function() {
       var container = $('#posts');
 
@@ -72,6 +72,6 @@
         container.isotope({ sortBy: sortByValue });
       });
 
-    });*/
+    });
   </script>
 @stop
