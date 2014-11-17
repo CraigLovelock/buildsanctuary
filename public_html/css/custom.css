@@ -249,6 +249,7 @@ code {
 }
 
 .build-image {
-	max-width: 100%;
+	max-width: calc(100% + 12%);
 	margin: auto;
+	margin-left: -6%;
 }
