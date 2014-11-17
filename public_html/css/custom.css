@@ -247,3 +247,8 @@ body > .container {
 code {
   font-size: 80%;
 }
+
+.build-image {
+	max-width: 100%;
+	margin: auto;
+}

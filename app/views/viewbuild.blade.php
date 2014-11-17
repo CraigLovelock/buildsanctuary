@@ -17,10 +17,13 @@
 
     foreach ($posts as $post)
     {
+      $post_text = $post->text;
+      $post_text = str_ireplace("[img]", "<img class='build-image' src='", $post_text);
+      $post_text = str_ireplace("[/img]", "'/>'", $post_text);
       echo "
         <div class='panel panel-default'>
           <div class='panel-body update'>
-            $post->text
+            $post_text
           </div>
           <div class='panel-footer'>$post->postID | added: </div>
         </div>
