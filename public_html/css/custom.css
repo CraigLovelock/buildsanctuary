@@ -263,9 +263,7 @@ code {
 }
 
 .build-image {
-	max-width: calc(100% + 12%);
-	margin: auto;
-	margin-left: -6%;
+	max-width: 100%;
 }
 
 #posts {
