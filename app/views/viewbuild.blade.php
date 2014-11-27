@@ -102,7 +102,7 @@ if (isset($_GET['page'])) {
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="btn btn-primary insert-image" data-dismiss="modal"><span class="glyphicon glyphicon-picture"></span></button>
+        <button type="button" class="btn btn-primary insert-image"><span class="glyphicon glyphicon-picture"></span></button>
         <form class='update-insertimage-form'>
           <input type='file' class='update-insertimage-btn'>
         </form>
@@ -110,11 +110,9 @@ if (isset($_GET['page'])) {
       </div>
       <div class="modal-body no-padding">
       {{ Form::open(array('url' => 'createpostaction', 'class' => 'newupdateform')) }}
-        {{ Form::textarea('newupdate-text', Input::old('newupdate-text'), array(
-          'class' => 'form-control-addupdate',
-          'placeholder' => 'Add update here'
-          ))
-        }}
+        <div contentEditable="true" id="newupdate-text" class="form-control-addupdate">
+          <p class='textarea-placeholder'>Add your update here...</p>
+        </div>
         {{ Form::hidden('buildid', "$build->id")}}
         {{ Form::hidden('buildtitle', "$build->blogtitle")}}
       </div>
@@ -137,6 +135,28 @@ $(document).ready(function()
   $(".insert-image").click(function(){
     $('.update-insertimage-btn').trigger('click'); 
   });
+
+  function readURL(input) {
+    if (input.files && input.files[0]) {
+      var reader = new FileReader();
+
+      reader.onload = function (e) {
+        $(".form-control-addupdate").append("<br><br><img class='new-update-image' src='"+e.target.result+"'><p></p><p class='textarea-placeholder'>continue typing...</p>");
+        var $t = $('.form-control-addupdate');
+        $t.animate({"scrollTop": $('.form-control-addupdate')[0].scrollHeight}, "slow");
+      }
+        reader.readAsDataURL(input.files[0]);
+      }
+    }
+
+    $(".update-insertimage-btn").change(function(){
+      readURL(this);
+    });
+
+    $(".form-control-addupdate").on('keydown keypress input', function() {
+      $(".textarea-placeholder").hide();
+    });
+
  /* var lastScrollTop = 0;
   $(window).scroll(function(event){
      var st = $(this).scrollTop();
