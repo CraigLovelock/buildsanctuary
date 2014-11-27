@@ -50,9 +50,9 @@ class BlogController extends \BaseController {
     $createImage->resize(600, null, function ($constraint) {
     	$constraint->aspectRatio();
 		});
-		$createImage->save("uploads/coverimages/$filenamePrefix.jpg");
+		$createImage->save("user_uploads/cover_images/$filenamePrefix.jpeg");
 
-		$savedImageName = $filenamePrefix . '.jpg';
+		$savedImageName = $filenamePrefix;
 
 		//create the array for the tags / 
 		$tags = Input::get('tags');
@@ -66,11 +66,11 @@ class BlogController extends \BaseController {
 
 		// add the build to the database
 	   	$build = new Blog;
-	   	$build->build_title = $buildTitle;
-	   	$build->build_image = $savedImageName;
-	   	$build->build_tags  = $tags;
-	   	$build->build_status = 1; // 1 = unpublished
-	   	$build->build_creator_id = Auth::user()->id;
+	   	$build->blogtitle = $buildTitle;
+	   	$build->coverimage = $filenamePrefix;
+	   	$build->tags  = $tags;
+	   	$build->status = 1; // 1 = unpublished
+	   	$build->userid = Auth::user()->id;
 	   	$build->save();
 	   	$lastInsertID = $build->id;
 

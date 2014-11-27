@@ -19,7 +19,7 @@
 
   <?php 
 
-  $builds = DB::table('blogs')->get();
+  $builds = DB::table('blogs')->orderBy('id', 'desc')->get();
   $countBuilds = count($builds);
 
   $path = '';
@@ -55,7 +55,7 @@
 
   <script>
     $(function() {
-      var container = $('#posts');
+      var container = $('#postss');
 
       container.isotope({
         itemSelector : '.item',
@@ -64,8 +64,6 @@
         },
         animationEngine: 'css'
       });
-
-      container.isotope({ sortBy : 'number' });
 
       $('#sorts').on( 'click', 'button', function() {
         var sortByValue = $(this).attr('data-sort-by');

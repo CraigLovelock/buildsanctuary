@@ -257,6 +257,8 @@ code {
 
 #posts {
 	overflow: hidden;
+	width: 100%;
+	margin: auto;
 }
 
 .image_preview_container {
@@ -269,4 +271,12 @@ code {
 #image_preview {
 	max-width: 100%;
 	border-radius: 4px;
+}
+
+.centre-text {
+	text-align: center;
+}
+
+.update-insertimage-form {
+	position: absolute;
 }

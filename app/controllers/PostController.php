@@ -48,21 +48,21 @@ class PostController extends \BaseController {
 
 		// add the build to the database
    	$post = new Post;
-   	$post->postcontent = Input::get('newupdate-text');
-   	$post->post_userid = Auth::user()->id;
-   	$post->buildid = $buildID;
+   	$post->text = Input::get('newupdate-text');
+   	$post->userID = Auth::user()->id;
+   	$post->buildID = $buildID;
    	$post->save();
 
-   	$build = Build::find($buildID);
-   	$build->build_status = '2';
+   	$build = Blog::find($buildID);
+   	$build->status = '2'; // Live build
    	$build->save();
 
-   	$posts = DB::table('posts')->where('buildid', '=', "$buildID")->paginate(4)->getLastPage();
+   	$posts = DB::table('posts')->where('buildID', '=', "$buildID")->paginate(4)->getLastPage();
 
    	//return Redirect::to("/viewbuild/$buildID/$safeURLSlug?page=$posts");
 
    	return Response::json(array(
-   			'success' => true,
+   		'success' => true,
         'buildID' => $buildID,
         'URLSlug' => $safeURLSlug,
         'lastPage' => $posts, 
