@@ -279,4 +279,7 @@ code {
 
 .update-insertimage-form {
 	position: absolute;
+	right: 10;
+	width: 1px;
+	overflow: hidden;
 }
