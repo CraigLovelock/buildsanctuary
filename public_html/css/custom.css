@@ -295,3 +295,13 @@ code {
 	overflow: hidden;
 	opacity: 0;
 }
+
+.follow-button {
+	float: right;
+}
+
+.follow-button:hover {
+	background-color: #5cb85c;
+	border-color: #4cae4c;
+	color: white;
+}

@@ -38,8 +38,8 @@ if (isset($_GET['page'])) {
       ";
     } else {
       echo "
-          <button class='btn btn-success new-post-btn'>
-            <span class='glyphicon glyphicon-heart'></span>
+          <button class='btn btn-default follow-button'>
+            Follow <span class='glyphicon glyphicon-heart'></span>
           </button>
       ";
     }
