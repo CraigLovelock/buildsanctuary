@@ -129,5 +129,13 @@ class PostController extends \BaseController {
 		//
 	}
 
+	public function saveUploadedImage() {
+	$image = Input::get('update-insertimage-btn');
+	return Response::json(array(
+   		'success' => true,
+   		'name' => $image,
+        200)
+    );
+	}
 
 }
