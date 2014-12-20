@@ -83,3 +83,4 @@ Route::post('updatepasswordaction', array('uses' => 'UserController@updatepasswo
 Route::post('updatecontactaction', array('uses' => 'UserController@updatecontact'));
 Route::post('createbuildaction', array('uses' => 'BlogController@create'));
 Route::post('createpostaction', array('uses' => 'PostController@create'));
+Route::post('saveUploadedImage', array('uses' => 'PostController@saveUploadedImage'));

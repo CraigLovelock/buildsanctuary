@@ -15,11 +15,11 @@
 @endif
 </div>
 
-  <div id="posts" class="row">
+  <div id="builds" class="row">
 
   <?php 
 
-  $builds = DB::table('blogs')->orderBy('id', 'desc')->get();
+  $builds = DB::table('blogs')->orderBy('id', 'desc')->paginate(15);
   $countBuilds = count($builds);
 
   $path = '';
@@ -48,28 +48,30 @@
 
   </div>
 
+  <?php echo $builds->links(); ?>
+
 @stop
 
 @section('scripts')
+  <script src="http://imagesloaded.desandro.com/imagesloaded.pkgd.min.js"></script>
   <script src="http://isotope.metafizzy.co/isotope.pkgd.min.js"></script>
 
   <script>
     $(function() {
-      var container = $('#postss');
+      var container = $('#builds');
 
-      container.isotope({
-        itemSelector : '.item',
-        getSortData: {
+      imagesLoaded(container, function() {
+        container.fadeIn();
+        container.isotope({
+          itemSelector : '.item',
+          getSortData: {
           number: '.number'
-        },
-        animationEngine: 'css'
-      });
-
-      $('#sorts').on( 'click', 'button', function() {
-        var sortByValue = $(this).attr('data-sort-by');
-        container.isotope({ sortBy: sortByValue });
+          },
+          animationEngine: 'css'
+        });
       });
 
     });
+
   </script>
 @stop

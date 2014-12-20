@@ -272,6 +272,13 @@ code {
 	margin: auto;
 }
 
+#builds {
+	overflow: hidden;
+	width: 100%;
+	margin: auto;
+	display: none;
+}
+
 .image_preview_container {
 	width: 100%;
 	margin: auto;

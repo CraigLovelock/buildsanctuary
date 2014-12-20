@@ -103,16 +103,16 @@ if (isset($_GET['page'])) {
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="btn btn-primary insert-image"><span class="glyphicon glyphicon-picture"></span></button>
-        <form class='update-insertimage-form'>
-          <input type='file' class='update-insertimage-btn'>
-        </form>
+        {{ Form::open(array('class' => 'update-insertimage-form', "files" => true,)) }}
+          {{ Form::file('image', array('class' => 'update-insertimage-btn', 'name' => 'update-insertimage-btn')) }}
+        {{ Form::close() }}
         <h4 class="modal-title" id="myModalLabel">New Update</h4>
       </div>
       <div class="modal-body no-padding">
       {{ Form::open(array('url' => 'createpostaction', 'class' => 'newupdateform')) }}
-        <div contentEditable="true" id="newupdate-text" class="form-control-addupdate">
-          <p class='textarea-placeholder'>Add your update here...</p>
+        <div contentEditable="true" id="newupdate-text-1" class="form-control-addupdate">
         </div>
+        <input type="text" name="newupdate-text" id="newupdate-text">
         {{ Form::hidden('buildid', "$build->id")}}
         {{ Form::hidden('buildtitle', "$build->blogtitle")}}
       </div>
@@ -141,7 +141,8 @@ $(document).ready(function()
       var reader = new FileReader();
 
       reader.onload = function (e) {
-        $(".form-control-addupdate").append("<br><br><img class='new-update-image' src='"+e.target.result+"'><p></p><p class='textarea-placeholder'>continue typing...</p>");
+        $(".form-control-addupdate").append("<br><br><img class='new-update-image' src='"+e.target.result+"'>");
+        updateNewPostField();
         var $t = $('.form-control-addupdate');
         $t.animate({"scrollTop": $('.form-control-addupdate')[0].scrollHeight}, "slow");
       }
@@ -150,14 +151,14 @@ $(document).ready(function()
     }
 
     $(".update-insertimage-btn").change(function(){
-      readURL(this);
+      $('.update-insertimage-form').submit();
     });
 
-    $(".form-control-addupdate").on('keydown keypress input', function() {
-      $(".textarea-placeholder").hide();
+    $(".form-control-addupdate").on('keydown keypress input change', function() {
+      $(".textarea-placeholder").remove();
     });
 
- /* var lastScrollTop = 0;
+ var lastScrollTop = 0;
   $(window).scroll(function(event){
      var st = $(this).scrollTop();
      if (st > lastScrollTop){
@@ -191,34 +192,67 @@ $(document).ready(function()
         .css('text-align', 'left')
         .css('top', '');
     }
-  });*/
+  });
 
-    $('.newupdateform').submit(function() {
-      $(".submit-newupdate-btn").addClass('disabled');
-      var rootAsset = $('.rootAsset').html();
-      $.ajax({
-          url: rootAsset+'createpostaction',
-          type: 'post',
-          cache: false,
-          dataType: 'json',
-          data: $('.newupdateform').serialize(),
-          beforeSend: function() {
-            $(".modal-error-message").remove();
-            $(".submit-newupdate-btn").removeClass('disabled');
-          },
-          success: function(data) {
-            if(data.errors) {
-              $('.modal-body').append('<div class="alert alert-danger centre-text modal-error-message" role="alert"><strong>Error!</strong> '+ data.errors +'</div>'); 
-            } else if (data.success) {
-              location.href= rootAsset+'viewbuild/'+data.buildID+'/'+data.URLSlug+'?page='+data.lastPage;
-            }
-          },
-          error: function(xhr, textStatus, thrownError) {
-              alert('Something went to wrong.Please Try again later...');
+  function updateNewPostField() {
+    var content = $('#newupdate-text-1').html();
+    $('#newupdate-text').val(content);
+  }
+  $('#newupdate-text-1').on('blur keyup keypress input paste', function(){
+    updateNewPostField();
+  })
+
+  $('.newupdateform').submit(function() {
+    $(".submit-newupdate-btn").addClass('disabled');
+    var rootAsset = $('.rootAsset').html();
+    $.ajax({
+        url: rootAsset+'createpostaction',
+        type: 'post',
+        cache: false,
+        dataType: 'json',
+        data: $('.newupdateform').serialize(),
+        beforeSend: function() {
+          $(".modal-error-message").remove();
+          $(".submit-newupdate-btn").removeClass('disabled');
+        },
+        success: function(data) {
+          if(data.errors) {
+            $('.modal-body').append('<div class="alert alert-danger centre-text modal-error-message" role="alert"><strong>Error!</strong> '+ data.errors +'</div>'); 
+          } else if (data.success) {
+            location.href= rootAsset+'viewbuild/'+data.buildID+'/'+data.URLSlug+'?page='+data.lastPage;
           }
-      });
-      return false;
+        },
+        error: function(xhr, textStatus, thrownError) {
+            alert('Something went to wrong.Please Try again later...');
+        }
     });
+    return false;
+  });
+
+  $('.update-insertimage-form').submit(function() {
+    $(".submit-newupdate-btn").addClass('disabled');
+    var rootAsset = $('.rootAsset').html();
+    $.ajax({
+        url: rootAsset+'saveUploadedImage',
+        type: 'post',
+        cache: false,
+        dataType: 'json',
+        data: $('.update-insertimage-form').serialize(),
+        beforeSend: function() {
+        },
+        success: function(data) {
+          if(data.errors) {
+            $('.modal-body').append('<div class="alert alert-danger centre-text modal-error-message" role="alert"><strong>Error!</strong> '+ data.errors +'</div>'); 
+          } else if (data.success) {
+            $(".form-control-addupdate").append("Inserted Image");
+          }
+        },
+        error: function(xhr, textStatus, thrownError) {
+            alert('Something went to wrong.Please Try again later...');
+        }
+    });
+    return false;
+  });
 
 });
 </script>
