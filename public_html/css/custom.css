@@ -404,3 +404,10 @@ code {
 	overflow: auto;
 	margin-bottom: 10px;
 }
+
+.check-delete-post {
+	position: fixed;
+	width: 99.7%;
+	bottom: 52px;
+	border-radius: 0;
+}
