@@ -109,7 +109,59 @@ class BlogController extends \BaseController {
 	 */
 	public function edit($id)
 	{
-		//
+		$data = Input::all();
+		$rules = array(
+			'build-title' => 'required|max:30',
+			//'image' => 'required',
+			//'tags' => 'required'
+			);
+
+		$messages = array(
+			'required' => 'This field is required'
+		);
+
+		$validator = Validator::make($data, $rules, $messages);
+
+		if ($validator->fails())
+		{
+    	return Response::json(array(
+        'errors' => $validator->messages()->all(),
+        200)
+    	);
+    }
+
+    /* create random string for prefix
+    $randomString = substr( md5(rand()), 0, 10);
+    $username = Auth::user()->username;
+    $filenamePrefix = $username . '_' . $randomString;
+
+    // make the image,resize it in ratio to 600px and then save it
+    $createImage = Image::make(Input::file('image'))->orientate();
+    $createImage->resize(600, null, function ($constraint) {
+    	$constraint->aspectRatio();
+		});
+		$createImage->save("user_uploads/cover_images/$filenamePrefix.jpeg");
+
+		$savedImageName = $filenamePrefix;
+
+		//create the array for the tags / 
+		$tags = Input::get('tags');
+		$tags = implode(', ', $tags);
+		//$tags = str_replace('#', '', $tags);
+		*/
+		
+
+		$buildTitle = Input::get('build-title');
+
+   	$build = Blog::find($id);
+   	$build->blogtitle = $buildTitle; // Live build
+   	$build->save();
+
+   	return Response::json(array(
+   		'success' => true,
+   		'newtitle' => $buildTitle,
+        200)
+    );
 	}
 
 
@@ -124,6 +176,23 @@ class BlogController extends \BaseController {
 		//
 	}
 
+		/**
+	 * Get the post content
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function getBuildData($id)
+	{
+		$build = DB::table('blogs')->where('id', $id)->first();
+		$build_title = $build->blogtitle;
+   	return Response::json(array(
+   		'success' => true,
+        'buildTitle' => $build_title,
+        'buildid' => $build->id,
+        200)
+    );
+	}
 
 	/**
 	 * Remove the specified resource from storage.

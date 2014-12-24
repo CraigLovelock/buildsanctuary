@@ -121,7 +121,8 @@ return array(
 		'Illuminate\Validation\ValidationServiceProvider',
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
-		'Intervention\Image\ImageServiceProvider'
+		'Intervention\Image\ImageServiceProvider',
+		'Mews\Purifier\PurifierServiceProvider'
 
 	),
 
@@ -190,7 +191,8 @@ return array(
 		'Validator'       => 'Illuminate\Support\Facades\Validator',
 		'View'            => 'Illuminate\Support\Facades\View',
 		'Image'           => 'App\Facades\ImageFacade',
-		'Image'           => 'Intervention\Image\Facades\Image'
+		'Image'           => 'Intervention\Image\Facades\Image',
+		'Purifier'        => 'Mews\Purifier\Facades\Purifier'
 
 	),
 

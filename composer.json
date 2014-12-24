@@ -6,7 +6,9 @@
 	"require": {
 		"laravel/framework": "4.2.*",
 		"doctrine/dbal": "v2.4.2",
-		"intervention/image": "~2.0"
+		"intervention/image": "~2.0",
+		"ezyang/htmlpurifier": "4.6.*",
+		"mews/purifier": "dev-master"
 	},
 	"autoload": {
 		"classmap": [
@@ -36,5 +38,5 @@
 	"config": {
 		"preferred-install": "dist"
 	},
-	"minimum-stability": "stable"
+	"minimum-stability": "dev"
 }
