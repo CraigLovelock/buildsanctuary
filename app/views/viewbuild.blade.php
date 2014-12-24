@@ -155,11 +155,10 @@
       </div>
       <div class="modal-body no-padding">
       {{ Form::open(array('class' => 'editupdateform')) }}
-        <div contentEditable="true" placeholder="Enter your update here..." id="edit-post-editor" class="form-control-editupdate">
+        <div onfocus="this.style.webkitTransform = 'translate3d(0px,-10000px,0)'; webkitRequestAnimationFrame(function() { this.style.webkitTransform = ''; }.bind(this))" contentEditable="true" placeholder="Enter your update here..." id="edit-post-editor" class="form-control-editupdate">
         </div>
         <input type="text" name="newupdate-text-edit" id="newupdate-text-edit">
         {{ Form::hidden('postid', "$post_id")}}
-      </div>
         <div class="alert alert-danger centre-text check-delete-post" role="alert">
           <strong>Are you sure?&nbsp;</strong>
           <button type="button" class="btn btn-success do-delete-post" >
@@ -169,6 +168,7 @@
             </span><span class="glyphicon glyphicon-remove"></span>
           </button>
         </div>
+      </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         <button type="button" class="btn btn-danger delete-update-btn">Delete</button>
