@@ -3,27 +3,30 @@
 @section('body')
 
 <?php
+  $rootAsset = asset('/');
+  echo "<div class='rootAsset' style='display:none'>$rootAsset</div>";
 
-$rootAsset = asset('/');
+  //set up general variables / values
+  if (Auth::check()) {
+    $userID = Auth::user()->id;
+  } else {
+    $userID = false;
+  }
 
-echo "<div class='rootAsset' style='display:none'>$rootAsset</div>";
-
-//set up general variables / values
-if (Auth::check()) {
-  $userID = Auth::user()->id;
-} else {
-  $userID = false;
-}
-
-$buildID = $build->id;
-$buildTitle = $build->blogtitle;
-$buildOwnerID = $build->userid;
-$buildStatus = $build->status;
-if (isset($_GET['page'])) {
-  $pageNumber = $_GET['page'];
-} else {
-  $pageNumber = 1;
-}
+  $buildID = $build->id;
+  $buildTitle = $build->blogtitle;
+  $buildOwnerID = $build->userid;
+  $buildFrontpage = $build->frontpage;
+  if ($userID == $buildOwnerID) {
+    $userIsCreator = true;
+  } else {
+    $userIsCreator = false;
+  }
+  if (isset($_GET['page'])) {
+    $pageNumber = $_GET['page'];
+  } else {
+    $pageNumber = 1;
+  }
 
 ?>
 
@@ -51,7 +54,7 @@ if (isset($_GET['page'])) {
     <?php
 
     // UNPUBLISHED - User owns the build
-    if ($buildStatus == 1 && $buildOwnerID == $userID) {
+    if ($buildFrontpage == 0 && $buildOwnerID == $userID) {
       echo "
         <div class='alert alert-success centre-text' role='alert'>
           <span class='glyphicon glyphicon-ok'></span> <b>Sweet, Your build is created!</b><br>
@@ -59,7 +62,7 @@ if (isset($_GET['page'])) {
         </div>
         ";
     // UNPUBLISHED - User does not own build
-    } if ($buildStatus == 1 && $buildOwnerID != $userID) {
+    } else if ($buildFrontpage == 0 && $buildOwnerID != $userID) {
       echo "
         <div class='alert alert-info centre-text' role='alert'>
           <span class='glyphicon glyphicon-remove'></span> <b>Sorry! You cannot view this build.</b><br>
@@ -79,14 +82,29 @@ if (isset($_GET['page'])) {
     {
       $postNumber++;
       $post_text = $post->text;
-      $post_text = str_ireplace("[img]", "<img class='build-image' src='", $post_text);
+      $post_text = str_ireplace("[img]", "<img class='buildimage' src='", $post_text);
       $post_text = str_ireplace("[/img]", "'/>", $post_text);
+      $post_text = str_ireplace("<img", "<img class='buildimage'", $post_text);
+      $date_posted = strtotime($post->created_at);
+      $date_posted = date("d.m.Y", $date_posted);
+      $post_id = $post->id;
       echo "
         <div class='panel panel-default'>
-          <div class='panel-body update'>
+          <div class='panel-body update number-$post_id'>
             $post_text
           </div>
-          <div class='panel-footer'>$postNumber | added: $post->created_at </div>
+          <div class='panel-footer'>
+            $postNumber | $date_posted
+          ";
+          if ($userIsCreator) {
+            echo "
+              <button class='btn btn-primary edit-post-btn' data-toggle='modal' data-target='#editPostModal' id='$post_id'>
+                Edit
+              </button>
+            ";
+          }
+          echo "
+          </div>
         </div>
       ";
     }
@@ -103,16 +121,16 @@ if (isset($_GET['page'])) {
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="btn btn-primary insert-image"><span class="glyphicon glyphicon-picture"></span></button>
-        <form class='update-insertimage-form'>
-          <input type='file' class='update-insertimage-btn'>
-        </form>
+        {{ Form::open(array('class' => 'update-insertimage-form', 'url' => '/saveUploadedImage', "files" => true,)) }}
+          {{ Form::file('image', array('class' => 'update-insertimage-btn', 'name' => 'update-insertimage-btn')) }}
+        {{ Form::close() }}
         <h4 class="modal-title" id="myModalLabel">New Update</h4>
       </div>
       <div class="modal-body no-padding">
       {{ Form::open(array('url' => 'createpostaction', 'class' => 'newupdateform')) }}
-        <div contentEditable="true" id="newupdate-text" class="form-control-addupdate">
-          <p class='textarea-placeholder'>Add your update here...</p>
+        <div contentEditable="true" placeholder="Enter your update here..." id="newupdate-text-1" class="form-control-addupdate">
         </div>
+        <input type="text" name="newupdate-text" id="newupdate-text">
         {{ Form::hidden('buildid', "$build->id")}}
         {{ Form::hidden('buildtitle', "$build->blogtitle")}}
       </div>
@@ -125,102 +143,46 @@ if (isset($_GET['page'])) {
   </div>
 </div>
 
+<div class="modal fade" id="editPostModal" tabindex="-1" role="dialog" aria-labelledby="editPost" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="btn btn-primary edit-insert-image"><span class="glyphicon glyphicon-picture"></span></button>
+        {{ Form::open(array('class' => 'edit-insertimage-form', "files" => true,)) }}
+          {{ Form::file('image', array('class' => 'edit-insertimage-btn', 'name' => 'edit-insertimage-btn')) }}
+        {{ Form::close() }}
+        <h4 class="modal-title" id="myModalLabel">Edit Post</h4>
+      </div>
+      <div class="modal-body no-padding">
+      {{ Form::open(array('class' => 'editupdateform')) }}
+        <div contentEditable="true" placeholder="Enter your update here..." id="edit-post-editor" class="form-control-editupdate">
+        </div>
+        <input type="text" name="newupdate-text-edit" id="newupdate-text-edit">
+        {{ Form::hidden('postid', "$post_id")}}
+      </div>
+        <div class="alert alert-danger centre-text check-delete-post" role="alert">
+          <strong>Are you sure?&nbsp;</strong>
+          <button type="button" class="btn btn-success do-delete-post" >
+            </span><span class="glyphicon glyphicon-ok"></span>
+          </button>
+          <button type="button" class="btn btn-danger dont-delete-post">
+            </span><span class="glyphicon glyphicon-remove"></span>
+          </button>
+        </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-danger delete-update-btn">Delete</button>
+        {{ Form::submit('Save Update', array('class' => 'btn btn-success submit-editupdate-btn')) }}
+      </div>
+      {{ Form::close() }}
+    </div>
+  </div>
+</div>
+
 @stop
 
 @section('scripts')
 
-<script>
-$(document).ready(function() 
-{
-  $(".insert-image").click(function(){
-    $('.update-insertimage-btn').trigger('click'); 
-  });
-
-  function readURL(input) {
-    if (input.files && input.files[0]) {
-      var reader = new FileReader();
-
-      reader.onload = function (e) {
-        $(".form-control-addupdate").append("<br><br><img class='new-update-image' src='"+e.target.result+"'><p></p><p class='textarea-placeholder'>continue typing...</p>");
-        var $t = $('.form-control-addupdate');
-        $t.animate({"scrollTop": $('.form-control-addupdate')[0].scrollHeight}, "slow");
-      }
-        reader.readAsDataURL(input.files[0]);
-      }
-    }
-
-    $(".update-insertimage-btn").change(function(){
-      readURL(this);
-    });
-
-    $(".form-control-addupdate").on('keydown keypress input', function() {
-      $(".textarea-placeholder").hide();
-    });
-
- /* var lastScrollTop = 0;
-  $(window).scroll(function(event){
-     var st = $(this).scrollTop();
-     if (st > lastScrollTop){
-        $(".navbar").stop(true, false)
-        .animate({ 'marginTop': '-50px'}, 200);
-        $(".build-information").stop(true, false)
-          .animate({ 'marginTop': '0'}, 200)
-          .animate({ 'opacity': '0.8'}, 200)
-          .css('backgroundColor', 'white')
-          .css('position', 'fixed')
-          .css('width', '100%')
-          .css('left', '0')
-          .css('top', '0px')
-          .css('text-align', 'center')
-     } else {
-        $(".navbar").stop(true, false)
-          .animate({ 'marginTop': '0'}, 200);
-        $(".build-information").stop(true, false)
-          .animate({ 'marginTop': '50px'}, 200);
-     }
-     lastScrollTop = st;
-  });
-
-  var $win = $(window);
-  $win.scroll(function () {
-    if ($win.scrollTop() == 0) {
-      $(".build-information")
-        .animate({ 'marginTop': '0'}, 00)
-        .css('backgroundColor', '')
-        .css('position', '')
-        .css('text-align', 'left')
-        .css('top', '');
-    }
-  });*/
-
-    $('.newupdateform').submit(function() {
-      $(".submit-newupdate-btn").addClass('disabled');
-      var rootAsset = $('.rootAsset').html();
-      $.ajax({
-          url: rootAsset+'createpostaction',
-          type: 'post',
-          cache: false,
-          dataType: 'json',
-          data: $('.newupdateform').serialize(),
-          beforeSend: function() {
-            $(".modal-error-message").remove();
-            $(".submit-newupdate-btn").removeClass('disabled');
-          },
-          success: function(data) {
-            if(data.errors) {
-              $('.modal-body').append('<div class="alert alert-danger centre-text modal-error-message" role="alert"><strong>Error!</strong> '+ data.errors +'</div>'); 
-            } else if (data.success) {
-              location.href= rootAsset+'viewbuild/'+data.buildID+'/'+data.URLSlug+'?page='+data.lastPage;
-            }
-          },
-          error: function(xhr, textStatus, thrownError) {
-              alert('Something went to wrong.Please Try again later...');
-          }
-      });
-      return false;
-    });
-
-});
-</script>
+  <script src="<?php echo $rootAsset ?>/js/viewbuild-actions.js"></script>
 
 @stop

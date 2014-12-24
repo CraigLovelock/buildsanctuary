@@ -15,11 +15,11 @@
 @endif
 </div>
 
-  <div id="posts" class="row">
+  <div id="builds" class="row">
 
   <?php 
 
-  $builds = DB::table('blogs')->orderBy('id', 'desc')->get();
+  $builds = DB::table('blogs')->where('frontpage', '1')->orderBy('id', 'desc')->paginate(15);
   $countBuilds = count($builds);
 
   $path = '';
@@ -29,14 +29,18 @@
   	foreach ($builds as $build)
   	{
       $safeURLSlug = stringHelpers::safeURLSlug($build->blogtitle);
-  	  echo "
-        <a href='viewbuild/$build->id/$safeURLSlug'>
-        <div id='$build->id' class='item col-md-3'>
-          <div class='build-image'><img class='decoded' src='user_uploads/cover_images/$build->coverimage.jpeg' /></div>
-          <p class='number'>($build->id) - $build->blogtitle</p>
-        </div>
+  	  echo '
+        <a href="viewbuild/'.$build->id.'/'.$safeURLSlug.'">
+          <div class="item col-sm-3">
+            <div class="thumbnail">
+              <img src="user_uploads/cover_images/'.$build->coverimage.'.jpeg"">
+              <div class="caption">
+                <h6>'.$build->blogtitle.'</h6>
+              </div>
+            </div>
+          </div>
         </a>
-      ";
+      ';
   	}
 
   } else {
@@ -48,28 +52,30 @@
 
   </div>
 
+  <?php echo $builds->links(); ?>
+
 @stop
 
 @section('scripts')
+  <script src="http://imagesloaded.desandro.com/imagesloaded.pkgd.min.js"></script>
   <script src="http://isotope.metafizzy.co/isotope.pkgd.min.js"></script>
 
   <script>
     $(function() {
-      var container = $('#postss');
+      var container = $('#builds');
 
-      container.isotope({
-        itemSelector : '.item',
-        getSortData: {
+      imagesLoaded(container, function() {
+        container.fadeIn();
+        container.isotope({
+          itemSelector : '.item',
+          getSortData: {
           number: '.number'
-        },
-        animationEngine: 'css'
-      });
-
-      $('#sorts').on( 'click', 'button', function() {
-        var sortByValue = $(this).attr('data-sort-by');
-        container.isotope({ sortBy: sortByValue });
+          },
+          animationEngine: 'css'
+        });
       });
 
     });
+
   </script>
 @stop

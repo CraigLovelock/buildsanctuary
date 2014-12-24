@@ -17,7 +17,7 @@
         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
           @if (Auth::check())
             <span class="sr-only">Toggle navigation</span>
-            {{ Auth::user()->username; }}  <span class="glyphicon glyphicon-user"></span>
+            Menu
           @else
             <span class="sr-only">Toggle navigation</span>
             <span class="icon-bar"></span>
@@ -38,10 +38,17 @@
         </form>
         <ul class="nav navbar-nav centre-menu">
           @if (Auth::check())
-            <li class="add-build-btn">{{ HTML::link('startbuild', 'Add Your Build') }}</li>
-            <li>{{ HTML::link('logout', 'Profile') }}</li>
-            <li>{{ HTML::link('/accountsettings', 'Settings') }}</li>
-            <li>{{ HTML::link('logout', 'Logout') }}</li>
+            <li class="add-build-btn">{{ HTML::link('managebuilds', 'Build Management') }}</li>
+              <li role="presentation" class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">
+                  {{ Auth::user()->username; }} <span class="glyphicon glyphicon-user"></span> <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu" role="menu">
+                  <li>{{ HTML::link('logout', 'Profile') }}</li>
+                  <li>{{ HTML::link('/accountsettings', 'Settings') }}</li>
+                  <li>{{ HTML::link('logout', 'Logout') }}</li>
+                </ul>
+              </li>
           @else
             <li><a href="{{ URL::to('/login') }}">Login</a></li>
             <li><a href="{{ URL::to('/register') }}">Register</a></li>

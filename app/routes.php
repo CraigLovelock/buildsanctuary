@@ -51,6 +51,11 @@ Route::get('startbuild', array('before' => 'auth', function()
 	return View::make('createbuild');
 }));
 
+Route::get('managebuilds', array('before' => 'auth', function()
+{
+	return View::make('managebuilds');
+}));
+
 Route::get('password_reminder', function()
 {
 	return View::make('passwordremind');
@@ -83,3 +88,10 @@ Route::post('updatepasswordaction', array('uses' => 'UserController@updatepasswo
 Route::post('updatecontactaction', array('uses' => 'UserController@updatecontact'));
 Route::post('createbuildaction', array('uses' => 'BlogController@create'));
 Route::post('createpostaction', array('uses' => 'PostController@create'));
+Route::post('editpostaction/{id}', array('uses' => 'PostController@edit'));
+Route::post('saveUploadedImage', array('uses' => 'PostController@saveUploadedImage'));
+Route::post('saveUploadedImageEdit', array('uses' => 'PostController@saveUploadedImageEdit'));
+Route::post('get-post-data/{postID}', array('uses' => 'PostController@getPostData'));
+Route::post('deletepost/{id}', array('uses' => 'PostController@destroy'));
+Route::post('get-build-data/{postID}', array('uses' => 'BlogController@getBuildData'));
+Route::post('editbuildinfo/{id}', array('uses' => 'BlogController@edit'));
