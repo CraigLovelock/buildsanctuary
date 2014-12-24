@@ -406,8 +406,9 @@ code {
 }
 
 .check-delete-post {
-	position: fixed;
-	width: 99.7%;
-	bottom: 52px;
+	position: absolute;
+	width: 100%;
+	bottom: -20px;
 	border-radius: 0;
+	border: none;
 }
