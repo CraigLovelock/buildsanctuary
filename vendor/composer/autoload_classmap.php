@@ -694,6 +694,7 @@ return array(
     'Illuminate\\Encryption\\DecryptException' => $vendorDir . '/laravel/framework/src/Illuminate/Encryption/DecryptException.php',
     'Illuminate\\Encryption\\Encrypter' => $vendorDir . '/laravel/framework/src/Illuminate/Encryption/Encrypter.php',
     'Illuminate\\Encryption\\EncryptionServiceProvider' => $vendorDir . '/laravel/framework/src/Illuminate/Encryption/EncryptionServiceProvider.php',
+    'Illuminate\\Encryption\\InvalidKeyException' => $vendorDir . '/laravel/framework/src/Illuminate/Encryption/InvalidKeyException.php',
     'Illuminate\\Events\\Dispatcher' => $vendorDir . '/laravel/framework/src/Illuminate/Events/Dispatcher.php',
     'Illuminate\\Events\\EventServiceProvider' => $vendorDir . '/laravel/framework/src/Illuminate/Events/EventServiceProvider.php',
     'Illuminate\\Exception\\ExceptionDisplayerInterface' => $vendorDir . '/laravel/framework/src/Illuminate/Exception/ExceptionDisplayerInterface.php',
