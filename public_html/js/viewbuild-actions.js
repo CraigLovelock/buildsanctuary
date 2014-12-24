@@ -75,6 +75,15 @@ $(document).ready(function(){
     updateNewPostField();
   });
 
+  $('#newupdate-text-1').on('click', function(){
+    window.scrollTo(0, 0);
+  });
+
+  $('#edit-post-editor').on('blur keyup keypress input paste change', function(){
+    updateEditPostField();
+  });
+
+
   $('#edit-post-editor').on('blur keyup keypress input paste change', function(){
     updateEditPostField();
   });

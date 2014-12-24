@@ -20,9 +20,7 @@
             Menu
           @else
             <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
+            Menu
           @endif
         </button>
         <a class="navbar-brand" href="{{ URL::to('/') }}">BuildSanctuary</a>

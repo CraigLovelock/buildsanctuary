@@ -155,7 +155,7 @@
       </div>
       <div class="modal-body no-padding">
       {{ Form::open(array('class' => 'editupdateform')) }}
-        <div onfocus="this.style.webkitTransform = 'translate3d(0px,-10000px,0)'; webkitRequestAnimationFrame(function() { this.style.webkitTransform = ''; }.bind(this))" contentEditable="true" placeholder="Enter your update here..." id="edit-post-editor" class="form-control-editupdate">
+        <div contentEditable="true" placeholder="Enter your update here..." id="edit-post-editor" class="form-control-editupdate">
         </div>
         <input type="text" name="newupdate-text-edit" id="newupdate-text-edit">
         {{ Form::hidden('postid', "$post_id")}}
