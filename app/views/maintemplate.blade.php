@@ -25,7 +25,7 @@
         </button>
         <a class="navbar-brand" href="{{ URL::to('/') }}">
           <div>
-          <img src="/public_html/images/logo1.svg">
+          <img src="/images/logo1.svg">
           </div>
         </a>
       </div>

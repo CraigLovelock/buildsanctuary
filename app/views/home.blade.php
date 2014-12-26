@@ -6,7 +6,7 @@
 
   <?php 
 
-  $builds = DB::table('blogs')->where('frontpage', '1')->orderBy('id', 'desc')->paginate(1);
+  $builds = DB::table('blogs')->where('frontpage', '1')->orderBy('id', 'desc')->paginate(15);
   $countBuilds = count($builds);
 
   $path = '';
