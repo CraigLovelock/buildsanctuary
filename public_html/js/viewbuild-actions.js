@@ -75,10 +75,6 @@ $(document).ready(function(){
     updateNewPostField();
   });
 
-  $('#newupdate-text-1').on('click', function(){
-    window.scrollTo(0, 0);
-  });
-
   $('#edit-post-editor').on('blur keyup keypress input paste change', function(){
     updateEditPostField();
   });
@@ -312,6 +308,40 @@ $(document).ready(function(){
             $('.modal-body').append('<div class="alert alert-danger centre-text modal-error-message" role="alert"><strong>Error!</strong> '+ data.errors +'</div>');
           } else if (data.success) {
             location.reload();
+          }
+        },
+        error: function(xhr, textStatus, thrownError) {
+            alert('Something went to wrong.Please Try again later...');
+        }
+    });
+    return false;
+  });
+
+  $('.follow-button-form').submit(function() {
+    var rootAsset = $('.rootAsset').html();
+    var buildID = $(".follow-button-form input[name=buildid]").val();
+    var userID = $(".follow-button-form input[name=userid]").val();
+    $.ajax({
+        url: rootAsset+'followbuild/'+buildID+'/'+userID,
+        type: 'post',
+        cache: false,
+        dataType: 'json',
+        data: $(this).serialize(),
+        beforeSend: function() {
+        },
+        success: function(data) {
+          if(data.errors) {
+            // no errors possible... lol.
+          } else if (data.success) {
+            if (data.following) {
+              $(".follow-button-form .follow-button").removeClass('btn-default')
+                .addClass('btn-success')
+                .html('Following <span class="glyphicon glyphicon-ok"></span>');
+            } else if (data.unfollowing) {
+              $(".follow-button-form .follow-button").removeClass('btn-success')
+                .addClass('btn-default')
+                .html('Follow <span class="glyphicon glyphicon-heart"></span>');
+            }
           }
         },
         error: function(xhr, textStatus, thrownError) {

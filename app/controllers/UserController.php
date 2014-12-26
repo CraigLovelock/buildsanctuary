@@ -58,7 +58,9 @@ class UserController extends BaseController
 			'password' => Input::get('password')
 			);
 
-		if (Auth::attempt($userData, ($data['rememberme'] == 'on') ? true : false))
+		$remember = (Input::has('remember_me')) ? true : false;
+
+		if (Auth::attempt($userData, $remember))
 		{
 			return Redirect::to('/');
 		}

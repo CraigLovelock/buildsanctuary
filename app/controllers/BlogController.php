@@ -113,7 +113,7 @@ class BlogController extends \BaseController {
 		$rules = array(
 			'build-title' => 'required|max:30',
 			//'image' => 'required',
-			//'tags' => 'required'
+			'tags' => 'required'
 			);
 
 		$messages = array(
@@ -130,7 +130,7 @@ class BlogController extends \BaseController {
     	);
     }
 
-    /* create random string for prefix
+    /*create random string for prefix
     $randomString = substr( md5(rand()), 0, 10);
     $username = Auth::user()->username;
     $filenamePrefix = $username . '_' . $randomString;
@@ -143,18 +143,18 @@ class BlogController extends \BaseController {
 		$createImage->save("user_uploads/cover_images/$filenamePrefix.jpeg");
 
 		$savedImageName = $filenamePrefix;
+		*/
 
 		//create the array for the tags / 
 		$tags = Input::get('tags');
 		$tags = implode(', ', $tags);
 		//$tags = str_replace('#', '', $tags);
-		*/
 		
-
 		$buildTitle = Input::get('build-title');
 
    	$build = Blog::find($id);
    	$build->blogtitle = $buildTitle; // Live build
+   	$build->tags = $tags;
    	$build->save();
 
    	return Response::json(array(
@@ -186,10 +186,22 @@ class BlogController extends \BaseController {
 	{
 		$build = DB::table('blogs')->where('id', $id)->first();
 		$build_title = $build->blogtitle;
+		$buildTags = $build->tags;
+		//$buildTags = explode(',', $buildTags);
+
+		// Put your tags in an array
+		$tagsArray = explode(',', $buildTags);
+		$tagsLinksArray = array();
+		foreach($tagsArray as $tag) {
+    	// Remove spaces
+    	$tagName = trim($tag);
+    	$tagsLinksArray[] = '<li>'.$tagName.'</li>';
+		}
    	return Response::json(array(
    		'success' => true,
         'buildTitle' => $build_title,
         'buildid' => $build->id,
+        'buildtags' => $tagsLinksArray,
         200)
     );
 	}
@@ -203,6 +215,20 @@ class BlogController extends \BaseController {
 	public function destroy($id)
 	{
 		//
+	}
+
+	public function search() {
+    $q = Input::get('srch-term');
+    $searchTerms = explode(' ', $q);
+    $query = DB::table('blogs');
+
+    foreach($searchTerms as $term)
+    {
+        $query->where('blogtitle', 'LIKE', '%'. $term .'%');
+    }
+
+    $results = $query->get();
+    return View::make('search', compact('results')); 
 	}
 
 }

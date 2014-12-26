@@ -2,21 +2,22 @@
 
 @section('body')
 
-  <div id="builds" class="row">
+  <?php
+  $resultsCount = count($results);
 
-  <?php 
+  if ($resultsCount > 0) {
 
-  $builds = DB::table('blogs')->where('frontpage', '1')->orderBy('id', 'desc')->paginate(1);
-  $countBuilds = count($builds);
+    echo "
+      <div class='alert alert-success centre-text not-full-width-alert' role='alert'>
+        <b>Sweet,</b> Your search returned $resultsCount results.
+      </div>
+    ";
+    echo "<div id='builds' class='row'>";
 
-  $path = '';
-
-  if ($builds) {
-
-  	foreach ($builds as $build)
-  	{
+    foreach ($results as $build)
+    {
       $safeURLSlug = stringHelpers::safeURLSlug($build->blogtitle);
-  	  echo '
+      echo '
         <a href="viewbuild/'.$build->id.'/'.$safeURLSlug.'">
           <div class="item col-sm-3">
             <div class="thumbnail">
@@ -28,18 +29,27 @@
           </div>
         </a>
       ';
-  	}
+    }
+
+    echo "</div>";
 
   } else {
-    echo "No builds returned";
-    echo $countBuilds;
+    echo "
+    <div class='row'>
+      <div class='alert alert-danger centre-text not-full-width-alert' role='alert'>
+        <b>Oh snap!</b><br>
+        Your search returned 0 results. Check your spelling or broaden your term.
+      </div>
+    </div>
+    ";
   }
 
-	?>
+  ?>
+
+  <?php echo $results->links(); ?>
 
   </div>
 
-  <?php echo $builds->links(); ?>
 
 @stop
 

@@ -28,6 +28,18 @@
     $pageNumber = 1;
   }
 
+  $followers = DB::table('followers')->where('blogid', $buildID)->where('userid', $userID)->first();
+  $followCount = count($followers);
+  if ($followCount) {
+    $followButtonType = 'btn-success';
+    $followButtonClass = 'user-is-following';
+    $followButtonText = "Following <span class='glyphicon glyphicon-ok'></span>";
+  } else {
+    $followButtonType = 'btn-default';
+    $followButtonClass = 'user-isNot-following';
+    $followButtonText = "Follow <span class='glyphicon glyphicon-heart'></span>";
+  }
+
 ?>
 
 <div class="build-information">
@@ -41,9 +53,13 @@
       ";
     } else {
       echo "
-          <button class='btn btn-default follow-button'>
-            Follow <span class='glyphicon glyphicon-heart'></span>
+        <form class='follow-button-form'>
+          <button class='btn $followButtonType follow-button $followButtonClass'>
+            $followButtonText
           </button>
+          <input type='hidden' name='buildid' value='$buildID'>
+          <input type='hidden' name='userid' value='$userID'>
+        </form>
       ";
     }
     ?>

@@ -71,6 +71,21 @@ Route::get('viewbuild/{build_id?}/{build_title?}', function($build_id = null, $b
 	}
 });
 
+Route::get('search', function()
+{
+    $q = Input::get('srch-term');
+    $searchTerms = explode(' ', $q);
+
+    foreach($searchTerms as $term)
+    {
+			$results = DB::table('blogs')
+				->where('blogtitle', 'LIKE', '%'. $term .'%')
+				->orWhere('tags', 'LIKE', '%'. $term .'%')
+				->orderBy('id', 'desc')->paginate(15);
+    }
+    return View::make('search', compact('results')); 
+});
+
 Validator::extend('checkMatch', function($attribute, $value, $parameters)
 {
    if (count($parameters) < 1)
@@ -95,3 +110,4 @@ Route::post('get-post-data/{postID}', array('uses' => 'PostController@getPostDat
 Route::post('deletepost/{id}', array('uses' => 'PostController@destroy'));
 Route::post('get-build-data/{postID}', array('uses' => 'BlogController@getBuildData'));
 Route::post('editbuildinfo/{id}', array('uses' => 'BlogController@edit'));
+Route::post('followbuild/{buildid}/{userid}', array('uses' => 'FollowerController@followbuild'));

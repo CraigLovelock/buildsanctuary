@@ -15,8 +15,11 @@
     ?>
 
     @foreach ($builds as $build)
-    <? $buildcover = $build->coverimage; ?>
-    <? $buildtitle = $build->blogtitle; ?>
+    <? 
+      $buildcover = $build->coverimage;
+      $buildtitle = $build->blogtitle;
+      $safeURLSlug = stringHelpers::safeURLSlug($build->blogtitle);
+    ?>
       <div class="row">
         <div class="col-sm-3">
           <div class="thumbnail">
@@ -25,7 +28,7 @@
               <h5 class="build-title-buildcard"><? echo $buildtitle ?></h5>
               <p>
                 <a href="#" class="btn btn-primary edit-build-btn" id="<? echo $build->id ?>" role="button">Edit</a>
-                <a href="#" class="btn btn-success" role="button">View</a>
+                <a href="viewbuild/<?php echo $build->id . '/' . $safeURLSlug ?>" class="btn btn-success" role="button">View</a>
               </p>
             </div>
           </div>
@@ -43,8 +46,16 @@
           {{ Form::open(array('class' => 'editbuildform')) }}
           <input type="text" class="form-control" placeholder="Build Title" name="build-title" id="build-title-edit">
             <ul id="myTags" class="form-control form-control-ultagit">
-              <li>tag1</li>
             </ul>
+          <!--<p class="text-muted">Cover Image</p>
+          <div class="upload-btn">
+            {{ Form::file('image', array('class' => 'file-btn')) }}
+            {{ Form::button('Change Image', array('class' => 'btn btn-primary btn-left upload-fake-btn')) }}
+            <span class="fake-btn-filename">No image selected.</span>
+          </div>
+            <div class="image_preview_container_show">
+              <img id="image_preview" src="http://localhost/public_html/user_uploads/cover_images/testaccount123_8f8c9d0cc6.jpeg" alt="your image" />
+            </div>-->
             {{ Form::hidden('buildid', "")}}
           </div>
             <div class="alert alert-danger centre-text check-delete-post" role="alert">
@@ -78,11 +89,13 @@
 <script>
 $(document).ready(function() {
 
-  $("#myTags").tagit({
-    placeholderText: "Tag Your Build",
-    allowDuplicates: "true",
-    fieldName: 'tags[]'
-  });
+  function runTags() {
+    $("#myTags").tagit({
+      placeholderText: "Tag Your Build",
+      allowDuplicates: "true",
+      fieldName: 'tags[]'
+    });
+  }
 
   $(".delete-update-btn").on('click', function(){
     $('.check-delete-post').fadeToggle();
@@ -94,6 +107,8 @@ $(document).ready(function() {
 
   $(".edit-build-btn").on('click', function(){
     $('#editBuildModal').modal('show');
+    $("#myTags").remove();
+    $(".editbuildform").append('<ul id="myTags" class="form-control form-control-ultagit"></ul>');
     var id = this.id;
     var rootAsset = $('.rootAsset').html();
       $.ajax({
@@ -111,6 +126,9 @@ $(document).ready(function() {
         } else if (data.success) {
           $("#build-title-edit").val(data.buildTitle);
           $("input[name=buildid]").val(data.buildid);
+          $('#myTags').html(data.buildtags).promise().done(function(){
+            runTags();
+          });
         }
       },
       error: function(xhr, textStatus, thrownError) {
@@ -148,6 +166,54 @@ $(document).ready(function() {
         }
     });
     return false;
+  });
+
+  $(".upload-fake-btn").click(function(){
+    $('.file-btn').trigger('click'); 
+  });
+
+  $(document).on('change', '.file-btn', function() {
+    var input = $(this),
+    numFiles = input.get(0).files ? input.get(0).files.length : 1,
+    label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+    label = trancateTitle(label);
+    input.trigger('fileselect', [numFiles, label]);
+  });
+
+  $(document).ready( function() {
+    $('.file-btn').on('fileselect', function(event, numFiles, label) {
+    $('.fake-btn-filename').text(label);
+    });
+  });
+
+  function trancateTitle (title) {
+    var length = 10;
+    if (title.length > length) {
+       title = title.substring(0, length)+'...';
+    }
+    return title;
+  }
+
+  function readURL(input) {
+
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            $('.image_preview_container_show').fadeOut(function(){
+              $('#image_preview').attr('src', e.target.result);
+              $('.image_preview_container_show').fadeIn();
+            });
+            $('.upload-fake-btn').html('Change Image');
+        }
+
+        reader.readAsDataURL(input.files[0]);
+    }
+  }
+
+  $(".file-btn").change(function(){
+      readURL(this);
+      $('.image_preview_container').fadeOut();
   });
 
 });
