@@ -13,59 +13,90 @@
 
 Route::get('/', function()
 {
-	return View::make('home');
+	$slug = Route::getCurrentRoute()->uri();
+	$builds = Blog::findBuilds($slug);
+	return View::make('pages/home', compact('builds'));
+});
+
+Route::get('newest', function()
+{
+	$slug = Route::getCurrentRoute()->uri();
+	$builds = Blog::findBuilds($slug);
+	return View::make('pages/home', compact('builds'));
+});
+
+Route::get('trending', function()
+{
+	$slug = Route::getCurrentRoute()->uri();
+	$builds = Blog::findBuilds($slug);
+	return View::make('pages/home', compact('builds'));
+});
+
+Route::get('following', array('before' => 'auth', function()
+{
+	$slug = Route::getCurrentRoute()->uri();
+	$builds = Blog::findBuilds($slug);
+	return View::make('pages/home', compact('builds'));
+}));
+
+Route::get('staff-picks', function()
+{
+	$slug = Route::getCurrentRoute()->uri();
+	$builds = Blog::findBuilds($slug);
+	return View::make('pages/home', compact('builds'));
 });
 
 Route::get('/register', array('before' => 'guest', function()
 {
-	return View::make('register');
+	return View::make('pages/register');
 }));
 
 Route::get('/login', array('before' => 'guest', function()
 {
-	return View::make('login');
+	return View::make('pages/login');
 }));
 
 Route::get('/accountsettings', array('before' => 'auth', function()
 {
-	return View::make('accountsettings');
+	return View::make('pages/accountsettings');
 }));
 
 Route::get('updatepassword', array('before' => 'auth', function()
 {
-	return View::make('updatepassword');
+	return View::make('pages/updatepassword');
 }));
 
 Route::get('updatecontact', array('before' => 'auth', function()
 {
-	return View::make('updatecontact');
+	return View::make('pages/updatecontact');
 }));
 
 Route::get('testing', function()
 {
-	return View::make('testing');
+	return View::make('pages/testing');
 });
 
 Route::get('startbuild', array('before' => 'auth', function()
 {
-	return View::make('createbuild');
+	return View::make('pages/createbuild');
 }));
 
 Route::get('managebuilds', array('before' => 'auth', function()
 {
-	return View::make('managebuilds');
+	return View::make('pages/managebuilds');
 }));
 
 Route::get('password_reminder', function()
 {
-	return View::make('passwordremind');
+	return View::make('pages/passwordremind');
 });
 
 Route::get('viewbuild/{build_id?}/{build_title?}', function($build_id = null, $build_title = null)
 {
+	BuildTracking::add_build_tracking($build_id);
   $build = Blog::find($build_id);
   if (!is_null($build)) {
-  	return View::make('viewbuild', compact('build'));
+  	return View::make('pages/viewbuild', compact('build'));
 	} else {
 		return "Build does not exist";
 	}
@@ -73,7 +104,7 @@ Route::get('viewbuild/{build_id?}/{build_title?}', function($build_id = null, $b
 
 Route::get('search', function()
 {
-    $q = Input::get('srch-term');
+    $q = Input::get('term');
     $searchTerms = explode(' ', $q);
 
     foreach($searchTerms as $term)
@@ -83,7 +114,7 @@ Route::get('search', function()
 				->orWhere('tags', 'LIKE', '%'. $term .'%')
 				->orderBy('id', 'desc')->paginate(15);
     }
-    return View::make('search', compact('results')); 
+    return View::make('pages/search', compact('results'))->withInput(Input::flashOnly('term')); 
 });
 
 Validator::extend('checkMatch', function($attribute, $value, $parameters)

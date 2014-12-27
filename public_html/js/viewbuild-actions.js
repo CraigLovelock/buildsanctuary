@@ -351,4 +351,12 @@ $(document).ready(function(){
     return false;
   });
 
+  $(".user-is-following").on('mouseover', function(){
+    $(this).html('Following <span class="glyphicon glyphicon-remove"></span>');
+  });
+
+  $(".user-is-following").on('mouseleave', function(){
+    $(this).html('Following <span class="glyphicon glyphicon-ok"></span>');
+  });
+
 });

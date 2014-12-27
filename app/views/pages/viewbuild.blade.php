@@ -1,8 +1,7 @@
-@extends('maintemplate')
+@extends('layouts/maintemplate')
 
-@section('body')
+  <?php
 
-<?php
   $rootAsset = asset('/');
   echo "<div class='rootAsset' style='display:none'>$rootAsset</div>";
 
@@ -37,33 +36,51 @@
   } else {
     $followButtonType = 'btn-default';
     $followButtonClass = 'user-isNot-following';
-    $followButtonText = "Follow <span class='glyphicon glyphicon-heart'></span>";
+    $followButtonText = "Follow <span class='glyphicon glyphicon-heart-empty'></span>";
   }
 
-?>
+   echo '
+    <div class="full-width-design">
 
-<div class="build-information">
-  <div class="build-title">{{ $build->blogtitle }}</div>
-  <?php
-    if ($userID == $buildOwnerID) {
-      echo "
-        <button class='btn btn-primary new-post-btn' data-toggle='modal' data-target='#myModal'>
-          <span class='glyphicon glyphicon-pencil'></span>
-        </button>
-      ";
-    } else {
-      echo "
-        <form class='follow-button-form'>
-          <button class='btn $followButtonType follow-button $followButtonClass'>
-            $followButtonText
-          </button>
-          <input type='hidden' name='buildid' value='$buildID'>
-          <input type='hidden' name='userid' value='$userID'>
-        </form>
-      ";
-    }
-    ?>
-</div>
+      <div class="home-header-image">
+          <div class="attention-line">
+            '.$build->blogtitle.'
+          </div>
+        <img src="/public_html/user_uploads/cover_images/'.$build->coverimage.'.jpeg">
+      </div>
+
+      <div class="build-filter-options">
+        <div class="build-filter-options-container">
+          <span class="build-title-navbar">'.$build->blogtitle.'</span>
+          <div class="btn-group build-filter-button">
+          ';
+            if ($userID == $buildOwnerID) {
+              echo "
+                <button class='btn btn-primary new-post-btn' data-toggle='modal' data-target='#myModal'>
+                  New <span class='glyphicon glyphicon-pencil'></span>
+                </button>
+              ";
+            } else {
+              echo "
+                <form class='follow-button-form'>
+                  <button class='btn $followButtonType follow-button $followButtonClass'>
+                    $followButtonText
+                  </button>
+                  <input type='hidden' name='buildid' value='$buildID'>
+                  <input type='hidden' name='userid' value='$userID'>
+                </form>
+              ";
+            }
+    echo '</div>
+        </div>
+      </div>
+
+    </div>
+    <div class="pushdown-100px"></div>
+    ';
+  ?>
+
+@section('body')
 
   <div id="posts" class="row">
 
@@ -136,7 +153,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="btn btn-primary insert-image"><span class="glyphicon glyphicon-picture"></span></button>
+        <button type="button" class="btn btn-primary insert-image">Insert <span class="glyphicon glyphicon-picture"></span></button>
         {{ Form::open(array('class' => 'update-insertimage-form', 'url' => '/saveUploadedImage', "files" => true,)) }}
           {{ Form::file('image', array('class' => 'update-insertimage-btn', 'name' => 'update-insertimage-btn')) }}
         {{ Form::close() }}
@@ -163,7 +180,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="btn btn-primary edit-insert-image"><span class="glyphicon glyphicon-picture"></span></button>
+        <button type="button" class="btn btn-primary edit-insert-image">Insert <span class="glyphicon glyphicon-picture"></span></button>
         {{ Form::open(array('class' => 'edit-insertimage-form', "files" => true,)) }}
           {{ Form::file('image', array('class' => 'edit-insertimage-btn', 'name' => 'edit-insertimage-btn')) }}
         {{ Form::close() }}
@@ -175,6 +192,7 @@
         </div>
         <input type="text" name="newupdate-text-edit" id="newupdate-text-edit">
         {{ Form::hidden('postid', "$post_id")}}
+      </div>
         <div class="alert alert-danger centre-text check-delete-post" role="alert">
           <strong>Are you sure?&nbsp;</strong>
           <button type="button" class="btn btn-success do-delete-post" >
@@ -183,7 +201,6 @@
           <button type="button" class="btn btn-danger dont-delete-post">
             </span><span class="glyphicon glyphicon-remove"></span>
           </button>
-        </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -200,5 +217,18 @@
 @section('scripts')
 
   <script src="<?php echo $rootAsset ?>/js/viewbuild-actions.js"></script>
+
+  <script>
+  $(function(){
+    $('.build-filter-options').affix({
+      offset: {
+        top: 90,
+        bottom: function () {
+          //return (this.bottom = $('.footer').outerHeight(true))
+        }
+      }
+    });
+  });
+  </script>
 
 @stop

@@ -58,6 +58,7 @@ class PostController extends \BaseController {
 
    	$build = Blog::find($buildID);
    	$build->frontpage = '1'; // Live build
+   	$build->touch();
    	$build->save();
 
    	$posts = DB::table('posts')->where('buildID', '=', "$buildID")->paginate(4)->getLastPage();

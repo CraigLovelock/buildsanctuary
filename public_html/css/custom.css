@@ -21,6 +21,10 @@ body {
 	margin-top: 20px !important;
 }
 
+.modal {
+	z-index: 999999;
+}
+
 .small-form {
 	width: 100%;
 	max-width: 400px;
@@ -77,6 +81,36 @@ body {
 	opacity: 0.9;
 	margin-bottom: -20px;
 	padding: 5px;
+	border-radius: 5px;
+	overflow: hidden;
+}
+
+.buildcard-banner-holder {
+	width: 100px;
+	height: 100px;
+	position: absolute;
+	left: 5px;
+	overflow: hidden
+}
+
+.buildcard-banner {
+	height: 24px;
+	line-height: 24px;
+	width: 200px;
+	position: absolute;
+	background-color: #2ecc71;
+	-ms-transform: rotate(-45deg);
+	-webkit-transform: rotate(-45deg);
+	transform: rotate(-45deg);
+	color: white;
+	text-align: center;
+	left: -71px;
+	top: 17px;
+	opacity: 0.8;
+}
+
+.caption h5 {
+	font-size: 14px;
 }
 
 .item:hover {
@@ -86,9 +120,43 @@ body {
 .build-image {
 }
 
+.thumbnail {
+	padding: 0px;
+}
+
 .build-image img {
 	width: 100%;
 	height: auto;
+}
+
+.buildcard-follow-status-true {
+	color: #2ecc71 !important;
+}
+
+.buildcard-stats {
+	background-color: #f6f6f6;
+	height: 30px;
+	line-height: 30px;
+	border-top: 1px solid #e9e9e9;
+}
+
+.buildcard-stats ul {
+	list-style: none;
+	left: 0;
+	padding: 0;
+}
+
+.buildcard-stats ul li {
+	margin-left: 10px;
+	float: left;
+	color: #444;
+	font-size: 12px;
+}
+
+.buildcard-stats ul li span {
+	color: #777;
+	margin-right: 2px;
+	margin-top: 3px;
 }
 
 .col-md-3 {
@@ -181,7 +249,6 @@ body {
 
 .new-post-btn {
 	float: right;
-	margin-top: 7px;
 }
 
 .build-title {
@@ -429,7 +496,7 @@ code {
 
 .home-header-image img {
 	width: 100%;
-	margin-top: -26%;
+	margin-top: -50%;
 	opacity: 0.2;
 }
 
@@ -440,7 +507,6 @@ code {
 	text-align: center;
 	font-size: 22px;
 	font-weight: 300;
-	position: relative; left: -50%;
 	margin-top: 12px;
 }
 
@@ -451,17 +517,19 @@ code {
 .navbar-inverse {
 	background-color: #000;
 	height: 45px;
+	z-index: 999999;
 }
 
 .build-filter-options {
 	width: 100%;
 	height: 45px;
 	background-color: #fff;
+	z-index: 9999;
 }
 
 .build-filter-options-container {
 	width: 100%;
-	max-width: 1200px;
+	max-width: 1000px;
 	margin: 0 auto;
 }
 
@@ -472,7 +540,8 @@ code {
 }
 
 .build-filter {
-	margin-left: -75px;
+	left: auto;
+	right: 0;
 	text-align: center;
 }
 
@@ -493,7 +562,7 @@ code {
 
 .full-width-container {
 	width: 100%;
-	max-width: 1200px;
+	max-width: 1000px;
 }
 
 .full-width-design {
@@ -509,4 +578,28 @@ code {
 
 .navbar-collapse {
 	background-color: #000;
+}
+
+.pagination {
+	float: right;
+	display: none;
+}
+
+.loadingBuilds {
+	width: 100%;
+	text-align: center;
+	margin-top: 0;
+}
+
+.build-title-navbar {
+	white-space: nowrap;
+	float: left;
+	width: 56%;
+	height: 45px;
+	line-height: 45px;
+	padding-left: 18px;
+	font-size: 14px;
+	color: #333;
+	text-overflow: ellipsis;
+	overflow: hidden;
 }

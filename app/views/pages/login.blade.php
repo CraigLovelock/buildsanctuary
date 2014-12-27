@@ -1,4 +1,4 @@
-@extends('maintemplate')
+@extends('layouts/maintemplate')
 
 @section('body')
   

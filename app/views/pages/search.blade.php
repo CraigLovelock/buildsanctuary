@@ -1,27 +1,29 @@
-@extends('maintemplate')
+@extends('layouts/maintemplate')
 
 @section('body')
 
   <?php
   $resultsCount = count($results);
+  $publicLink = asset('/');
+  $searchterm = Input::get('term');
+  $page = Input::get('page');
 
   if ($resultsCount > 0) {
 
     echo "
-      <div class='alert alert-success centre-text not-full-width-alert' role='alert'>
-        <b>Sweet,</b> Your search returned $resultsCount results.
-      </div>
-    ";
+      <h2><small>Showing results for '$searchterm' - $page</small></h2>
+      ";
+
     echo "<div id='builds' class='row'>";
 
     foreach ($results as $build)
     {
       $safeURLSlug = stringHelpers::safeURLSlug($build->blogtitle);
       echo '
-        <a href="viewbuild/'.$build->id.'/'.$safeURLSlug.'">
+        <a href="'.$publicLink.'viewbuild/'.$build->id.'/'.$safeURLSlug.'">
           <div class="item col-sm-3">
             <div class="thumbnail">
-              <img src="user_uploads/cover_images/'.$build->coverimage.'.jpeg"">
+              <img src="'.$publicLink.'user_uploads/cover_images/'.$build->coverimage.'.jpeg"">
               <div class="caption">
                 <h6>'.$build->blogtitle.'</h6>
               </div>
@@ -46,7 +48,11 @@
 
   ?>
 
-  <?php echo $results->links(); ?>
+  <?php
+  $querystringArray = Input::only('term');
+  $results->appends($querystringArray);
+  echo $results->links();
+  ?>
 
   </div>
 
