@@ -169,7 +169,7 @@ $(document).ready(function(){
           if(data.errors) {
             $('.modal-body').append('<div class="alert alert-danger centre-text modal-error-message" role="alert"><strong>Error!</strong> '+ data.errors +'</div>');
           } else if (data.success) {
-            $(".form-control-addupdate").append('<img class="temp_added_image" src="/public_html/user_uploads/build_images/'+data.name+'.jpeg"><br><br>');
+            $(".form-control-addupdate").append('<img class="temp_added_image" src="'+rootAsset+'/user_uploads/build_images/'+data.name+'.jpeg"><br><br>');
             var loadingProgress = 100;
             $(".uploading-overlay").text("Uploading Image..."+loadingProgress+"%").fadeOut(function(){
               $(".uploading-overlay").remove(function(){
