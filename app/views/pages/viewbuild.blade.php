@@ -46,7 +46,7 @@
           <div class="attention-line">
             '.$build->blogtitle.'
           </div>
-        <img src="/public_html/user_uploads/cover_images/'.$build->coverimage.'.jpeg">
+        <img src="'.$rootAsset.'/user_uploads/cover_images/'.$build->coverimage.'.jpeg">
       </div>
 
       <div class="build-filter-options">
