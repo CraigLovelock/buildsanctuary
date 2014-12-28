@@ -58,7 +58,7 @@ class UserController extends BaseController
 			'password' => Input::get('password')
 			);
 
-		$remember = (Input::has('remember_me')) ? true : false;
+		$remember = (Input::has('remember_me')) ? 'true' : 'false';
 
 		if (Auth::attempt($userData, $remember))
 		{
@@ -141,6 +141,22 @@ class UserController extends BaseController
 		$user->update();
 
 		return Redirect::to('/accountsettings')->with('success', '1');
+	}
+
+	public function updateUser() {
+		set_time_limit(1000);
+		$query = DB::table('users')->take(1)->skip(1)->get();
+
+		foreach ($query as $user) {
+			$currentPassword = $user->password;
+			$salt = $user->salt;
+			$decrypt = hash('sha256', $currentPassword . $salt);
+      for($round = 0; $round < 65536; $round++) 
+      { 
+        $decrypt = hash('sha256', $decrypt . $salt); 
+      } 
+			echo $decrypt;
+		}
 	}
 
 }

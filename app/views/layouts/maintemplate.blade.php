@@ -4,7 +4,8 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
-  <title>{{ isset($pageTitle) ? $pageTitle : 'BuildSanctuary' }}</title>
+  <title>BuildSanctuary | {{ isset($pageTitle) ? $pageTitle : 'The Home of Automotive Projects' }}</title>
+  <link rel="shortcut icon" href="{{ asset('favicon.ico') }}">
   <link rel="stylesheet" href="{{ asset('css/main.css') }}" />
   <link rel="stylesheet" href="{{ asset('css/custom.css') }}" />
   <meta name="_token" content="{{ csrf_token() }}"/>

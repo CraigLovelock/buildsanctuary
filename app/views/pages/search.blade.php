@@ -11,7 +11,7 @@
   if ($resultsCount > 0) {
 
     echo "
-      <h2><small>Showing results for '$searchterm' - $page</small></h2>
+      <h2><small>Showing results for '$searchterm'</small></h2>
       ";
 
     echo "<div id='builds' class='row'>";

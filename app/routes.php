@@ -22,53 +22,53 @@ Route::get('newest', function()
 {
 	$slug = Route::getCurrentRoute()->uri();
 	$builds = Blog::findBuilds($slug);
-	return View::make('pages/home', compact('builds'));
+	return View::make('pages/home', compact('builds'), array('pageTitle' => 'Newly Updated Projects'));
 });
 
 Route::get('trending', function()
 {
 	$slug = Route::getCurrentRoute()->uri();
 	$builds = Blog::findBuilds($slug);
-	return View::make('pages/home', compact('builds'));
+	return View::make('pages/home', compact('builds'), array('pageTitle' => 'Trending Projects'));
 });
 
 Route::get('following', array('before' => 'auth', function()
 {
 	$slug = Route::getCurrentRoute()->uri();
 	$builds = Blog::findBuilds($slug);
-	return View::make('pages/home', compact('builds'));
+	return View::make('pages/home', compact('builds'), array('pageTitle' => 'Builds You Are Following'));
 }));
 
 Route::get('staff-picks', function()
 {
 	$slug = Route::getCurrentRoute()->uri();
 	$builds = Blog::findBuilds($slug);
-	return View::make('pages/home', compact('builds'));
+	return View::make('pages/home', compact('builds'), array('pageTitle' => 'Staff Picked Builds'));
 });
 
 Route::get('/register', array('before' => 'guest', function()
 {
-	return View::make('pages/register');
+	return View::make('pages/register', array('pageTitle' => 'Register'));
 }));
 
 Route::get('/login', array('before' => 'guest', function()
 {
-	return View::make('pages/login');
+	return View::make('pages/login', array('pageTitle' => 'Login'));
 }));
 
 Route::get('/accountsettings', array('before' => 'auth', function()
 {
-	return View::make('pages/accountsettings');
+	return View::make('pages/accountsettings', array('pageTitle' => 'Account Settings'));
 }));
 
 Route::get('updatepassword', array('before' => 'auth', function()
 {
-	return View::make('pages/updatepassword');
+	return View::make('pages/updatepassword', array('pageTitle' => 'Update Your Password'));
 }));
 
 Route::get('updatecontact', array('before' => 'auth', function()
 {
-	return View::make('pages/updatecontact');
+	return View::make('pages/updatecontact', array('pageTitle' => 'Update Contact Information'));
 }));
 
 Route::get('testing', function()
@@ -78,25 +78,38 @@ Route::get('testing', function()
 
 Route::get('startbuild', array('before' => 'auth', function()
 {
-	return View::make('pages/createbuild');
+	return View::make('pages/createbuild', array('pageTitle' => 'Start Your Build'));
 }));
 
 Route::get('managebuilds', array('before' => 'auth', function()
 {
-	return View::make('pages/managebuilds');
+	return View::make('pages/managebuilds', array('pageTitle' => 'Build Management'));
 }));
 
 Route::get('password_reminder', function()
 {
-	return View::make('pages/passwordremind');
+	return View::make('pages/passwordremind', array('pageTitle' => 'Password Help'));
+});
+
+Route::get('passwordreset', function()
+{
+	return View::make('pages/passwordreset', array('pageTitle' => 'Password Help'));
+});
+
+Route::get('deniedaccess', function()
+{
+	return View::make('errors/deniedaccess', array('pageTitle' => 'Access Denied'));
 });
 
 Route::get('viewbuild/{build_id?}/{build_title?}', function($build_id = null, $build_title = null)
 {
+	Blog::addPageCount($build_id);
 	BuildTracking::add_build_tracking($build_id);
   $build = Blog::find($build_id);
+  $buildtitle = strtolower($build->blogtitle);
+  $buildtitle = ucwords($buildtitle);
   if (!is_null($build)) {
-  	return View::make('pages/viewbuild', compact('build'));
+  	return View::make('pages/viewbuild', compact('build'), array('pageTitle' => $buildtitle));
 	} else {
 		return "Build does not exist";
 	}
@@ -114,7 +127,7 @@ Route::get('search', function()
 				->orWhere('tags', 'LIKE', '%'. $term .'%')
 				->orderBy('id', 'desc')->paginate(15);
     }
-    return View::make('pages/search', compact('results'))->withInput(Input::flashOnly('term')); 
+    return View::make('pages/search', compact('results'))->withInput(Input::flashOnly('term'), array('pageTitle' => 'Search')); 
 });
 
 Validator::extend('checkMatch', function($attribute, $value, $parameters)
@@ -126,6 +139,8 @@ Validator::extend('checkMatch', function($attribute, $value, $parameters)
 });
 
 Route::controller('password', 'RemindersController');
+
+Route::get('users', array('uses' => 'UserController@updateUser'));
 
 Route::post('registerUser', array('uses' => 'UserController@registerUser'));
 Route::post('loginUser', array('uses' => 'UserController@loginUser'));

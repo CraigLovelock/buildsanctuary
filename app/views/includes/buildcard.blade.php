@@ -9,7 +9,9 @@ if (Auth::check()) {
 
 $path = '';
 
-if ($builds) {
+if ($countBuilds) {
+
+  echo '<div id="builds" class="row">';
 
 	foreach ($builds as $build)
 	{
@@ -18,6 +20,8 @@ if ($builds) {
     $followStatus = User::followStatus($build->id, $userID);
     $viewStatus = User::viewStatus($build->id, $userID);
     $updatedStatus = User::updatedStatus($build->id, $userID);
+    $followCount = Blog::countFollowers($build->id);
+    $viewCount = Blog::countViews($build->id);
     $showBanner = "";
     if ($updatedStatus == 'true') {
     	$showBanner = '<div class="buildcard-banner-holder"><div class="buildcard-banner">Updated</div></div>';
@@ -34,8 +38,8 @@ if ($builds) {
             </div>
             <div class="buildcard-stats">
 	            <ul>
-	            	<li><span class="glyphicon glyphicon-heart-empty buildcard-follow-status-'.$followStatus.'" aria-hidden="true"></span> 336</li>
-	            	<li><span class="glyphicon glyphicon-eye-open buildcard-follow-status-'.$viewStatus.'" aria-hidden="true"></span> 8.7k</li>
+	            	<li><span class="glyphicon glyphicon-heart-empty buildcard-follow-status-'.$followStatus.'" aria-hidden="true"></span> '.$followCount.'</li>
+	            	<li><span class="glyphicon glyphicon-eye-open buildcard-follow-status-'.$viewStatus.'" aria-hidden="true"></span> '.$viewCount.'</li>
 	            </ul>
             </div>
           </div>
@@ -44,9 +48,17 @@ if ($builds) {
     ';
 	}
 
+  echo '</div>';
+
 } else {
-  echo "No builds returned";
-  echo $countBuilds;
+    echo "
+    <div class='row'>
+      <div class='alert alert-danger centre-text not-full-width-alert' role='alert'>
+        <b>No builds to show</b><br>
+        You have not yet followed any builds.
+      </div>
+    </div>
+    ";
 }
 
 ?>

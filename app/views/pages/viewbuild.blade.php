@@ -118,6 +118,9 @@
       $post_text = str_ireplace("[img]", "<img class='buildimage' src='", $post_text);
       $post_text = str_ireplace("[/img]", "'/>", $post_text);
       $post_text = str_ireplace("<img", "<img class='buildimage'", $post_text);
+      $post_text = str_ireplace("[/url]", "", $post_text);
+      $post_text = preg_replace('/\[url=(.*?)\]/i', '', $post_text);
+      //$post_text = str_replace("by , on Flickr", "", $post_text);
       $date_posted = strtotime($post->created_at);
       $date_posted = date("d.m.Y", $date_posted);
       $post_id = $post->id;
@@ -148,6 +151,10 @@
 
   <?php echo $posts->links(); ?>
 
+<?php
+
+if ($userIsCreator) { ?>
+
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -156,6 +163,7 @@
         <button type="button" class="btn btn-primary insert-image">Insert <span class="glyphicon glyphicon-picture"></span></button>
         {{ Form::open(array('class' => 'update-insertimage-form', 'url' => '/saveUploadedImage', "files" => true,)) }}
           {{ Form::file('image', array('class' => 'update-insertimage-btn', 'name' => 'update-insertimage-btn')) }}
+          {{ Form::hidden('buildid', "$build->id")}}
         {{ Form::close() }}
         <h4 class="modal-title" id="myModalLabel">New Update</h4>
       </div>
@@ -176,6 +184,8 @@
   </div>
 </div>
 
+
+
 <div class="modal fade" id="editPostModal" tabindex="-1" role="dialog" aria-labelledby="editPost" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -183,6 +193,7 @@
         <button type="button" class="btn btn-primary edit-insert-image">Insert <span class="glyphicon glyphicon-picture"></span></button>
         {{ Form::open(array('class' => 'edit-insertimage-form', "files" => true,)) }}
           {{ Form::file('image', array('class' => 'edit-insertimage-btn', 'name' => 'edit-insertimage-btn')) }}
+          {{ Form::hidden('buildid', "$build->id")}}
         {{ Form::close() }}
         <h4 class="modal-title" id="myModalLabel">Edit Post</h4>
       </div>
@@ -192,6 +203,7 @@
         </div>
         <input type="text" name="newupdate-text-edit" id="newupdate-text-edit">
         {{ Form::hidden('postid', "$post_id")}}
+        {{ Form::hidden('buildid', "$build->id")}}
       </div>
         <div class="alert alert-danger centre-text check-delete-post" role="alert">
           <strong>Are you sure?&nbsp;</strong>
@@ -212,11 +224,13 @@
   </div>
 </div>
 
+<?php } ?>
+
 @stop
 
 @section('scripts')
 
-  <script src="<?php echo $rootAsset ?>/js/viewbuild-actions.js"></script>
+  <script src="<?php echo $rootAsset ?>js/viewbuild-actions.js"></script>
 
   <script>
   $(function(){
@@ -228,6 +242,9 @@
         }
       }
     });
+    
+    var pagination = $('.pagination');
+    pagination.fadeIn();
   });
   </script>
 

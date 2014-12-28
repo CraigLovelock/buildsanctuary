@@ -12,7 +12,6 @@ class PostController extends \BaseController {
 		//
 	}
 
-
 	/**
 	 * Show the form for creating a new resource.
 	 *
@@ -46,32 +45,53 @@ class PostController extends \BaseController {
     $buildTitle = Input::get('buildtitle');
     $safeURLSlug = stringHelpers::safeURLSlug($buildTitle);
 
-    // clean the input
-    $cleanInput = Purifier::clean(Input::get('newupdate-text'));
+		$thisBuild = DB::table('blogs')->where('id', "$buildID")->first();
+		$buildOwnerID = $thisBuild->userid;
 
-		// add the build to the database
-   	$post = new Post;
-   	$post->text = $cleanInput;
-   	$post->userID = Auth::user()->id;
-   	$post->buildID = $buildID;
-   	$post->save();
+	  if (Auth::check()) {
+	    $userID = Auth::user()->id;
+	  } else {
+	    $userID = false;
+	  }
 
-   	$build = Blog::find($buildID);
-   	$build->frontpage = '1'; // Live build
-   	$build->touch();
-   	$build->save();
-
-   	$posts = DB::table('posts')->where('buildID', '=', "$buildID")->paginate(4)->getLastPage();
-
-   	//return Redirect::to("/viewbuild/$buildID/$safeURLSlug?page=$posts");
-
-   	return Response::json(array(
-   		'success' => true,
-        'buildID' => $buildID,
-        'URLSlug' => $safeURLSlug,
-        'lastPage' => $posts, 
+	  if ($userID != $buildOwnerID) {
+	  	return Response::json(array(
+        'no_access' => true,
         200)
-    );
+    	);
+	  } else {
+	    // clean the input
+	    $cleanInput = Purifier::clean(Input::get('newupdate-text'));
+
+			// add the build to the database
+	   	$post = new Post;
+	   	$post->text = $cleanInput;
+	   	$post->userID = Auth::user()->id;
+	   	$post->buildID = $buildID;
+	   	$post->save();
+
+	   	$now = new DateTime();
+			$now->setTimezone(new DateTimeZone('Europe/London'));   			
+			$nowTime = $now->format('Y-m-d H:i:s'); 
+
+	   	$build = Blog::find($buildID);
+	   	$build->frontpage = '1'; // Live build
+	   	$build->lastupdated = $nowTime;
+	   	$build->save();
+
+	   	$posts = DB::table('posts')->where('buildID', "$buildID")->paginate(4)->getLastPage();
+
+	   	//return Redirect::to("/viewbuild/$buildID/$safeURLSlug?page=$posts");
+
+	   	return Response::json(array(
+	   		'success' => true,
+	        'buildID' => $buildID,
+	        'URLSlug' => $safeURLSlug,
+	        'lastPage' => $posts,
+	        'buildowener' => $buildOwnerID,
+	        200)
+	    );
+	  }
 	}
 
 
@@ -129,22 +149,39 @@ class PostController extends \BaseController {
 
     // get values for the url
     $postID = $id;
+    $buildID = Input::get('buildid');
 
-    // clean the input
-    $cleanInput = Purifier::clean(Input::get('newupdate-text-edit'));
+    $thisBuild = DB::table('blogs')->where('id', "$buildID")->first();
+		$buildOwnerID = $thisBuild->userid;
 
-   	$post = Post::find($postID);
-   	$post->text = $cleanInput; // Live build
-   	$post->save();
+	  if (Auth::check()) {
+	    $userID = Auth::user()->id;
+	  } else {
+	    $userID = false;
+	  }
 
-
-		$cleanInput_withclass = str_ireplace("<img", "<img class='buildimage'", $cleanInput);
-
-   	return Response::json(array(
-   		'success' => true,
-   		'newtext' => $cleanInput_withclass,
+	  if (444 != $buildOwnerID) {
+	  	return Response::json(array(
+        'no_access' => true,
         200)
-    );
+    	);
+	  } else {
+	    // clean the input
+	    $cleanInput = Purifier::clean(Input::get('newupdate-text-edit'));
+
+	   	$post = Post::find($postID);
+	   	$post->text = $cleanInput; // Live build
+	   	$post->save();
+
+
+			$cleanInput_withclass = str_ireplace("<img", "<img class='buildimage'", $cleanInput);
+
+	   	return Response::json(array(
+	   		'success' => true,
+	   		'newtext' => $cleanInput_withclass,
+	        200)
+	    );
+	  } 	
 	}
 
 
@@ -187,25 +224,61 @@ class PostController extends \BaseController {
 		$post = DB::table('posts')->where('id', $postID)->first();
 		$post_text = $post->text;
 		$postid = $post->id;
+		$buildid = $post->buildID;
 		$post_text = str_ireplace("<img", "<img class='buildimage'", $post_text);
    	return Response::json(array(
    		'success' => true,
         'postText' => $post_text,
         'postid' => $postid,
+        'buildid' => $buildid,
         200)
     );
 	}
 
+	function checkForRow($image_file_name_temp) {
+		$query = DB::table('image_uploads')
+								->where('image_file_name', $image_file_name_temp)
+								->first();
+		$count = count($query);
+		if ($count > 0) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+	function generateCode() {
+		return substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 15);
+	}
+
+	function uniqueImageID(){
+		$temp_code = generateCode();
+		if (checkForRow($temp_code)) {
+
+		}
+
+	}
+
 	public function saveUploadedImage() {
-	//$image = Input::get('update-insertimage-btn');
+	$userID = Auth::user()->id;
 	// make the image,resize it in ratio to 600px and then save it
-	$uniqueImageID = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 15);
+	$uniqueImageID = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ$userID"), 0, 40);
+
 	$imageSavePath = 'user_uploads/build_images/'. $uniqueImageID . '.jpeg';
   $createImage = Image::make(Input::file('update-insertimage-btn'))->orientate();
   $createImage->resize(800, null, function ($constraint) {
   	$constraint->aspectRatio();
 	});
 	$createImage->save("$imageSavePath");
+
+	//create and save the image name into db.
+	$imageDB = New ImageUpload;
+	$imageDB->image_file_name = $uniqueImageID;
+	$imageDB->folder_link = 'build_images';
+	$imageDB->user_id = Auth::user()->id;
+	$imageDB->build_id = Input::get('buildid');
+	$imageDB->save();
+
 	return Response::json(array(
    		'success' => true,
    		'name' => $uniqueImageID,
@@ -214,15 +287,25 @@ class PostController extends \BaseController {
 	}
 
 	public function saveUploadedImageEdit() {
-	//$image = Input::get('update-insertimage-btn');
+	$userID = Auth::user()->id;
 	// make the image,resize it in ratio to 600px and then save it
-	$uniqueImageID = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 15);
+	$uniqueImageID = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ$userID"), 0, 40);
+
 	$imageSavePath = 'user_uploads/build_images/'. $uniqueImageID . '.jpeg';
   $createImage = Image::make(Input::file('edit-insertimage-btn'))->orientate();
   $createImage->resize(800, null, function ($constraint) {
   	$constraint->aspectRatio();
 	});
 	$createImage->save("$imageSavePath");
+
+	//create and save the image name into db.
+	$imageDB = New ImageUpload;
+	$imageDB->image_file_name = $uniqueImageID;
+	$imageDB->folder_link = 'build_images';
+	$imageDB->user_id = Auth::user()->id;
+	$imageDB->build_id = Input::get('buildid');
+	$imageDB->save();
+
 	return Response::json(array(
    		'success' => true,
    		'name' => $uniqueImageID,

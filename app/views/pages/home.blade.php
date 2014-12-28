@@ -6,11 +6,7 @@
     <h3><span id="dots"></span></h3>
   </div>
 
-  <div id="builds" class="row">
-
     @include('includes/buildcard')
-
-  </div>
 
   <?php
     echo $builds->links();

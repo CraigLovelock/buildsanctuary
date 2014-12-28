@@ -20,7 +20,7 @@ class Blog extends Eloquent implements UserInterface, RemindableInterface {
 		switch ($slug) {
 			case 'newest':
 			case '/':
-				$query = static::where('frontpage', '1')->latest('id');
+				$query = static::where('frontpage', '1')->latest('lastupdated');
 				break;
 
 			case 'following':
@@ -28,7 +28,7 @@ class Blog extends Eloquent implements UserInterface, RemindableInterface {
 												->join('followers', 'blogs.id', '=', 'followers.blogid')
 												->where('followers.userid', Auth::user()->id)
 												->where('frontpage', '1')
-												->latest('id');
+												->latest('lastupdated');
 				break;
 
 			case 'trending':
@@ -43,10 +43,72 @@ class Blog extends Eloquent implements UserInterface, RemindableInterface {
 				break;
 
 			default:
-				$query = static::where('frontpage', '1')->latest('id');
+				$query = static::where('frontpage', '1')->latest('lastupdated');
 				break;
 		}
 		return $query->paginate(20);
+	}
+
+	public static function countFollowers($buildid) {
+		$query = DB::table('followers')
+								->where('blogid', $buildid)
+								->get();
+		return count($query);
+	}
+
+	public static function countViews($buildid) {
+		$query = static::where('id', $buildid)
+								->first();
+		return $query->pagecount;
+	}
+
+	public static function addPageCount($buildid) {
+
+			$query = static::where('id', $buildid)
+							->first();
+			$current = $query->pagecount;
+			$current++;
+
+			// if the user is logged in
+			if (Auth::check()) {
+				// check if they have already viewed the build
+				$query = DB::table('build_tracking')
+										->where('build_id', $buildid)
+										->where('user_id', Auth::user()->id)
+										->first();
+				$count = count($query);
+
+				// if so, get the last time they did
+				if ($count > 0) {
+					$lastViewTime = $query->updated_at;
+					$lastViewTime = strtotime($lastViewTime);
+					$now = new DateTime();
+					$now->setTimezone(new DateTimeZone('Europe/London'));   			
+					$nowTimeDate = strtotime($now->format('Y-m-d H:i:s'));  
+					$gap = $nowTimeDate - $lastViewTime;
+
+					if ($gap > 300) {
+						$build = Blog::find($buildid);
+						$build->pagecount = $current;
+						$build->save();
+					}
+				// otherwise, simply update the pagecount.
+				} else {
+					$build = Blog::find($buildid);
+					$build->pagecount = $current;
+					$build->save();
+				}
+
+			} else {
+				// no cookie = never viewed build in last 5 mins
+				if(!isset($_COOKIE["viewedBuild-$buildid"])) {
+					// update page count and set a fresh baked cookie :)
+				  $build = Blog::find($buildid);
+					$build->pagecount = $current;
+					$build->save();
+					setcookie("viewedBuild-$buildid", time(), time() + 300, "/");
+				}
+			}
 	}
 
 }

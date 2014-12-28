@@ -2,7 +2,7 @@
 
 // app/controllers/FollwerController.php
 
-class FollowerController extends BaseController
+class ImageUploadController extends BaseController
 {
 
 	/**
