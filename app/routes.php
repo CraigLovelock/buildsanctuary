@@ -91,11 +91,6 @@ Route::get('password_reminder', function()
 	return View::make('pages/passwordremind', array('pageTitle' => 'Password Help'));
 });
 
-Route::get('passwordreset', function()
-{
-	return View::make('pages/passwordreset', array('pageTitle' => 'Password Help'));
-});
-
 Route::get('deniedaccess', function()
 {
 	return View::make('errors/deniedaccess', array('pageTitle' => 'Access Denied'));
