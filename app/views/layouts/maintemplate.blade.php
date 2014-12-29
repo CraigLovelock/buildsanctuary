@@ -6,8 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
   <title>BuildSanctuary | {{ isset($pageTitle) ? $pageTitle : 'The Home of Automotive Projects' }}</title>
   <link rel="shortcut icon" href="{{ asset('favicon.ico') }}">
-  <link rel="stylesheet" href="{{ asset('css/main.css') }}" />
-  <link rel="stylesheet" href="{{ asset('css/custom.css') }}" />
+  <link rel="stylesheet" href="{{ asset('production_assets/css/global.css') }}" />
+  <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/flick/jquery-ui.css">
   <meta name="_token" content="{{ csrf_token() }}"/>
 </head>
 <body>
@@ -47,7 +47,6 @@
                   {{ Auth::user()->username; }} <span class="glyphicon glyphicon-user"></span> <span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu" role="menu">
-                  <li>{{ HTML::link('logout', 'Profile') }}</li>
                   <li>{{ HTML::link('/accountsettings', 'Settings') }}</li>
                   <li>{{ HTML::link('logout', 'Logout') }}</li>
                 </ul>
@@ -126,8 +125,7 @@
   </div>
 
   <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-  <script type="text/javascript" src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.3/fastclick.min.js"></script>
+  <script type="text/javascript" src="{{ asset('production_assets/js/production.min.js')}}"></script>
 
   <script>
   $(function() {
@@ -137,5 +135,6 @@
 
   @yield('scripts')
 
+<script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
 </body>
 </html>

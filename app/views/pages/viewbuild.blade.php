@@ -134,7 +134,7 @@
           ";
           if ($userIsCreator) {
             echo "
-              <button class='btn btn-primary edit-post-btn' data-toggle='modal' data-target='#editPostModal' id='$post_id'>
+              <button class='btn btn-primary edit-post-btn btn-xs' data-toggle='modal' data-target='#editPostModal' id='$post_id'>
                 Edit
               </button>
             ";
@@ -171,7 +171,7 @@ if ($userIsCreator) { ?>
       {{ Form::open(array('url' => 'createpostaction', 'class' => 'newupdateform')) }}
         <div contentEditable="true" placeholder="Enter your update here..." id="newupdate-text-1" class="form-control-addupdate">
         </div>
-        <input type="text" name="newupdate-text" id="newupdate-text">
+        <textarea name="newupdate-text" id="newupdate-text"></textarea>
         {{ Form::hidden('buildid', "$build->id")}}
         {{ Form::hidden('buildtitle', "$build->blogtitle")}}
       </div>
@@ -202,7 +202,7 @@ if ($userIsCreator) { ?>
         <div contentEditable="true" placeholder="Enter your update here..." id="edit-post-editor" class="form-control-editupdate">
         </div>
         <input type="text" name="newupdate-text-edit" id="newupdate-text-edit">
-        {{ Form::hidden('postid', "$post_id")}}
+        {{ Form::hidden('postid', "1")}}
         {{ Form::hidden('buildid', "$build->id")}}
       </div>
         <div class="alert alert-danger centre-text check-delete-post" role="alert">
@@ -230,19 +230,8 @@ if ($userIsCreator) { ?>
 
 @section('scripts')
 
-  <script src="<?php echo $rootAsset ?>js/viewbuild-actions.js"></script>
-
   <script>
   $(function(){
-    $('.build-filter-options').affix({
-      offset: {
-        top: 90,
-        bottom: function () {
-          //return (this.bottom = $('.footer').outerHeight(true))
-        }
-      }
-    });
-    
     var pagination = $('.pagination');
     pagination.fadeIn();
   });

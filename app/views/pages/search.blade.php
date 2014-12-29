@@ -60,8 +60,6 @@
 @stop
 
 @section('scripts')
-  <script src="http://imagesloaded.desandro.com/imagesloaded.pkgd.min.js"></script>
-  <script src="http://isotope.metafizzy.co/isotope.pkgd.min.js"></script>
 
   <script>
     $(function() {

@@ -160,7 +160,7 @@ class PostController extends \BaseController {
 	    $userID = false;
 	  }
 
-	  if (444 != $buildOwnerID) {
+	  if ($userID != $buildOwnerID) {
 	  	return Response::json(array(
         'no_access' => true,
         200)

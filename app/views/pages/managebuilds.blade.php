@@ -2,39 +2,72 @@
 
 @section('body')
 
-<?php
-  $rootAsset = asset('/');
-  echo "<div class='rootAsset' style='display:none'>$rootAsset</div>";
-?>
+  <?php
+    $rootAsset = asset('/');
+    echo "<div class='rootAsset' style='display:none'>$rootAsset</div>";
+  ?>
     
-    <div class="pageheader-withbutton">
-      <h3>Manage Builds <a href="startbuild" class="btn btn-success float-right-headerbutton" role="button">Create</a></h3>
-    </div>
-    <?
-      $builds = DB::table('blogs')->where('userid', Auth::user()->id)->orderBy('id', 'desc')->paginate(15); 
-    ?>
+  <div class="pageheader-withbutton">
+    <h3>Manage Builds <a href="startbuild" class="btn btn-success float-right-headerbutton" role="button">Create</a></h3>
+  </div>
 
-    @foreach ($builds as $build)
-    <? 
-      $buildcover = $build->coverimage;
-      $buildtitle = $build->blogtitle;
-      $safeURLSlug = stringHelpers::safeURLSlug($build->blogtitle);
-    ?>
-      <div class="row">
-        <div class="col-sm-3">
-          <div class="thumbnail">
-            <img src="user_uploads/cover_images/<? echo "$buildcover";?>.jpeg" alt="<? echo $buildtitle ?>">
-            <div class="caption">
-              <h5 class="build-title-buildcard"><? echo $buildtitle ?></h5>
-              <p>
-                <a href="#" class="btn btn-primary edit-build-btn" id="<? echo $build->id ?>" role="button">Edit</a>
-                <a href="viewbuild/<?php echo $build->id . '/' . $safeURLSlug ?>" class="btn btn-success" role="button">View</a>
-              </p>
+  <?
+    $builds = DB::table('blogs')->where('userid', Auth::user()->id)->orderBy('id', 'desc')->paginate(15); 
+    $countBuilds = count($builds);
+
+    if (Auth::check()) {
+      $userID = Auth::user()->id;
+    } else {
+      $userID = false;
+    }
+
+    if ($countBuilds) {
+
+      echo '<div id="builds" class="row">';
+
+      foreach ($builds as $build)
+      {
+        $safeURLSlug = stringHelpers::safeURLSlug($build->blogtitle);
+        $followStatus = User::followStatus($build->id, $userID);
+        $viewStatus = User::viewStatus($build->id, $userID);
+        $followCount = Blog::countFollowers($build->id);
+        $viewCount = Blog::countViews($build->id);
+        echo '
+
+            <div class="item col-sm-3">
+              <div class="thumbnail">
+                <img src="user_uploads/cover_images/'.$build->coverimage.'.jpeg">
+                <div class="caption">
+                  <h5>'.$build->blogtitle.'</h5>
+                  <p>
+                    <a href="#" class="btn btn-primary edit-build-btn" id="'.$build->id.'" role="button">Edit</a>
+                    <a href="viewbuild/'.$build->id.'/'.$safeURLSlug.'" class="btn btn-success" role="button">View</a>
+                  </p>
+                </div>
+                <div class="buildcard-stats">
+                  <ul>
+                    <li><span class="glyphicon glyphicon-heart-empty buildcard-follow-status-'.$followStatus.'" aria-hidden="true"></span> '.$followCount.'</li>
+                    <li><span class="glyphicon glyphicon-eye-open buildcard-follow-status-'.$viewStatus.'" aria-hidden="true"></span> '.$viewCount.'</li>
+                  </ul>
+                </div>
+              </div>
             </div>
+        ';
+      }
+
+      echo '</div>';
+
+    } else {
+        echo "
+        <div class='row'>
+          <div class='alert alert-info centre-text not-full-width-alert' role='alert'>
+            <b>No builds to show</b><br>
+            Why not create one using the button above.
           </div>
         </div>
-      </div>
-    @endforeach
+        ";
+    }
+    ?>
 
     <div class="modal fade" id="editBuildModal" tabindex="-1" role="dialog" aria-labelledby="editBuild" aria-hidden="true">
       <div class="modal-dialog">
@@ -80,11 +113,6 @@
 @stop
 
 @section('scripts')
-
-<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.12/jquery-ui.min.js" type="text/javascript" charset="utf-8"></script>
-<script src="js/tag-it.js" type="text/javascript" charset="utf-8"></script>
-<link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/flick/jquery-ui.css">
-<link href="css/jquery.tagit.css" rel="stylesheet" type="text/css">
 
 <script>
 $(document).ready(function() {
@@ -214,6 +242,34 @@ $(document).ready(function() {
   $(".file-btn").change(function(){
       readURL(this);
       $('.image_preview_container').fadeOut();
+  });
+
+  var dots = 0;
+  setInterval (type, 300);
+
+  function type() {
+    if(dots < 3) {
+        $('#dots').append('.');
+        dots++;
+    } else {
+        $('#dots').html('');
+        dots = 0;
+    }
+  }
+  var container = $('#builds');
+  var pagination = $('.pagination');
+
+  imagesLoaded(container, function() {
+    $(".loadingBuilds").remove();
+    container.fadeIn();
+    pagination.fadeIn();
+    container.isotope({
+      itemSelector : '.item',
+      getSortData: {
+      number: '.number'
+      },
+      animationEngine: 'css'
+    });
   });
 
 });
