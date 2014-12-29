@@ -1,28 +1,23 @@
 <?php namespace Illuminate\Pagination;
-
 abstract class Presenter {
-
 	/**
 	 * The paginator instance being rendered.
 	 *
 	 * @var \Illuminate\Pagination\Paginator
 	 */
 	protected $paginator;
-
 	/**
 	 * The current page of the paginator.
 	 *
 	 * @var int
 	 */
 	protected $currentPage;
-
 	/**
 	 * The last available page of the paginator.
 	 *
 	 * @var int
 	 */
 	protected $lastPage;
-
 	/**
 	 * Create a new Presenter instance.
 	 *
@@ -35,7 +30,6 @@ abstract class Presenter {
 		$this->lastPage = $this->paginator->getLastPage();
 		$this->currentPage = $this->paginator->getCurrentPage();
 	}
-
 	/**
 	 * Get HTML wrapper for a page link.
 	 *
@@ -45,7 +39,6 @@ abstract class Presenter {
 	 * @return string
 	 */
 	abstract public function getPageLinkWrapper($url, $page, $rel = null);
-
 	/**
 	 * Get HTML wrapper for disabled text.
 	 *
@@ -53,7 +46,6 @@ abstract class Presenter {
 	 * @return string
 	 */
 	abstract public function getDisabledTextWrapper($text);
-
 	/**
 	 * Get HTML wrapper for active text.
 	 *
@@ -61,7 +53,6 @@ abstract class Presenter {
 	 * @return string
 	 */
 	abstract public function getActivePageWrapper($text);
-
 	/**
 	 * Render the Pagination contents.
 	 *
@@ -80,10 +71,8 @@ abstract class Presenter {
 		{
 			$content = $this->getPageSlider();
 		}
-
 		return $this->getPrevious().$content.$this->getNext();
 	}
-
 	/**
 	 * Create a range of pagination links.
 	 *
@@ -94,7 +83,6 @@ abstract class Presenter {
 	public function getPageRange($start, $end)
 	{
 		$pages = array();
-
 		for ($page = $start; $page <= $end; $page++)
 		{
 			// If the current page is equal to the page we're iterating on, we will create a
@@ -109,10 +97,8 @@ abstract class Presenter {
 				$pages[] = $this->getLink($page);
 			}
 		}
-
 		return implode('', $pages);
 	}
-
 	/**
 	 * Create a pagination slider link window.
 	 *
@@ -121,40 +107,32 @@ abstract class Presenter {
 	protected function getPageSlider()
 	{
 		$window = 6;
-
 		// If the current page is very close to the beginning of the page range, we will
 		// just render the beginning of the page range, followed by the last 2 of the
 		// links in this list, since we will not have room to create a full slider.
 		if ($this->currentPage <= $window)
 		{
 			$ending = $this->getFinish();
-
 			return $this->getPageRange(1, $window + 2).$ending;
 		}
-
 		// If the current page is close to the ending of the page range we will just get
 		// this first couple pages, followed by a larger window of these ending pages
 		// since we're too close to the end of the list to create a full on slider.
 		elseif ($this->currentPage >= $this->lastPage - $window)
 		{
 			$start = $this->lastPage - 8;
-
 			$content = $this->getPageRange($start, $this->lastPage);
-
 			return $this->getStart().$content;
 		}
-
 		// If we have enough room on both sides of the current page to build a slider we
 		// will surround it with both the beginning and ending caps, with this window
 		// of pages in the middle providing a Google style sliding paginator setup.
 		else
 		{
 			$content = $this->getAdjacentRange();
-
 			return $this->getStart().$content.$this->getFinish();
 		}
 	}
-
 	/**
 	 * Get the page range for the current page window.
 	 *
@@ -164,7 +142,6 @@ abstract class Presenter {
 	{
 		return $this->getPageRange($this->currentPage - 3, $this->currentPage + 3);
 	}
-
 	/**
 	 * Create the beginning leader of a pagination slider.
 	 *
@@ -174,7 +151,6 @@ abstract class Presenter {
 	{
 		return $this->getPageRange(1, 2).$this->getDots();
 	}
-
 	/**
 	 * Create the ending cap of a pagination slider.
 	 *
@@ -183,10 +159,8 @@ abstract class Presenter {
 	public function getFinish()
 	{
 		$content = $this->getPageRange($this->lastPage - 1, $this->lastPage);
-
 		return $this->getDots().$content;
 	}
-
 	/**
 	 * Get the previous page pagination element.
 	 *
@@ -202,12 +176,9 @@ abstract class Presenter {
 		{
 			return $this->getDisabledTextWrapper($text);
 		}
-
 		$url = $this->paginator->getUrl($this->currentPage - 1);
-
 		return $this->getPageLinkWrapper($url, $text, 'prev');
 	}
-
 	/**
 	 * Get the next page pagination element.
 	 *
@@ -223,12 +194,9 @@ abstract class Presenter {
 		{
 			return $this->getDisabledTextWrapper($text);
 		}
-
 		$url = $this->paginator->getUrl($this->currentPage + 1);
-
 		return $this->getPageLinkWrapper($url, $text, 'next');
 	}
-
 	/**
 	 * Get a pagination "dot" element.
 	 *
@@ -238,7 +206,6 @@ abstract class Presenter {
 	{
 		return $this->getDisabledTextWrapper("...");
 	}
-
 	/**
 	 * Create a pagination slider link.
 	 *
@@ -248,10 +215,8 @@ abstract class Presenter {
 	public function getLink($page)
 	{
 		$url = $this->paginator->getUrl($page);
-
 		return $this->getPageLinkWrapper($url, $page);
 	}
-
 	/**
 	 * Set the value of the current page.
 	 *
@@ -262,7 +227,6 @@ abstract class Presenter {
 	{
 		$this->currentPage = $page;
 	}
-
 	/**
 	 * Set the value of the last page.
 	 *
@@ -273,5 +237,4 @@ abstract class Presenter {
 	{
 		$this->lastPage = $page;
 	}
-
 }

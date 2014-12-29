@@ -34,7 +34,7 @@
         $viewCount = Blog::countViews($build->id);
         echo '
 
-            <div class="item col-sm-3">
+            <div class="item col-sm-3 buildnumber-'.$build->id.'">
               <div class="thumbnail">
                 <img src="user_uploads/cover_images/'.$build->coverimage.'.jpeg">
                 <div class="caption">
@@ -93,7 +93,7 @@
           </div>
             <div class="alert alert-danger centre-text check-delete-post" role="alert">
               <strong>Are you sure?&nbsp;</strong>
-              <button type="button" class="btn btn-success do-delete-post" >
+              <button type="button" class="btn btn-success do-delete-build" >
                 </span><span class="glyphicon glyphicon-ok"></span>
               </button>
               <button type="button" class="btn btn-danger dont-delete-post">
@@ -125,12 +125,36 @@ $(document).ready(function() {
     });
   }
 
-  $(".delete-update-btn").on('click', function(){
-    $('.check-delete-post').fadeToggle();
-  });
-
-  $(".dont-delete-post").on('click', function(){
-    $(".check-delete-post").fadeOut();
+  $(".do-delete-build").on('click', function(){
+    var rootAsset = $('.rootAsset').html();
+    var buildID = $("input[name=buildid]").val();
+    $.ajax({
+        url: rootAsset+'deletebuild/'+buildID,
+        type: 'post',
+        cache: false,
+        dataType: 'json',
+        data: $(this).serialize(),
+        beforeSend: function() {
+          $(".modal-error-message").remove();
+          $(".submit-newupdate-btn").removeClass('disabled');
+        },
+        success: function(data) {
+          if(data.errors) {
+            $('.modal-body').append('<div class="alert alert-danger centre-text modal-error-message" role="alert"><strong>Error!</strong> '+ data.errors +'</div>');
+          } else if (data.success) {
+            //location.reload();
+            $('#editBuildModal').modal('hide');
+            $('.check-delete-post').fadeToggle();
+            $(".buildnumber-"+data.buildid+"").remove();
+            $('#builds').isotope();
+            //$('#builds').prepend('<div class="alert alert-warning alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button><strong>Warning!</strong> Better check yourself, youre not looking too good.</div>');
+          }
+        },
+        error: function(xhr, textStatus, thrownError) {
+            alert('Something went to wrong.Please Try again later...');
+        }
+    });
+    return false;
   });
 
   $(".edit-build-btn").on('click', function(){

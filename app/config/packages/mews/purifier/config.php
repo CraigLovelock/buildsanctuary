@@ -17,6 +17,7 @@ return array(
             'HTML.Doctype'             => 'XHTML 1.0 Strict',
             'HTML.Allowed'             => 'br,img[alt|src]',
             'CSS.AllowedProperties'    => '',
+            'Filter.YouTube' => true,
         ),
     ),
 );

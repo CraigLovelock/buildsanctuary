@@ -913,12 +913,14 @@ $(document).ready(function(){
             // no errors possible... lol.
           } else if (data.success) {
             if (data.following) {
-              $(".follow-button-form .follow-button").removeClass('btn-default')
-                .addClass('btn-success')
+              $(".follow-button-form .follow-button")
+                .removeClass('btn-default user-isNot-following')
+                .addClass('btn-success user-is-following')
                 .html('Following <span class="glyphicon glyphicon-ok"></span>');
             } else if (data.unfollowing) {
-              $(".follow-button-form .follow-button").removeClass('btn-success')
-                .addClass('btn-default')
+              $(".follow-button-form .follow-button")
+                .removeClass('btn-success user-is-following')
+                .addClass('btn-default user-isNot-following')
                 .html('Follow <span class="glyphicon glyphicon-heart"></span>');
             }
           } else if (data.success === false) {
@@ -930,13 +932,6 @@ $(document).ready(function(){
         }
     });
     return false;
-  });
-
-  $(".user-is-following").on('mouseover', function(){
-    $(this).html('Following <span class="glyphicon glyphicon-remove"></span>');
-  });
-  $(".user-is-following").on('mouseleave', function(){
-    $(this).html('Following <span class="glyphicon glyphicon-ok"></span>');
   });
 
   $('.build-filter-options').affix({

@@ -28,7 +28,7 @@ if ($countBuilds) {
     }
 	  echo '
       <a href="viewbuild/'.$build->id.'/'.$safeURLSlug.'">
-        <div class="item col-sm-3">
+        <div class="item col-xs-12 col-sm-3">
         	'.$showBanner.'
           <div class="thumbnail">
             <img src="user_uploads/cover_images/'.$build->coverimage.'.jpeg">

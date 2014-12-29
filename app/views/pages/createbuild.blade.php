@@ -52,11 +52,6 @@
 
 @section('scripts')
 
-<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.12/jquery-ui.min.js" type="text/javascript" charset="utf-8"></script>
-<script src="js/tag-it.js" type="text/javascript" charset="utf-8"></script>
-<link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/flick/jquery-ui.css">
-<link href="css/jquery.tagit.css" rel="stylesheet" type="text/css">
-
 <script>
 $(document).ready(function() {
 

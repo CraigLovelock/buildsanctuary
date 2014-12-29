@@ -5,3 +5,8 @@ composer.phar
 .env.php
 .DS_Store
 Thumbs.db
+/.sass-cache
+/node_modules
+/precompile
+package.json
+Gruntfile.json

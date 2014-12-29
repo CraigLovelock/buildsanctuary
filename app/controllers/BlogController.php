@@ -214,7 +214,14 @@ class BlogController extends \BaseController {
 	 */
 	public function destroy($id)
 	{
-		//
+		$build = DB::table('blogs')->where('id', $id);
+		$build->delete();
+		return Response::json(array(
+   		'success' => true,
+   		'buildid' => $id,
+        200)
+    );
+    //Session::flash('test', '1');
 	}
 
 	public function search() {

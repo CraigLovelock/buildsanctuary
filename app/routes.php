@@ -151,4 +151,5 @@ Route::post('get-post-data/{postID}', array('uses' => 'PostController@getPostDat
 Route::post('deletepost/{id}', array('uses' => 'PostController@destroy'));
 Route::post('get-build-data/{postID}', array('uses' => 'BlogController@getBuildData'));
 Route::post('editbuildinfo/{id}', array('uses' => 'BlogController@edit'));
+Route::post('deletebuild/{id}', array('uses' => 'BlogController@destroy'));
 Route::post('followbuild/{buildid}/{userid}', array('uses' => 'FollowerController@followbuild'));

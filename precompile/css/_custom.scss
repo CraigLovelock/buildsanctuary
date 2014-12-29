@@ -83,6 +83,10 @@ body {
 	padding: 5px;
 	border-radius: 5px;
 	overflow: hidden;
+	/* add this. prefixes for compabtibility */
+  transform:translate3d(0,0,0);
+  -webkit-transform:translate3d(0,0,0);
+  -moz-transform:translate3d(0,0,0);
 }
 
 .buildcard-banner-holder {
@@ -164,27 +168,7 @@ body {
 	height: auto;
 	word-wrap: break-word;
 }
- 
-/* Portrait tablet to landscape and desktop */
-@media (min-width: 768px) and (max-width: 979px) {
-	.col-md-3 {
-		width: calc(33% - 20px);
-	}
-}
- 
-/* Landscape phone to portrait tablet */
-@media (max-width: 767px) {
-	.col-md-3 {
-		width: calc(50% - 20px);
-	}
-}
- 
-/* Landscape phones and down */
-@media (max-width: 480px) {
-	.col-md-3 {
-		width: calc(100% - 20px);
-	}
-}
+
 
 .file-btn {
 	opacity: 0;
@@ -602,4 +586,9 @@ code {
 	color: #333;
 	text-overflow: ellipsis;
 	overflow: hidden;
+}
+
+.navbar-nav .open .dropdown-menu {
+	text-align: center;
+	border-radius:5px;
 }

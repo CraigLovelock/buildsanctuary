@@ -64,9 +64,11 @@
   <script>
     $(function() {
       var container = $('#builds');
+      var pagination = $('.pagination');
 
       imagesLoaded(container, function() {
         container.fadeIn();
+        pagination.fadeIn();
         container.isotope({
           itemSelector : '.item',
           getSortData: {
