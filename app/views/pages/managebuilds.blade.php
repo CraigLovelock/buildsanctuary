@@ -32,9 +32,28 @@
         $viewStatus = User::viewStatus($build->id, $userID);
         $followCount = Blog::countFollowers($build->id);
         $viewCount = Blog::countViews($build->id);
+        $frontPageCheck = $build->frontpage;
+        switch ($frontPageCheck) {
+          case '0': // not published
+          case '5': // no posts
+          case '2': // hidden from view
+            $frontpageIcon = 'ban-circle';
+            $frontpageText = 'Not Live';
+            $frontpageClass = 'red-stat-icon';
+            break;
+
+          case '1': // not published
+            $frontpageIcon = 'ok-circle';
+            $frontpageText = 'Live';
+            $frontpageClass = 'green-stat-icon';
+            break;
+          
+          default:
+            break;
+        }
         echo '
 
-            <div class="item col-sm-3 buildnumber-'.$build->id.'">
+            <div class="item col-xs-12 col-sm-3 buildnumber-'.$build->id.'" style="">
               <div class="thumbnail">
                 <img src="user_uploads/cover_images/'.$build->coverimage.'.jpeg">
                 <div class="caption">
@@ -48,6 +67,7 @@
                   <ul>
                     <li><span class="glyphicon glyphicon-heart-empty buildcard-follow-status-'.$followStatus.'" aria-hidden="true"></span> '.$followCount.'</li>
                     <li><span class="glyphicon glyphicon-eye-open buildcard-follow-status-'.$viewStatus.'" aria-hidden="true"></span> '.$viewCount.'</li>
+                    <li><span class="glyphicon glyphicon-'.$frontpageIcon.' '.$frontpageClass.'" aria-hidden="true"></span> '.$frontpageText.'</li>
                   </ul>
                 </div>
               </div>

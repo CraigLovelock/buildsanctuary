@@ -203,14 +203,32 @@ class PostController extends \BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy($id)
+	public function destroy($id, $buildid)
 	{
-		$post = DB::table('posts')->where('id', $id);
-		$post->delete();
-		return Response::json(array(
-   		'success' => true,
-        200)
-    );
+		$totalPosts = DB::table('posts')->where('buildID', $buildid)->get();
+		$count = count($totalPosts);
+		if ($count > 1) {
+			$post = DB::table('posts')->where('id', $id);
+			$post->delete();
+			return Response::json(array(
+	   		'success' => true,
+	        200)
+	    );
+		} else {
+			// delete the post
+			$post = DB::table('posts')->where('id', $id);
+			$post->delete();
+
+			// change the frontpage to 5 which means it will not show in any results.
+			$build = Blog::find($buildid);
+	   	$build->frontpage = '5'; // Live but no posts
+	   	$build->save();
+	   	
+			return Response::json(array(
+	   		'success' => true,
+	        200)
+	    );
+		}
 	}
 
 	/**
@@ -233,30 +251,6 @@ class PostController extends \BaseController {
         'buildid' => $buildid,
         200)
     );
-	}
-
-	function checkForRow($image_file_name_temp) {
-		$query = DB::table('image_uploads')
-								->where('image_file_name', $image_file_name_temp)
-								->first();
-		$count = count($query);
-		if ($count > 0) {
-			return false;
-		} else {
-			return true;
-		}
-	}
-
-	function generateCode() {
-		return substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 15);
-	}
-
-	function uniqueImageID(){
-		$temp_code = generateCode();
-		if (checkForRow($temp_code)) {
-
-		}
-
 	}
 
 	public function saveUploadedImage() {

@@ -86,22 +86,54 @@
 
     <?php
 
-    // UNPUBLISHED - User owns the build
-    if ($buildFrontpage == 0 && $buildOwnerID == $userID) {
-      echo "
-        <div class='alert alert-success centre-text' role='alert'>
-          <span class='glyphicon glyphicon-ok'></span> <b>Sweet, Your build is created!</b><br>
-            Before other users can see your build you need to add an update, click the pencil icon above.
-        </div>
-        ";
-    // UNPUBLISHED - User does not own build
-    } else if ($buildFrontpage == 0 && $buildOwnerID != $userID) {
-      echo "
-        <div class='alert alert-info centre-text' role='alert'>
-          <span class='glyphicon glyphicon-remove'></span> <b>Sorry! You cannot view this build.</b><br>
-            This build is either unpublished or the user has chosen to hide it from view.
-        </div>
-        ";
+    // if the user owns the build
+    if ($userIsCreator) {
+
+      switch ($buildFrontpage) {
+        // not yet published
+        case '0':
+          echo "
+            <div class='alert alert-success centre-text' role='alert'>
+              <b>Sweet, Your build is created!</b><br>
+              Before other users can see your build you need to add an update, click the pencil icon above.
+            </div>
+          ";
+          break;
+
+        case '5';
+          echo "
+            <div class='alert alert-info centre-text' role='alert'>
+              <b>Your build has no content!</b><br>
+              The build will not show up in any searches until you add a new update.
+            </div>
+          ";
+          break;
+        
+        default:
+          # code...
+          break;
+      }
+
+    // else if the user doesnt own the build  
+    } else {
+
+      switch ($buildFrontpage) {
+        // not yet published
+        case '0':
+        case '5':
+          echo "
+            <div class='alert alert-info centre-text' role='alert'>
+              <b>Sorry! You cannot view this build.</b><br>
+              This build is either unpublished or the user has chosen to hide it from view.
+            </div>
+           ";
+          break;
+        
+        default:
+          # code...
+          break;
+      }
+
     }
 
     ?>
@@ -183,8 +215,6 @@ if ($userIsCreator) { ?>
     </div>
   </div>
 </div>
-
-
 
 <div class="modal fade" id="editPostModal" tabindex="-1" role="dialog" aria-labelledby="editPost" aria-hidden="true">
   <div class="modal-dialog">

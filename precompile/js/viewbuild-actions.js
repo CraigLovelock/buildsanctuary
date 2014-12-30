@@ -280,8 +280,9 @@ $(document).ready(function(){
   $(".do-delete-post").on('click', function(){
     var rootAsset = $('.rootAsset').html();
     var postID = $("input[name=postid]").val();
+    var buildID = $("input[name=buildid]").val();
     $.ajax({
-        url: rootAsset+'deletepost/'+postID,
+        url: rootAsset+'deletepost/'+postID+'/'+buildID,
         type: 'post',
         cache: false,
         dataType: 'json',
@@ -295,6 +296,8 @@ $(document).ready(function(){
             $('.modal-body').append('<div class="alert alert-danger centre-text modal-error-message" role="alert"><strong>Error!</strong> '+ data.errors +'</div>');
           } else if (data.success) {
             location.reload();
+          } else if (data.lastPost) {
+            console.log('fefw');
           }
         },
         error: function(xhr, textStatus, thrownError) {

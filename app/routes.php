@@ -119,6 +119,7 @@ Route::get('search', function()
     {
 			$results = DB::table('blogs')
 				->where('blogtitle', 'LIKE', '%'. $term .'%')
+				->where('frontpage', 1)
 				->orWhere('tags', 'LIKE', '%'. $term .'%')
 				->orderBy('id', 'desc')->paginate(15);
     }
@@ -148,7 +149,7 @@ Route::post('editpostaction/{id}', array('uses' => 'PostController@edit'));
 Route::post('saveUploadedImage', array('uses' => 'PostController@saveUploadedImage'));
 Route::post('saveUploadedImageEdit', array('uses' => 'PostController@saveUploadedImageEdit'));
 Route::post('get-post-data/{postID}', array('uses' => 'PostController@getPostData'));
-Route::post('deletepost/{id}', array('uses' => 'PostController@destroy'));
+Route::post('deletepost/{id}/{buildid}', array('uses' => 'PostController@destroy'));
 Route::post('get-build-data/{postID}', array('uses' => 'BlogController@getBuildData'));
 Route::post('editbuildinfo/{id}', array('uses' => 'BlogController@edit'));
 Route::post('deletebuild/{id}', array('uses' => 'BlogController@destroy'));

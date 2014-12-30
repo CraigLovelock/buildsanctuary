@@ -24,11 +24,15 @@ class Blog extends Eloquent implements UserInterface, RemindableInterface {
 				break;
 
 			case 'following':
+				$userid = Auth::user()->id;
 				$query = DB::table('blogs')
-												->join('followers', 'blogs.id', '=', 'followers.blogid')
-												->where('followers.userid', Auth::user()->id)
-												->where('frontpage', '1')
-												->latest('lastupdated');
+				  ->join('followers', function($q) use ($userid){
+				      $q->on('blogs.id', '=', 'followers.blogid');
+				      $q->where('followers.userid', '=', $userid);
+				  })
+				  ->select('blogs.*')
+				  ->where('frontpage', '1')
+				  ->latest('lastupdated');
 				break;
 
 			case 'trending':

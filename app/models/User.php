@@ -24,8 +24,8 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	protected $hidden = array('password', 'remember_token');
 
 	public static function usernameFromID($id) {
-		$build = DB::table('users')->where('id', $id)->first();
-		return $build->username;
+		$user = DB::table('users')->where('id', $id)->first();
+		return $user->username;
 	}
 
 	public static function followStatus($id, $userid) {
