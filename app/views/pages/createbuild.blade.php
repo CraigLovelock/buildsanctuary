@@ -62,7 +62,7 @@ $(document).ready(function() {
   });
 
   $(".upload-fake-btn").click(function(){
-    $('.file-btn').trigger('click'); 
+    jQuery('.file-btn')[0].click()
   });
 
   $(document).on('change', '.file-btn', function() {

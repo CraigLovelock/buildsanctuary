@@ -76,6 +76,11 @@ Route::get('testing', function()
 	return View::make('pages/testing');
 });
 
+Route::get('404', function()
+{
+	return View::make('errors/404');
+});
+
 Route::get('startbuild', array('before' => 'auth', function()
 {
 	return View::make('pages/createbuild', array('pageTitle' => 'Start Your Build'));
