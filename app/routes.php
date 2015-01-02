@@ -103,7 +103,7 @@ Route::get('deniedaccess', function()
 
 Route::get('sendemails', function()
 {
-	return View::make('sendemails', array('pageTitle' => 'Send Emails'));
+	return View::make('emails/wereback', array('pageTitle' => 'Send Emails'));
 });
 
 Route::get('viewbuild/{build_id?}/{build_title?}', function($build_id = null, $build_title = null)

@@ -42,7 +42,7 @@ a {
 	text-align: center;
 	cursor: pointer;
 	display: inline-block;
-	border-radius: 25px;
+	border-radius: 6px;
 }
 .btn-secondary {
 	text-decoration: none;
@@ -56,7 +56,7 @@ a {
 	text-align: center;
 	cursor: pointer;
 	display: inline-block;
-	border-radius: 25px;
+	border-radius: 6px;
 }
 .last {
 	margin-bottom: 0;
@@ -163,22 +163,21 @@ ul li, ol li {
 			<table>
 				<tr>
 					<td>
-						<p>Hi there,</p>
-						<p>Sometimes all you want is to send a simple HTML email with a basic design.</p>
-						<h1>Really simple HTML email template</h1>
-						<p>This is a really simple email template. It's sole purpose is to get you to click the button below.</p>
-						<h2>How do I use it?</h2>
-						<p>All the information you need is on GitHub.</p>
+						<p>
+						<img src="http://www.buildsanctuary.com/images/email_logo.png">
+					</p>
+						<p><b>Thankyou for your patience!</b></p>
+						<p>Your account and builds are still present. All you need to do is reset your password so that we can encrypt it using our new code.</p>
+						<p>To do this, simply follow the link below and enter your email.</p>
 						<table>
 							<tr>
 								<td class="padding">
-									<p><a href="https://github.com/leemunroe/html-email-template" class="btn-primary">View the source and instructions on GitHub</a></p>
+									<p><a href="http://buildsanctuary.com/password_reminder" class="btn-primary">Reset your password</a></p>
 								</td>
 							</tr>
 						</table>
-						<p>Feel free to use, copy, modify this email template as you wish.</p>
-						<p>Thanks, have a lovely day.</p>
-						<p><a href="http://twitter.com/leemunroe">Follow @leemunroe on Twitter</a></p>
+						<p>If you have any problems, email us at hello@buildsanctuary.com or send us a message on facebook.</p>
+						<p><a href="https://www.facebook.com/buildsanctuary">Like us on facebook!</a></p>
 					</td>
 				</tr>
 			</table>
@@ -202,8 +201,6 @@ ul li, ol li {
 				<table>
 					<tr>
 						<td align="center">
-							<p>Don't like these annoying emails? <a href="#"><unsubscribe>Unsubscribe</unsubscribe></a>.
-							</p>
 						</td>
 					</tr>
 				</table>
