@@ -3,7 +3,7 @@
 @section('body')
 
   <div class='loadingBuilds'>
-    <h3><span id="dots"></span></h3>
+    Loading<h3><span id="dots"></span></h3>
   </div>
 
     @include('includes/buildcard')

@@ -2,6 +2,10 @@
 
 @section('body')
 
+  <div class='loadingBuilds'>
+    Loading<h3><span id="dots"></span></h3>
+  </div>
+
   <?php
     $rootAsset = asset('/');
     echo "<div class='rootAsset' style='display:none'>$rootAsset</div>";
