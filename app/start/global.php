@@ -54,7 +54,7 @@ App::error(function(Exception $exception, $code)
     Log::error("$code - $message @ $pathInfo\r\n$exception");
 
     if (Config::get('app.debug')) {
-        //return;
+        return;
     }
 
     switch ($code)

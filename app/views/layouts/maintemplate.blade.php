@@ -70,7 +70,8 @@
     $currentBuildType = Route::getCurrentRoute()->uri();
     switch ($currentBuildType) {
       case '/':
-        $currentBuildType = 'Newest';
+      case 'newest':
+        $currentBuildType = 'Newly Updated';
         break;
 
       case 'staff-picks':
@@ -98,7 +99,7 @@
             Filter: '. $currentBuildType .' <span class="caret"></span>
           </button>
           <ul class="dropdown-menu build-filter" role="menu">
-            <li><a href="newest">Newest</a></li>
+            <li><a href="newest">Newly Updated</a></li>
             <li><a href="following">Following</a></li>
             <li><a href="trending">Trending</a></li>
             <li class="divider"></li>

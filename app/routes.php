@@ -101,6 +101,11 @@ Route::get('deniedaccess', function()
 	return View::make('errors/deniedaccess', array('pageTitle' => 'Access Denied'));
 });
 
+Route::get('sendemails', function()
+{
+	return View::make('sendemails', array('pageTitle' => 'Send Emails'));
+});
+
 Route::get('viewbuild/{build_id?}/{build_title?}', function($build_id = null, $build_title = null)
 {
 	Blog::addPageCount($build_id);
