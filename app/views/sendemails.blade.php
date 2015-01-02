@@ -1,7 +1,7 @@
 <?php
 
 // get each user and send an email
-$query = DB::table('users')->where('email', 'craiglovelock54@hotmail.co.uk')->get();
+$query = DB::table('users')->get();
 
 foreach ($query as $user) {
 	$email = $user->email;
