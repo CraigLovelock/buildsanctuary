@@ -10,7 +10,7 @@ foreach ($query as $user) {
 
 $data = '';
 
-Mail::send('emails.wereback', $data, function($message)
+Mail::send('emails.wereback', function($message)
 {
     $message->from('hello@buildsanctuary.com', 'BuildSanctuary');
     $message->to('craiglovelock54@hotmail.co.uk');
