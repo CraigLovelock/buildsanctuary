@@ -103,18 +103,7 @@ Route::get('deniedaccess', function()
 
 Route::get('sendemails', function()
 {
-// get each user and send an email
-$query = DB::table('users')->where('email', 'craiglovelock54@hotmail.co.uk')->get();
-
-foreach ($query as $user) {
-	$data = array();
-	Mail::send('emails.wereback', $data, function($message)
-	{
-	    $message->from('hello@buildsanctuary.com', 'BuildSanctuary');
-	    $message->to($user->email);
-	    $message->subject("We are back online!");
-	});
-}
+	return View::make('sendemails', array('pageTitle' => 'Send Emails'));
 });
 
 Route::get('viewbuild/{build_id?}/{build_title?}', function($build_id = null, $build_title = null)

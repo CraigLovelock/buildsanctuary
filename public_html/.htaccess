@@ -1,7 +1,7 @@
-RewriteEngine On
-RewriteBase /
-RewriteCond %{REMOTE_HOST} !^195.99.254.74
-RewriteRule .* https://www.facebook.com/buildsanctuary/posts/522660147878638 [R=302,L]
+#RewriteEngine On
+#RewriteBase /
+#RewriteCond %{REMOTE_HOST} !^195.99.254.74
+#RewriteRule .* https://www.facebook.com/buildsanctuary/posts/522660147878638 [R=302,L]
 
 <IfModule mod_rewrite.c>
     <IfModule mod_negotiation.c>
