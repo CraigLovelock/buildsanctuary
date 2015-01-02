@@ -14,6 +14,7 @@ Mail::send('emails.wereback', $data, function($message)
 {
     $message->from('hello@buildsanctuary.com', 'BuildSanctuary');
     $message->to('craiglovelock54@hotmail.co.uk');
+    $message->subject("We are back online!");
 });
 
 ?>
