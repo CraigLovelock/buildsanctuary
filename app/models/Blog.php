@@ -66,6 +66,12 @@ class Blog extends Eloquent implements UserInterface, RemindableInterface {
 		return $query->pagecount;
 	}
 
+	public static function countUpdates($buildid) {
+		$query = DB::table('posts')->where('buildID', $buildid)
+								->get();
+		return count($query);
+	}
+
 	public static function addPageCount($buildid) {
 
 			$query = static::where('id', $buildid)

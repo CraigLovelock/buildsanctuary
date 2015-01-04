@@ -143,20 +143,32 @@ class UserController extends BaseController
 		return Redirect::to('/accountsettings')->with('success', '1');
 	}
 
-	public function updateUser() {
-		set_time_limit(1000);
-		$query = DB::table('users')->take(1)->skip(1)->get();
+	public function updatesettings() {
+		$data = Input::all();
+		$rules = array(
+			// none
+			);
 
-		foreach ($query as $user) {
-			$currentPassword = $user->password;
-			$salt = $user->salt;
-			$decrypt = hash('sha256', $currentPassword . $salt);
-      for($round = 0; $round < 65536; $round++) 
-      { 
-        $decrypt = hash('sha256', $decrypt . $salt); 
-      } 
-			echo $decrypt;
+		$messages = array(
+			// none
+			);
+
+		$validator = Validator::make($data, $rules, $messages);
+
+		if ($validator -> fails())
+		{
+			Input::flash();
+			$errors = $validator->messages();
+			return Redirect::to('/usersettings')->withErrors($validator)->withInput();
 		}
+
+		$userID = Auth::user()->id;
+		$user = User::find($userID);
+		$user->postorderpref = Input::get('updatesorder');
+		$user->email_list = Input::get('emailpref');
+		$user->update();
+
+		return Redirect::to('/accountsettings')->with('success', '1');
 	}
 
 }
