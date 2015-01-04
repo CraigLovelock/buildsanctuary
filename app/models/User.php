@@ -28,6 +28,11 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		return $user->username;
 	}
 
+	public static function getUser($id) {
+		$user = DB::table('users')->where('id', $id)->first();
+		return $user;
+	}
+
 	public static function followStatus($id, $userid) {
 		$followCheck = DB::table('followers')
 											->where('blogid', $id)

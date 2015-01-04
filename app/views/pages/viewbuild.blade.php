@@ -8,6 +8,7 @@
   //set up general variables / values
   if (Auth::check()) {
     $userID = Auth::user()->id;
+    $userSettings = User::getUser($userID);
   } else {
     $userID = false;
   }
@@ -38,6 +39,8 @@
     $followButtonClass = 'user-isNot-following';
     $followButtonText = "Follow <span class='glyphicon glyphicon-heart-empty'></span>";
   }
+
+  $totalUpdates = Blog::countUpdates($buildID);
 
    echo '
     <div class="full-width-design">
@@ -138,14 +141,24 @@
 
     ?>
 
-    <?php 
+    <?php
 
-    $posts = DB::table('posts')->where('buildID', '=', "$build->id")->paginate(4);
-    $postNumber = ($pageNumber * 4) - 4;
+    if (isset($userSettings) && $userSettings->postorderpref == 1) {
+      $posts = DB::table('posts')->where('buildID', '=', "$build->id")->orderBy('id', 'desc')->paginate(4);
+      $postNumber_decrease = ($pageNumber * 4) - 5;
+      $postNumber = $totalUpdates - $postNumber_decrease;
+    } else {
+      $posts = DB::table('posts')->where('buildID', '=', "$build->id")->orderBy('id', 'asc')->paginate(4);
+      $postNumber = ($pageNumber * 4) - 4;
+    }
 
     foreach ($posts as $post)
     {
-      $postNumber++;
+      if (isset($userSettings) && $userSettings->postorderpref == 1) {
+        $postNumber--;
+      } else {
+        $postNumber++;
+      }
       $post_text = $post->text;
       $post_text = str_ireplace("[img]", "<img class='buildimage' src='", $post_text);
       $post_text = str_ireplace("[/img]", "'/>", $post_text);

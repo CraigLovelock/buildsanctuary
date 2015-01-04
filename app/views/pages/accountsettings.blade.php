@@ -19,6 +19,9 @@
 	  <a href="updatecontact">
 	  	<button type="button" class="btn btn-primary three-width form-control">Update Contact Details</button>
 	  </a>
+	  <a href="usersettings">
+	  	<button type="button" class="btn btn-primary three-width form-control">Update General Settings</button>
+	  </a>
 
 	</div>
 

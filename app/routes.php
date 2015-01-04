@@ -71,6 +71,11 @@ Route::get('updatecontact', array('before' => 'auth', function()
 	return View::make('pages/updatecontact', array('pageTitle' => 'Update Contact Information'));
 }));
 
+Route::get('usersettings', array('before' => 'auth', function()
+{
+	return View::make('pages/usersettings', array('pageTitle' => 'Update General Settings'));
+}));
+
 Route::get('testing', function()
 {
 	return View::make('pages/testing');
@@ -153,6 +158,7 @@ Route::post('loginUser', array('uses' => 'UserController@loginUser'));
 Route::get('logout', array('uses' => 'UserController@logout'));
 Route::post('updatepasswordaction', array('uses' => 'UserController@updatepassword'));
 Route::post('updatecontactaction', array('uses' => 'UserController@updatecontact'));
+Route::post('updateusersettingsaction', array('uses' => 'UserController@updatesettings'));
 Route::post('createbuildaction', array('uses' => 'BlogController@create'));
 Route::post('createpostaction', array('uses' => 'PostController@create'));
 Route::post('editpostaction/{id}', array('uses' => 'PostController@edit'));
