@@ -47,6 +47,9 @@
                   {{ Auth::user()->username; }} <span class="glyphicon glyphicon-user"></span> <span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu" role="menu">
+                  @if (Auth::user()->rights == 5)
+                    <li> {{ HTML::link('admin', 'Admin Area') }}</li>
+                  @endif
                   <li>{{ HTML::link('/accountsettings', 'Settings') }}</li>
                   <li>{{ HTML::link('logout', 'Logout') }}</li>
                 </ul>

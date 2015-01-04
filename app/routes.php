@@ -164,3 +164,12 @@ Route::post('get-build-data/{postID}', array('uses' => 'BlogController@getBuildD
 Route::post('editbuildinfo/{id}', array('uses' => 'BlogController@edit'));
 Route::post('deletebuild/{id}', array('uses' => 'BlogController@destroy'));
 Route::post('followbuild/{buildid}/{userid}', array('uses' => 'FollowerController@followbuild'));
+
+/* Admin Area */
+Route::group(array('before' => 'admin'), function()
+{
+	Route::get('admin', function()
+	{
+		return View::make('admin/index', array('pageTitle' => 'Admin'));
+	});
+});

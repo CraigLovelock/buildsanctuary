@@ -48,6 +48,19 @@ Route::filter('auth', function()
 	}
 });
 
+Route::filter('admin', function()
+{ 
+	if (Auth::check()) {
+	  if (Auth::user()->rights != 5)
+	  {
+	    return Redirect::to('login'); 
+	  }
+	}
+	else
+	{
+		return Redirect::to('login');
+	}
+}); 
 
 Route::filter('auth.basic', function()
 {
