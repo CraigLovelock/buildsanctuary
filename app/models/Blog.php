@@ -121,4 +121,34 @@ class Blog extends Eloquent implements UserInterface, RemindableInterface {
 			}
 	}
 
+	public static function getTotalBuilds() {
+		$query = DB::table('blogs')->get();
+		return count($query);
+	}
+	public static function filterBuilds($value) {
+		switch ($value) {
+			case 'unpub':
+				$query = DB::table('blogs')->where('frontpage', 0)->get();
+				return count($query);
+				break;
+			case 'live':
+				$query = DB::table('blogs')->where('frontpage', 1)->get();
+				return count($query);
+				break;
+			case 'hidden':
+				$query = DB::table('blogs')->where('frontpage', 2)->get();
+				return count($query);
+				break;
+			case 'empty':
+				$query = DB::table('blogs')->where('frontpage', 5)->get();
+				return count($query);
+				break;
+			
+			default:
+				# code...
+				break;
+		}
+	}
+
+
 }

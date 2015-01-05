@@ -9,10 +9,11 @@
   <link rel="stylesheet" href="{{ asset('production_assets/css/global.css') }}" />
   <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/flick/jquery-ui.css">
   <meta name="_token" content="{{ csrf_token() }}"/>
+  <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/Chart.js/0.2.0/Chart.min.js"></script>
 </head>
 <body>
 
-	<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+  <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container admin-navbar-container">
       <div class="navbar-header">
         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
@@ -51,16 +52,15 @@
   <div class="admin-container">
     <div class="pushdown-admin"></div>
     <div class="admin-sidebar">
-      Test Link
+      <ul>
+        <li><span class="glyphicon glyphicon-dashboard" aria-hidden="true"></span>{{ HTML::link('/admin', 'Dashboard') }}</li>
+        <li><span class="glyphicon glyphicon-send" aria-hidden="true"></span>{{ HTML::link('/admin/sendemail', 'Send Emails') }}</li>
+        <li><span class="glyphicon glyphicon-signal" aria-hidden="true"></span>{{ HTML::link('/admin/sendemail', 'Analytics') }}</li>
+        <li><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>{{ HTML::link('/admin/sendemail', 'Blog Control') }}</li>
+      </ul>
     </div>
     <div class="admin-rightpanel">
       @yield('body')
-    </div>
-  </div>
-
-  <div class="footer">
-    <div class="container">
-      <p class="text-muted">© BuildSanctuary</p>
     </div>
   </div>
 
