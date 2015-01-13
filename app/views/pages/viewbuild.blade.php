@@ -37,7 +37,7 @@
   } else {
     $followButtonType = 'btn-default';
     $followButtonClass = 'user-isNot-following';
-    $followButtonText = "Follow <span class='glyphicon glyphicon-heart-empty'></span>";
+    $followButtonText = "Follow <span class='glyphicon glyphicon-plus'></span>";
   }
 
   $totalUpdates = Blog::countUpdates($buildID);
@@ -175,18 +175,69 @@
             $post_text
           </div>
           <div class='panel-footer'>
-            $postNumber | $date_posted
+            <button class='btn btn-success btn-xs'>
+              <span class='glyphicon glyphicon-heart-empty'></span> Like
+            </button>
+            <button class='btn btn-info btn-xs show-commentform-button' id='$post_id'>
+              <span class='glyphicon glyphicon-comment'></span> Post Comment
+            </button>
           ";
           if ($userIsCreator) {
             echo "
               <button class='btn btn-primary edit-post-btn btn-xs' data-toggle='modal' data-target='#editPostModal' id='$post_id'>
-                Edit
+                <span class='glyphicon glyphicon-pencil'></span> Edit
               </button>
             ";
           }
           echo "
           </div>
         </div>
+      ";
+      $comments = DB::table('comments')
+                    ->where('updatepostid', $post_id)
+                    ->get();
+      $commentCount = count($comments);
+
+      $startLimit = $commentCount - 3;
+
+      $selectComments = DB::table('comments')
+                    ->where('updatepostid', $post_id)
+                    ->skip($startLimit)
+                    ->take(3)
+                    ->get();
+      echo "
+        <div class='comments-holder'>
+
+          <div class='post-like-count'>
+            <span class='glyphicon glyphicon-heart'></span>
+            96 Likes
+          </div>";
+          if ($commentCount > 3) {
+            echo "
+              <div class='show-all-comments-button' id='$post_id'>
+                <span class='glyphicon glyphicon-comment'></span>
+                Show all $commentCount comments...
+              </div>
+            ";
+          }
+          echo "
+          <ul class='comments comments_$post_id'>
+          ";
+          if ($commentCount > 0) {
+            foreach ($selectComments as $comment) {
+              $usernameCommenter = User::usernameFromID($comment->userID);
+              if ($userID == $comment->userID) {
+                echo "<li><b>$usernameCommenter</b>: $comment->comment <span class='label label-danger'>Delete Post</span></li>";
+              } else {
+                echo "<li><b>$usernameCommenter</b>: $comment->comment</li>";
+              }
+            }
+          } else {
+            echo "<li class='no-comments-message_$post_id'>This post has no comments.</li>";
+          }
+      echo "
+          </ul>
+        </div>  
       ";
     }
 
@@ -268,6 +319,28 @@ if ($userIsCreator) { ?>
 </div>
 
 <?php } ?>
+
+<div class="modal fade" id="addCommentModal" tabindex="-1" role="dialog" aria-labelledby="addCommentModelLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel">Comment on this update</h4>
+      </div>
+      <div class="modal-body no-padding">
+      {{ Form::open(array('url' => 'createcommentaction', 'class' => 'newcommentform')) }}
+        <textarea placeholder="Enter your comment here..." name="newcomment" class="form-control-addupdate"></textarea>
+        {{ Form::hidden('postid_addcomment', "") }}
+        {{ Form::hidden('buildid', "$build->id")}}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        {{ Form::submit('Post Comment', array('class' => 'btn btn-primary addcomment-btn')) }}
+      </div>
+      {{ Form::close() }}
+    </div>
+  </div>
+</div>
+
 
 @stop
 

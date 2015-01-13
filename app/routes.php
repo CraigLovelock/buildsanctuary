@@ -170,6 +170,8 @@ Route::post('get-build-data/{postID}', array('uses' => 'BlogController@getBuildD
 Route::post('editbuildinfo/{id}', array('uses' => 'BlogController@edit'));
 Route::post('deletebuild/{id}', array('uses' => 'BlogController@destroy'));
 Route::post('followbuild/{buildid}/{userid}', array('uses' => 'FollowerController@followbuild'));
+Route::post('createcommentaction', array('uses' => 'CommentController@addcomment'));
+Route::post('fetchallcomments-forpost/{id}', array('uses' => 'CommentController@fetchall'));
 
 /* Admin Area */
 Route::group(array('before' => 'admin'), function()

@@ -945,6 +945,89 @@ $(document).ready(function(){
       }
     }
   });
-    
 
+  $('.newcommentform').submit(function() {
+    var $btn = $(".addcomment-btn");
+    $btn.addClass('disabled');
+    var rootAsset = $('.rootAsset').html();
+    var id = $("input[name=postid_addcomment]").val();
+    $.ajax({
+        url: rootAsset+'createcommentaction',
+        type: 'post',
+        cache: false,
+        dataType: 'json',
+        data: $(this).serialize(),
+        beforeSend: function() {
+          $(".modal-error-message").remove();
+          $btn.val('Posting...');
+        },
+        success: function(data) {
+          if(data.errors) {
+            $('.modal-body').append('<div class="alert alert-danger centre-text modal-error-message" role="alert"><strong>Error!</strong> '+ data.errors +'</div>');
+          } else if (data.success) {
+            // success and does have access!
+            $('#addCommentModal').modal('hide');
+            $(".comments_"+id).append("<li><b>"+data.commenter+"</b>: "+data.comment+"</li>");
+            $(".no-comments-message_"+id).fadeOut().remove();
+            if (data.deleteOne) {
+              //$(".comments_1640 li").first().remove();
+            }
+          } else if (data.no_access) {
+            location.href = ""+rootAsset+"deniedaccess";
+          }
+          $btn.removeClass('disabled');
+          $btn.val('Post Comment');
+        },
+        error: function(xhr, textStatus, thrownError) {
+            alert('Something went to wrong.Please Try again later...');
+        }
+    });
+    return false;
+  });
+
+  $(".show-commentform-button").on('click', function(){
+    $('#addCommentModal').modal('show');
+    var id = this.id;
+    $("input[name=postid_addcomment]").val(id);
+  });
+
+  $(".show-all-comments-button").on('click', function(){
+    var $btn = $(this);
+    $btn.addClass('disabled');
+    var rootAsset = $('.rootAsset').html();
+    var id = this.id;
+    $.ajax({
+        url: rootAsset+'fetchallcomments-forpost/'+id,
+        type: 'post',
+        cache: false,
+        dataType: 'json',
+        data: $(this).serialize(),
+        beforeSend: function() {
+          $(".modal-error-message").remove();
+          $btn.text('Fetching...');
+        },
+        success: function(data) {
+          if(data.errors) {
+            // error message
+          } else if (data.success) {
+            for(var i=0; i<data.comments.length; i++){
+              var comment = data.comments[i];
+              $(".comments_"+id).prepend("<li><b>"+comment.username+":</b> "+comment.comment+"</li>");
+            }
+          }
+          $btn.removeClass('disabled');
+          $btn.remove();
+          //$(".comments_"+id).prepend('<button class="hide-added-comments">Hide added comments...</button>').hide().fadeIn();
+        },
+        error: function(xhr, textStatus, thrownError) {
+            alert('Something went to wrong.Please Try again later...');
+        }
+    });
+    return false;
+  });
+
+  $(".hide-added-comments").on('click', function(){
+    console.log('dw');
+  });
+    
 });
