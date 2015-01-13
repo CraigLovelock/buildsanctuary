@@ -259,10 +259,10 @@ class PostController extends \BaseController {
 	$uniqueImageID = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ$userID"), 0, 40);
 
 	$imageSavePath = 'user_uploads/build_images/'. $uniqueImageID . '.jpeg';
-  $createImage = Image::make(Input::file('update-insertimage-btn'))->orientate();
-  $createImage->resize(800, null, function ($constraint) {
+  	$createImage = Image::make(Input::file('update-insertimage-btn'))->orientate();
+  	$createImage->resize(800, null, function ($constraint) {
   	$constraint->aspectRatio();
-	});
+	})->insert('images/watermark.png', 'bottom-right', 10, 10);
 	$createImage->save("$imageSavePath");
 
 	//create and save the image name into db.
