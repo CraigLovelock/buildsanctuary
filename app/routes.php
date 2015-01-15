@@ -172,6 +172,9 @@ Route::post('deletebuild/{id}', array('uses' => 'BlogController@destroy'));
 Route::post('followbuild/{buildid}/{userid}', array('uses' => 'FollowerController@followbuild'));
 Route::post('createcommentaction', array('uses' => 'CommentController@addcomment'));
 Route::post('fetchallcomments-forpost/{id}', array('uses' => 'CommentController@fetchall'));
+Route::post('likepost/{id}/{buildID}', array('uses' => 'PostLikeController@likePost'));
+Route::post('unlikepost/{id}', array('uses' => 'PostLikeController@unlikePost'));
+Route::post('getpostlikes/{id}', array('uses' => 'PostLikeController@jsonPostLikes'));
 
 /* Admin Area */
 Route::group(array('before' => 'admin'), function()

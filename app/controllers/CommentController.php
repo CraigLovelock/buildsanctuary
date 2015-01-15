@@ -8,7 +8,7 @@ class CommentController extends BaseController
 	public function addComment() {
     $data = Input::all();
     $rules = array(
-      'newcomment' => 'required|min:30',
+      'newcomment' => 'required|min:10',
       );
 
     $messages = array(

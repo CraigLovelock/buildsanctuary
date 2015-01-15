@@ -41,6 +41,7 @@
   }
 
   $totalUpdates = Blog::countUpdates($buildID);
+  echo "<div class='buildID-hidden' style='display:none'>$build->id</div>";
 
    echo '
     <div class="full-width-design">
@@ -169,14 +170,28 @@
       $date_posted = strtotime($post->created_at);
       $date_posted = date("d.m.Y", $date_posted);
       $post_id = $post->id;
+      // check if user already likes the post
+      $checkForLike = DB::table('post_likes')->where('userID', $userID)->where('postID', $post_id)->get();
+      $checkForLike = count($checkForLike);
+      if ($checkForLike) {
+        $likeButtonClass = 'unlike-post';
+        $likeButtonColour = 'default';
+        $likeButtonIcon = 'remove';
+        $likeButtonText = 'Un-like';
+      } else {
+        $likeButtonClass = 'like-post';
+        $likeButtonColour = 'success';
+        $likeButtonIcon = 'thumbs-up';
+        $likeButtonText = 'Like';
+      }
       echo "
         <div class='panel panel-default'>
           <div class='panel-body update number-$post_id'>
             $post_text
           </div>
           <div class='panel-footer'>
-            <button class='btn btn-success btn-xs'>
-              <span class='glyphicon glyphicon-heart-empty'></span> Like
+            <button class='btn btn-$likeButtonColour btn-xs $likeButtonClass' id='$post_id'>
+              <span class='glyphicon glyphicon-$likeButtonIcon'></span> $likeButtonText
             </button>
             <button class='btn btn-info btn-xs show-commentform-button' id='$post_id'>
               <span class='glyphicon glyphicon-comment'></span> Post Comment
@@ -205,12 +220,15 @@
                     ->skip($startLimit)
                     ->take(3)
                     ->get();
+
+      $countLikes = PostLike::countPostLikes($post_id);
+
       echo "
         <div class='comments-holder'>
 
-          <div class='post-like-count'>
+          <div class='post-like-count post-like-count-value_$post_id'>
             <span class='glyphicon glyphicon-heart'></span>
-            96 Likes
+            $countLikes Likes
           </div>";
           if ($commentCount > 3) {
             echo "
