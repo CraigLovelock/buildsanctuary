@@ -481,6 +481,9 @@ $(document).on("click", ".like-post", function(){
           if(data.errors) {
             // error message
           } else if (data.success) {
+            if (data.notLogged) {
+                location.href= rootAsset+'login';
+            }
             $btn.removeClass('btn-success')
               .removeClass("like-post")
               .addClass('btn-default')
@@ -525,5 +528,5 @@ $(document).on("click", ".like-post", function(){
     });
     return false;
   });
-    
+
 });

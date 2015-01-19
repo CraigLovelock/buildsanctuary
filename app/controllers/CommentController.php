@@ -26,7 +26,7 @@ class CommentController extends BaseController
       );
     }
 
-    $commentInput = Input::get('newcomment');
+    $commentInput = Purifier::clean(Input::get('newcomment'));
     $userID = Auth::user()->id;
     $username = User::usernameFromID($userID);
     $postid = Input::get('postid_addcomment');

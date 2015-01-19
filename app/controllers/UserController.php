@@ -50,7 +50,7 @@ class UserController extends BaseController
 		{
 			Input::flash();
 			$errors = $validator->messages();
-			return Redirect::to('/login')->withErrors($validator)->withInput();		
+			return Redirect::to('/login')->withErrors($validator)->withInput();
 		};
 
 		$userData = array(
@@ -62,7 +62,7 @@ class UserController extends BaseController
 
 		if (Auth::attempt($userData, $remember))
 		{
-			return Redirect::to('/');
+			return Redirect::back();
 		}
 		else
 		{
@@ -76,8 +76,8 @@ class UserController extends BaseController
 		{
 			$userID = Auth::user()->id;
 			Auth::logout();
-			return Redirect::to('/');
-    }	
+			return Redirect::back();
+    }
 	}
 
 	public function updatepassword() {

@@ -8,7 +8,19 @@ class PostLikeController extends BaseController
 	public function likePost($postID,$buildID) {
     $postID = $postID;
     $buildID = $buildID;
-    $userID = Auth::user()->id;
+    if (Auth::user()) {
+      $userID = Auth::user()->id;
+    } else {
+      $userID = false;
+    }
+
+    if (!$userID) {
+      return Response::json(array(
+        'success' => true,
+        'notLogged' => true,
+        )
+      );
+    }
 
     $postLike = new PostLike;
     $postLike->postID = $postID;

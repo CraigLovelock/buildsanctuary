@@ -9,8 +9,10 @@
   if (Auth::check()) {
     $userID = Auth::user()->id;
     $userSettings = User::getUser($userID);
+    $userIsLogged = true;
   } else {
     $userID = false;
+    $userIsLogged = false;
   }
 
   $buildID = $build->id;
@@ -112,13 +114,13 @@
             </div>
           ";
           break;
-        
+
         default:
           # code...
           break;
       }
 
-    // else if the user doesnt own the build  
+    // else if the user doesnt own the build
     } else {
 
       switch ($buildFrontpage) {
@@ -132,7 +134,7 @@
             </div>
            ";
           break;
-        
+
         default:
           # code...
           break;
@@ -192,11 +194,14 @@
           <div class='panel-footer'>
             <button class='btn btn-$likeButtonColour btn-xs $likeButtonClass' id='$post_id'>
               <span class='glyphicon glyphicon-$likeButtonIcon'></span> $likeButtonText
-            </button>
+            </button>";
+      if ($userIsLogged) {
+        echo "
             <button class='btn btn-info btn-xs show-commentform-button' id='$post_id'>
               <span class='glyphicon glyphicon-comment'></span> Post Comment
             </button>
           ";
+        }
           if ($userIsCreator) {
             echo "
               <button class='btn btn-primary edit-post-btn btn-xs' data-toggle='modal' data-target='#editPostModal' id='$post_id'>
@@ -255,7 +260,7 @@
           }
       echo "
           </ul>
-        </div>  
+        </div>
       ";
     }
 

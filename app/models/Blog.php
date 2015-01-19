@@ -50,7 +50,7 @@ class Blog extends Eloquent implements UserInterface, RemindableInterface {
 				$query = static::where('frontpage', '1')->latest('lastupdated');
 				break;
 		}
-		return $query->paginate(20);
+		return $query->remember(10)->paginate(20);
 	}
 
 	public static function countFollowers($buildid) {
@@ -93,8 +93,8 @@ class Blog extends Eloquent implements UserInterface, RemindableInterface {
 					$lastViewTime = $query->updated_at;
 					$lastViewTime = strtotime($lastViewTime);
 					$now = new DateTime();
-					$now->setTimezone(new DateTimeZone('Europe/London'));   			
-					$nowTimeDate = strtotime($now->format('Y-m-d H:i:s'));  
+					$now->setTimezone(new DateTimeZone('Europe/London'));
+					$nowTimeDate = strtotime($now->format('Y-m-d H:i:s'));
 					$gap = $nowTimeDate - $lastViewTime;
 
 					if ($gap > 300) {
@@ -143,7 +143,7 @@ class Blog extends Eloquent implements UserInterface, RemindableInterface {
 				$query = DB::table('blogs')->where('frontpage', 5)->get();
 				return count($query);
 				break;
-			
+
 			default:
 				# code...
 				break;

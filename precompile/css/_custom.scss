@@ -268,7 +268,7 @@ body {
 
 .form-control-addupdate[placeholder]:empty:before {
 	content: attr(placeholder);
-	color: #555; 
+	color: #555;
 }
 
 .insert-image, .edit-insert-image {
@@ -737,4 +737,10 @@ code {
 	li:hover span {
 		display: inline-block;
 	}
+}
+
+.fb-like {
+	position: none;
+	float: left;
+	margin-top: 15px;
 }
