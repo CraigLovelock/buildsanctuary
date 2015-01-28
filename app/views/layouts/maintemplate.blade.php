@@ -58,7 +58,7 @@
                 <span class="glyphicon glyphicon-plus"></span> <span class="caret"></span>
               </a>
               <ul class="dropdown-menu" role="menu">
-                <li> {{ HTML::link('createbuild', 'Build Project') }}</li>
+                <li> {{ HTML::link('startbuild', 'Build Project') }}</li>
               </ul>
             </li>
 
