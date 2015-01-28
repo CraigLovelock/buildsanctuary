@@ -75,4 +75,36 @@ class CommentController extends BaseController
     ));
   }
 
+  public function fetchone($id) {
+    $comments = Comment::find($id);
+
+    return Response::json(array(
+        'success' => true,
+        'comment' => $comments->comment,
+        'commentid' => $comments->id,
+    ));
+  }
+
+  public function deleteone($id)
+  {
+    $comment = Comment::find($id);
+    $commentpostid = $comment->updatepostid;
+    $comment->delete();
+    return Response::json(array(
+      'success' => true,
+      'commentid' => $id,
+      'postid' => $commentpostid,
+    ));
+  }
+
+  public function jsonCommentCount($id)
+  {
+    $comments = DB::table('comments')->where('updatepostid', $id)->get();
+    $count = count($comments);
+    return Response::json(array(
+      'success' => true,
+      'count' => $count,
+    ));
+  }
+
 }

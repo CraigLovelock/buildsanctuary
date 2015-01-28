@@ -24,6 +24,7 @@ if ($countBuilds) {
     $viewCount = Blog::countViews($build->id);
     $updateCount = Blog::countUpdates($build->id);
     $postLikeCount = PostLike::countBuildPostLikes($build->id);
+    $buildCommentCount = Comment::countComments($build->id);
     $showBanner = "";
     if ($updatedStatus == 'true') {
     	$showBanner = '<div class="buildcard-banner-holder"><div class="buildcard-banner">Updated</div></div>';
@@ -44,6 +45,7 @@ if ($countBuilds) {
 	            	<li><span class="glyphicon glyphicon-eye-open buildcard-follow-status-'.$viewStatus.'" aria-hidden="true"></span> '.$viewCount.'</li>
                 <li><span class="glyphicon glyphicon-pencil buildcard-follow-status-'.$updatedStatus.'" aria-hidden="true"></span> '.$updateCount.'</li>
                 <li><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> '.$postLikeCount.'</li>
+                <li><span class="glyphicon glyphicon-comment" aria-hidden="true"></span> '.$buildCommentCount.'</li>
 	            </ul>
             </div>
           </div>

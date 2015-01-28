@@ -63,7 +63,7 @@
             if ($userID == $buildOwnerID) {
               echo "
                 <button class='btn btn-primary new-post-btn' data-toggle='modal' data-target='#myModal'>
-                  New <span class='glyphicon glyphicon-pencil'></span>
+                  New Post
                 </button>
               ";
             } else {
@@ -177,8 +177,8 @@
       $checkForLike = count($checkForLike);
       if ($checkForLike) {
         $likeButtonClass = 'unlike-post';
-        $likeButtonColour = 'default';
-        $likeButtonIcon = 'remove';
+        $likeButtonColour = 'primary';
+        $likeButtonIcon = 'thumbs-down';
         $likeButtonText = 'Un-like';
       } else {
         $likeButtonClass = 'like-post';
@@ -188,28 +188,34 @@
       }
       echo "
         <div class='panel panel-default'>
+          <div class='panel-heading'>
+          <span><span class='glyphicon glyphicon-time'></span> $date_posted | Update no. $postNumber</span>
+          </div>
           <div class='panel-body update number-$post_id'>
             $post_text
           </div>
           <div class='panel-footer'>
-            <button class='btn btn-$likeButtonColour btn-xs $likeButtonClass' id='$post_id'>
+          <div class='btn-group' role='group' aria-label=''>
+            <button class='btn btn-$likeButtonColour btn-lg $likeButtonClass' id='$post_id'>
               <span class='glyphicon glyphicon-$likeButtonIcon'></span> $likeButtonText
             </button>";
       if ($userIsLogged) {
         echo "
-            <button class='btn btn-info btn-xs show-commentform-button' id='$post_id'>
+            <button class='btn btn-info btn-lg show-commentform-button' id='$post_id'>
               <span class='glyphicon glyphicon-comment'></span> Post Comment
             </button>
           ";
         }
           if ($userIsCreator) {
             echo "
-              <button class='btn btn-primary edit-post-btn btn-xs' data-toggle='modal' data-target='#editPostModal' id='$post_id'>
-                <span class='glyphicon glyphicon-pencil'></span> Edit
+              <button class='btn btn-primary edit-post-btn btn-lg' data-toggle='modal' data-target='#editPostModal' id='$post_id'>
+                <span class='glyphicon glyphicon-edit'></span> Edit
               </button>
             ";
           }
           echo "
+          </div>
+
           </div>
         </div>
       ";
@@ -250,7 +256,7 @@
             foreach ($selectComments as $comment) {
               $usernameCommenter = User::usernameFromID($comment->userID);
               if ($userID == $comment->userID) {
-                echo "<li><b>$usernameCommenter</b>: $comment->comment <span class='label label-danger'>Delete Post</span></li>";
+                echo "<li id='comment-".$comment->id."'><b>$usernameCommenter</b>: $comment->comment <span id='".$comment->id."' class='label label-danger delete-comment'>Delete Comment</span></li>";
               } else {
                 echo "<li><b>$usernameCommenter</b>: $comment->comment</li>";
               }
@@ -364,6 +370,27 @@ if ($userIsCreator) { ?>
   </div>
 </div>
 
+<div class="modal fade" id="deleteCommentModal" tabindex="-1" role="dialog" aria-labelledby="deletrCommentModelLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body no-padding">
+      {{ Form::open(array('url' => 'deletecommentaction', 'class' => 'deletecommentform')) }}
+        <textarea placeholder="Enter your comment here..." name="deletecomment" class="form-control-addupdate delete-comment-comment" disabled></textarea>
+        {{ Form::hidden('postid_addcomment', "") }}
+      </div>
+        <div class="alert alert-danger centre-text check-delete-post" style="display:block" role="alert">
+          <strong>Confirm Delete Comment?&nbsp;</strong>
+          <button type="button" id="" class="btn btn-success do-delete-comment" >
+            </span><span class="glyphicon glyphicon-ok"></span>
+          </button>
+          <button type="button" class="btn btn-danger dont-delete-comment">
+            </span><span class="glyphicon glyphicon-remove"></span>
+          </button>
+        </div>
+      {{ Form::close() }}
+    </div>
+  </div>
+</div>
 
 @stop
 

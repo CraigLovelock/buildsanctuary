@@ -8,6 +8,7 @@
   <link rel="shortcut icon" href="{{ asset('favicon.ico') }}">
   <link rel="stylesheet" href="{{ asset('production_assets/css/global.css') }}" />
   <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/flick/jquery-ui.css">
+  <link href='http://fonts.googleapis.com/css?family=Roboto:400,300,500,700' rel='stylesheet' type='text/css'>
   <meta name="_token" content="{{ csrf_token() }}"/>
 </head>
 <body>
@@ -35,10 +36,10 @@
         </button>
         <a class="navbar-brand" href="{{ URL::to('/') }}">
           <div>
-            <img src="{{ asset('/') }}images/logo1.svg">
+            <img src="{{ asset('/') }}images/logoold2.svg">
           </div>
         </a>
-        <div class="fb-like" data-href="https://www.facebook.com/buildsanctuary" data-layout="button_count" data-action="like" data-show-faces="false"></div>
+        <!--<div class="fb-like" data-href="https://www.facebook.com/buildsanctuary" data-layout="button_count" data-action="like" data-show-faces="false"></div>-->
       </div>
       <div class="collapse navbar-collapse navbar-right">
         <form class="navbar-form navbar-left" action="<?php echo asset('/') . 'search'; ?>">
@@ -51,19 +52,30 @@
         </form>
         <ul class="nav navbar-nav centre-menu">
           @if (Auth::check())
-            <li class="add-build-btn">{{ HTML::link('managebuilds', 'Build Management') }}</li>
-              <li role="presentation" class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">
-                  {{ Auth::user()->username; }} <span class="glyphicon glyphicon-user"></span> <span class="caret"></span>
-                </a>
-                <ul class="dropdown-menu" role="menu">
-                  @if (Auth::user()->rights == 5)
-                    <li> {{ HTML::link('admin', 'Admin Area') }}</li>
-                  @endif
-                  <li>{{ HTML::link('/accountsettings', 'Settings') }}</li>
-                  <li>{{ HTML::link('logout', 'Logout') }}</li>
-                </ul>
-              </li>
+
+            <li role="presentation" class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">
+                <span class="glyphicon glyphicon-plus"></span> <span class="caret"></span>
+              </a>
+              <ul class="dropdown-menu" role="menu">
+                <li> {{ HTML::link('createbuild', 'Build Project') }}</li>
+              </ul>
+            </li>
+
+            <li role="presentation" class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">
+                {{ Auth::user()->username; }} <span class="glyphicon glyphicon-user"></span> <span class="caret"></span>
+              </a>
+              <ul class="dropdown-menu" role="menu">
+                @if (Auth::user()->rights == 5)
+                  <li> {{ HTML::link('admin', 'Admin Area') }}</li>
+                @endif
+                <li>{{ HTML::link('managebuilds', 'Build Management') }}</li>
+                <li>{{ HTML::link('/accountsettings', 'Account Settings') }}</li>
+                <li>{{ HTML::link('logout', 'Logout') }}</li>
+              </ul>
+            </li>
+
           @else
             <li><a href="{{ URL::to('/login') }}">Login</a></li>
             <li><a href="{{ URL::to('/register') }}">Register</a></li>
@@ -149,7 +161,7 @@
 
   @yield('scripts')
 
-<!--<script>
+<script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
@@ -158,8 +170,8 @@
   ga('create', 'UA-46885749-1', 'auto');
   ga('send', 'pageview');
 
-</script>-->
+</script>
 
-<script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
+<!--<script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>-->
 </body>
 </html>

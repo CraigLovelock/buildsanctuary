@@ -16,4 +16,10 @@ class Comment extends Eloquent implements UserInterface, RemindableInterface {
 	 */
 	protected $table = 'comments';
 
+	public static function countComments($buildid) {
+		$query = DB::table('comments')->where('buildID', $buildid)
+								->get();
+		return count($query);
+	}
+
 }

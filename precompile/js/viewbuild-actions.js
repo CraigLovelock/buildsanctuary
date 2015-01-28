@@ -402,6 +402,84 @@ $(document).ready(function(){
     $("input[name=postid_addcomment]").val(id);
   });
 
+  $(".delete-comment").on('click', function(){
+    /*var $btn = $(this);
+    $btn.addClass('disabled');*/
+    var rootAsset = $('.rootAsset').html();
+    var id = this.id;
+    $.ajax({
+        url: rootAsset+'fetchonecomment/'+id,
+        type: 'post',
+        cache: false,
+        dataType: 'json',
+        data: $(this).serialize(),
+        beforeSend: function() {
+          //$(".modal-error-message").remove();
+          //$btn.text('Fetching...');
+        },
+        success: function(data) {
+          if(data.errors) {
+            // error message
+          } else if (data.success) {
+            $(".delete-comment-comment").text('"'+data.comment+'"');
+            $(".do-delete-comment").attr('id', +data.commentid);
+            $('#deleteCommentModal').modal('show');
+          }
+          //$btn.removeClass('disabled');
+          //$btn.remove();
+          //$(".comments_"+id).prepend('<button class="hide-added-comments">Hide added comments...</button>').hide().fadeIn();
+        },
+        error: function(xhr, textStatus, thrownError) {
+            alert('Something went to wrong.Please Try again later...');
+        }
+    });
+    return false;
+  });
+
+  $(".do-delete-comment").on('click', function(){
+    /*var $btn = $(this);
+    $btn.addClass('disabled');*/
+    var rootAsset = $('.rootAsset').html();
+    var id = this.id;
+    $.ajax({
+        url: rootAsset+'deleteonecomment/'+id,
+        type: 'post',
+        cache: false,
+        dataType: 'json',
+        data: $(this).serialize(),
+        beforeSend: function() {
+          //$(".modal-error-message").remove();
+          //$btn.text('Fetching...');
+        },
+        success: function(data) {
+          if(data.errors) {
+            // error message
+          } else if (data.success) {
+            $('#deleteCommentModal').modal('hide');
+            $('#comment-'+data.commentid).fadeOut(function(){
+              $(this).remove();
+              commentCountDelete = checkCommentCount(data.postid);
+              if (commentCountDelete < 1) {
+                $(".comments").append("<li class='no-comments-message_$post_id'>This post has no comments.</li>");
+              }
+            });
+          }
+          //$btn.removeClass('disabled');
+          //$btn.remove();
+          //$(".comments_"+id).prepend('<button class="hide-added-comments">Hide added comments...</button>').hide().fadeIn();
+        },
+        error: function(xhr, textStatus, thrownError) {
+            alert('Something went to wrong.Please Try again later...');
+        }
+    });
+    return false;
+  });
+
+
+  $(".dont-delete-comment").on('click', function(){
+    $('#deleteCommentModal').modal('hide');
+  });
+
   $(".show-all-comments-button").on('click', function(){
     var $btn = $(this);
     $btn.addClass('disabled');
@@ -462,7 +540,15 @@ $(document).ready(function(){
     return false;
   }
 
-$(document).on("click", ".like-post", function(){
+  function checkCommentCount($id){
+    var postid = $id;
+    //console.log(postid);
+    var length = $(".comments_"+postid+ " li").length;
+    //console.log(length);
+    return length;
+  }
+
+  $(document).on("click", ".like-post", function(){
     var $btn = $(this);
     $btn.addClass('disabled');
     var rootAsset = $('.rootAsset').html();
@@ -486,9 +572,9 @@ $(document).on("click", ".like-post", function(){
             }
             $btn.removeClass('btn-success')
               .removeClass("like-post")
-              .addClass('btn-default')
+              .addClass('btn-primary')
               .addClass('unlike-post')
-              .html("<span class='glyphicon glyphicon-remove'></span> Un-like");
+              .html("<span class='glyphicon glyphicon-thumbs-down'></span> Un-like");
             updatePostLikes(id);
           }
           $btn.removeClass('disabled');

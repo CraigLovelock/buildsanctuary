@@ -2,14 +2,16 @@
  * Bootstrap v3.2.0 (http://getbootstrap.com)
  * Copyright 2011-2014 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
- *//*! normalize.css v3.0.1 | MIT License | git.io/normalize */html{
-	font-family:sans-serif;
+ *//*! normalize.css v3.0.1 | MIT License | git.io/normalize */
+ html{
+	//font-family:sans-serif;
+	font-family: 'Roboto', sans-serif;
 	-webkit-text-size-adjust:100%;
 	-ms-text-size-adjust:100%
 }
 
 body{
-	margin:0
+	margin:0;
 }
 
 article,aside,details,figcaption,figure,footer,header,hgroup,main,nav,section,summary{
@@ -4198,10 +4200,11 @@ textarea.input-group-sm>.form-control,textarea.input-group-sm>.input-group-addon
 	border-width:1px 0 0
 }
 
-.navbar-brand{
+.navbar-brand {
 	float:left;
 	height:50px;
-	padding:15px 15px;
+	padding-top:12px;
+	padding-left: 7px;
 	font-size:18px;
 	line-height:20px
 }
@@ -4212,7 +4215,7 @@ textarea.input-group-sm>.form-control,textarea.input-group-sm>.input-group-addon
 
 @media (min-width:768px){
 	.navbar>.container .navbar-brand,.navbar>.container-fluid .navbar-brand{
-		margin-left:-15px
+		//margin-left:-15px
 	}
 
 }
@@ -4227,7 +4230,7 @@ textarea.input-group-sm>.form-control,textarea.input-group-sm>.input-group-addon
 	background-color:transparent;
 	background-image:none;
 	border:1px solid transparent;
-	border-radius:4px
+	//border-radius:4px
 }
 
 .navbar-toggle:focus{
@@ -5865,7 +5868,7 @@ button.close{
 	background-clip:padding-box;
 	border:1px solid #999;
 	border:1px solid rgba(0,0,0,.2);
-	border-radius:6px;
+	border-radius:0;
 	outline:0;
 	-webkit-box-shadow:0 3px 9px rgba(0,0,0,.5);
 	box-shadow:0 3px 9px rgba(0,0,0,.5)
@@ -6745,4 +6748,44 @@ button.close{
 		display:none!important
 	}
 
+}
+
+// Material design inspired overides
+
+.panel {
+	border: none;
+	border-radius: 0;
+}
+
+.panel-body {
+	border-radius: 0;
+}
+
+.panel-footer {
+	border: none;
+	border-radius: 0;
+	padding: 0;
+	//background-color: white;
+	//border-top: 1px solid #eee;
+	//padding-top: 4px;
+}
+
+.panel-heading {
+	background-color: white !important;
+	border: none;
+	color: #ddd !important;
+	font-size: 12px;
+}
+
+.btn-lg,.btn-group-lg>.btn{
+	padding:10px 16px;
+	font-size:12px;
+	line-height:1.33;
+	border-radius:0;
+}
+
+.btn {
+	border: none;
+	margin-left: 0;
+	border-radius: 0;
 }
