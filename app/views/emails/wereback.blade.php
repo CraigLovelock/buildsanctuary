@@ -166,13 +166,17 @@ ul li, ol li {
 						<p>
 						<img src="http://www.buildsanctuary.com/images/email_logo.png">
 					</p>
-						<p><b>Thankyou for your patience!</b></p>
-						<p>Your account and builds are still present. All you need to do is reset your password so that we can encrypt it using our new code.</p>
-						<p>To do this, simply follow the link below and enter your email.</p>
+						<p><b>Comments and Post Likes</b></p>
+						<p>We have been working hard over the last week creating our commenting and update like features. We are pleased to say that they are both now live on BuildSanctuary!</p>
+						<p>Undereach build update is a couple of new buttons. 1) The like button. This button allows you to quickly 'like' and show your appreciation for that update. 2) Comment Button: You can now comment on each build update.</p>
+						<p></p>
+						<p>This update was widely requested from users. We understood that although a cleaner viewing experience is good, you need to receive feedback on your project.</p>
+						<p></p>
+						<p>Login today and leave some comments for other users. In the next few weeks a notification system and more design changes will also be coming.</p>
 						<table>
 							<tr>
 								<td class="padding">
-									<p><a href="http://buildsanctuary.com/password_reminder" class="btn-primary">Reset your password</a></p>
+									<p><a href="http://buildsanctuary.com" class="btn-primary">Go to BuildSanctuary.com</a></p>
 								</td>
 							</tr>
 						</table>
