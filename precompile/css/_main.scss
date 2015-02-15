@@ -1206,7 +1206,7 @@ h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6{
 	font-family:inherit;
 	font-weight:500;
 	line-height:1.1;
-	color:inherit
+	color:inherit;
 }
 
 h1 small,h2 small,h3 small,h4 small,h5 small,h6 small,.h1 small,.h2 small,.h3 small,.h4 small,.h5 small,.h6 small,h1 .small,h2 .small,h3 .small,h4 .small,h5 .small,h6 .small,.h1 .small,.h2 .small,.h3 .small,.h4 .small,.h5 .small,.h6 .small{
@@ -2597,6 +2597,11 @@ table td[class*=col-],table th[class*=col-]{
 		-webkit-overflow-scrolling:touch;
 		-ms-overflow-style:-ms-autohiding-scrollbar;
 		border:1px solid #ddd
+	}
+
+	.item {
+	  width: 98%;
+	  margin: 1%;
 	}
 
 	.table-responsive>.table{

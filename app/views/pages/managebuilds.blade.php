@@ -57,7 +57,7 @@
         }
         echo '
 
-            <div class="item col-xs-12 col-sm-3 buildnumber-'.$build->id.'" style="">
+            <div class="item buildnumber-'.$build->id.'" style="">
               <div class="thumbnail">
                 <img src="user_uploads/cover_images/'.$build->coverimage.'.jpeg">
                 <div class="caption">

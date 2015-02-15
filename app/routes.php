@@ -106,10 +106,10 @@ Route::get('deniedaccess', function()
 	return View::make('errors/deniedaccess', array('pageTitle' => 'Access Denied'));
 });
 
-/*Route::get('sendemails', function()
+Route::get('sendemails', function()
 {
-	return View::make('sendemails', array('pageTitle' => 'Send Emails'));
-});*/
+	return View::make('emails/buildsoftheweek', array('pageTitle' => 'Send Emails'));
+});
 
 Route::get('viewbuild/{build_id?}/{build_title?}', function($build_id = null, $build_title = null)
 {
@@ -186,4 +186,25 @@ Route::group(array('before' => 'admin'), function()
 	{
 		return View::make('admin/index', array('pageTitle' => 'Admin'));
 	});
+	Route::get('admin/sendemail', function()
+	{
+		return View::make('admin/sendemails', array('pageTitle' => 'Admin | Send Emails'));
+	});
+
+	/*Route::post('admin/newemail', function()
+	{
+		$email = 'craiglovelock@hotmail.com';
+		$data = Input::all();
+		/*Mail::send('emails.buildsoftheweek', $data, function($message) use ($email){
+			// $message details
+		});
+	  return View::make('emails/buildsoftheweek', array('pageTitle' => 'Builds of the week'));
+	});
+
+	Route::get('admin/previewemail', function(){
+		return View::make('emails/buildsoftheweek', array('pageTitle' => 'Builds of the week'));
+	});*/
+
+  Route::post('admin/newemail', array('uses' => 'UserController@checkFormPost'));
+
 });

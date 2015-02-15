@@ -262,7 +262,7 @@ class PostController extends \BaseController {
   	$createImage = Image::make(Input::file('update-insertimage-btn'))->orientate();
   	$createImage->resize(800, null, function ($constraint) {
   	$constraint->aspectRatio();
-	})->insert('images/watermark.png', 'bottom-right', 10, 10);
+	});
 	$createImage->save("$imageSavePath");
 
 	//create and save the image name into db.

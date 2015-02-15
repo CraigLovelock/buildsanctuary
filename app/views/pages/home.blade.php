@@ -35,8 +35,6 @@
 
       imagesLoaded(container, function() {
         $(".loadingBuilds").remove();
-        container.fadeIn();
-        pagination.fadeIn();
         container.isotope({
           itemSelector : '.item',
           getSortData: {
@@ -44,6 +42,8 @@
           },
           animationEngine: 'css'
         });
+        //container.fadeIn();
+        pagination.fadeIn();
       });
 
       $(".testfoo").on('click', function(){
