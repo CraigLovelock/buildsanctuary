@@ -69,7 +69,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 			$build = DB::table('blogs')
 											->where('id', $id)
 											->first();
-			$buildUpdateTime = strtotime($build->updated_at);
+			$buildUpdateTime = strtotime($build->lastupdated);
 			$viewTime = strtotime($viewCheck->updated_at);
 			if ($buildUpdateTime > $viewTime) {
 				return 'true';

@@ -14,7 +14,7 @@ return array(
 	| Supported: "smtp", "mail", "sendmail", "mailgun", "mandrill", "log"
 	|
 	*/
-
+	// should be smtp!!
 	'driver' => 'smtp',
 
 	/*

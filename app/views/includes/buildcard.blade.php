@@ -11,7 +11,7 @@ $path = '';
 
 if ($countBuilds) {
 
-  echo '<div id="builds" class="row">';
+  echo '<div id="builds" data-columns>';
 
 	foreach ($builds as $build)
 	{
@@ -31,10 +31,11 @@ if ($countBuilds) {
     }
 	  echo '
       <a href="viewbuild/'.$build->id.'/'.$safeURLSlug.'">
-        <div class="item col-xs-12 col-sm-3">
+        <div class="item">
+        <div class="white-item-overlay"></div>
         	'.$showBanner.'
           <div class="thumbnail">
-            <img src="user_uploads/cover_images/'.$build->coverimage.'.jpeg">
+            <img class="imageholder" src="user_uploads/cover_images/'.$build->coverimage.'.jpeg">
             <div class="caption">
               <h5>'.$build->blogtitle.'</h5>
               <small>by: '.$usernameOfOwner.'</small>

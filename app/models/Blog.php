@@ -50,7 +50,7 @@ class Blog extends Eloquent implements UserInterface, RemindableInterface {
 				$query = static::where('frontpage', '1')->latest('lastupdated');
 				break;
 		}
-		return $query->remember(10)->paginate(20);
+		return $query->paginate(20);
 	}
 
 	public static function countFollowers($buildid) {

@@ -1,0 +1,35 @@
+/* Large desktop */
+@media (min-width: 1200px) {
+	-moz-column-count:5;
+  -moz-column-gap: 3%;
+  -moz-column-width: 30%;
+  -webkit-column-count:5;
+  -webkit-column-gap: 3%;
+  -webkit-column-width: 30%;
+  column-count: 5;
+  column-gap: 3%;
+  column-width: 30%;
+}
+
+/* Portrait tablet to landscape and desktop */
+@media (min-width: 768px) and (max-width: 979px) {
+	-moz-column-count:2;
+  -moz-column-gap: 3%;
+  -moz-column-width: 30%;
+  -webkit-column-count:2;
+  -webkit-column-gap: 3%;
+  -webkit-column-width: 30%;
+  column-count: 2;
+  column-gap: 3%;
+  column-width: 30%;
+}
+
+/* Landscape phone to portrait tablet */
+@media (max-width: 767px) {
+
+}
+
+/* Landscape phones and down */
+@media (max-width: 480px) {
+
+}

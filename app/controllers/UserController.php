@@ -171,4 +171,17 @@ class UserController extends BaseController
 		return Redirect::to('/accountsettings')->with('success', '1');
 	}
 
+	public function checkFormPost() {
+		if(Input::get('preview')) {
+			$data = Input::all();
+      return View::make('emails/buildsoftheweek', array('pageTitle' => 'Builds of the week'))->with($data);
+    } elseif(Input::get('send')) {
+      $email = 'craiglovelock@hotmail.com';
+			$data = Input::all();
+			Mail::send('emails.buildsoftheweek', $data, function($message) use ($email){
+				$message->to('craiglovelock54@hotmail.co.uk', 'Craig Lovelock')->subject('Builds of the week!');
+			});
+    }
+	}
+
 }

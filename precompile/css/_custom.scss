@@ -75,25 +75,53 @@ body {
 	color: green;
 }
 
-/* Masonry */
-
 .item {
-	opacity: 0.9;
-	margin-bottom: -20px;
-	padding: 5px;
-	border-radius: 5px;
-	overflow: hidden;
-	/* add this. prefixes for compabtibility */
-  transform:translate3d(0,0,0);
-  -webkit-transform:translate3d(0,0,0);
-  -moz-transform:translate3d(0,0,0);
+  //opacity: 0.95;
+  position: relative;
+  //border: 4px solid #000;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  transform:translate3d(0, 0, 0);
+  -webkit-transform:translate3d(0, 0, 0);
+  -moz-transform:translate3d(0, 0, 0);
+  float: left;
+}
+
+.item:hover {
+	opacity: 1;
+	border-color: #ccc;
+	.white-item-overlay {
+		display: block;
+	}
+}
+
+.thumbnail {
+	border: none;
+	margin-bottom: 0;
+	.buildcard-stats {
+		background-color: #f6f6f6;
+	}
+}
+
+.white-item-overlay {
+	display: none;
+	background-color: white;
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	opacity: 0.1;
+}
+
+.cols {
+	a {
+		text-decoration: none;
+	}
 }
 
 .buildcard-banner-holder {
 	width: 100px;
 	height: 100px;
 	position: absolute;
-	left: 5px;
+	left: 0;
 	overflow: hidden
 }
 
@@ -117,15 +145,17 @@ body {
 	font-size: 14px;
 }
 
-.item:hover {
-	opacity: 1;
-}
-
 .build-image {
 }
 
 .thumbnail {
 	padding: 0px;
+}
+
+.imageholder {
+	background-color: #ccc;
+	min-height: 40px;
+	width: 100%;
 }
 
 .build-image img {
@@ -340,8 +370,24 @@ code {
 
 #builds {
 	width: 100%;
-	margin: auto;
-	display: none;
+}
+
+@media (min-width:768px){
+
+	.item {
+	  width: 31%;
+	  margin: 1%;
+	}
+
+}
+
+@media (min-width:992px){
+
+	.item {
+	  width: 23%;
+	  margin: 1%;
+	}
+
 }
 
 .image_preview_container {
@@ -548,6 +594,11 @@ code {
 	max-width: 1000px;
 }
 
+.full-width-container-1200max {
+	width: 100%;
+	max-width: 1200px;
+}
+
 .full-width-design {
 	width: 100%;
 	position: absolute;
@@ -572,6 +623,7 @@ code {
 	width: 100%;
 	text-align: center;
 	margin-top: 0;
+	display: none;
 }
 
 .build-title-navbar {

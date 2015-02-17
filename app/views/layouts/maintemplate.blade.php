@@ -36,7 +36,7 @@
         </button>
         <a class="navbar-brand" href="{{ URL::to('/') }}">
           <div>
-            <img src="{{ asset('/') }}images/logoold2.svg">
+            <img src="{{ asset('/') }}images/newlogo.svg">
           </div>
         </a>
         <!--<div class="fb-like" data-href="https://www.facebook.com/buildsanctuary" data-layout="button_count" data-action="like" data-show-faces="false"></div>-->
