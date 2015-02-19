@@ -51,14 +51,7 @@
         container.isotope();
       });
 
-      $('.build-filter-options').affix({
-        offset: {
-          top: 90,
-          bottom: function () {
-            //return (this.bottom = $('.footer').outerHeight(true))
-          }
-        }
-      });
+      //$('.build-filter-options').affix();
 
     });
 

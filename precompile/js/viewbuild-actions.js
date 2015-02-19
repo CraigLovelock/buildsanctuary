@@ -350,7 +350,7 @@ $(document).ready(function(){
 
   $('.build-filter-options').affix({
     offset: {
-      top: 90,
+      top: 0,
       bottom: function () {
         //return (this.bottom = $('.footer').outerHeight(true))
       }

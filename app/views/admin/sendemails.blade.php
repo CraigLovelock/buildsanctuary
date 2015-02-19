@@ -35,16 +35,19 @@
         <input type="text" class="form-control" placeholder="Email image URL" name="carimageone">
         <input type="text" class="form-control" placeholder="Enter image title" name="cartitleone">
         <input type="text" class="form-control" placeholder="Enter image content" name="carcontentone">
+        <input type="text" class="form-control" placeholder="Enter build link" name="carlinkone">
 
         <label for="carimagetwo">Car Two Details</label>
         <input type="text" class="form-control" placeholder="Email image URL" name="carimagetwo">
         <input type="text" class="form-control" placeholder="Enter image title" name="cartitletwo">
         <input type="text" class="form-control" placeholder="Enter image content" name="carcontenttwo">
+        <input type="text" class="form-control" placeholder="Enter build link" name="carlinktwo">
 
         <label for="carimagethree">Car Three Details</label>
         <input type="text" class="form-control" placeholder="Email image URL" name="carimagethree">
         <input type="text" class="form-control" placeholder="Enter image title" name="cartitlethree">
         <input type="text" class="form-control" placeholder="Enter image content" name="carcontentthree">
+        <input type="text" class="form-control" placeholder="Enter build link" name="carlinkthree">
 
       </div>
       <div class="modal-footer">

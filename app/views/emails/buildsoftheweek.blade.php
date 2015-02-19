@@ -8,14 +8,17 @@ $messageBody = Input::get('email-bodytext');
 $featureOneImage = Input::get('carimageone');
 $featureOneTitle = Input::get('cartitleone');
 $featureOneContent = Input::get('carcontentone');
+$featureOneLink = Input::get('carlinkone');
 
 $featureTwoImage = Input::get('carimagetwo');
 $featureTwoTitle = Input::get('cartitletwo');
 $featureTwoContent = Input::get('carcontenttwo');
+$featureTwoLink = Input::get('carlinktwo');
 
 $featureThreeImage = Input::get('carimagethree');
 $featureThreeTitle = Input::get('cartitlethree');
 $featureThreeContent = Input::get('carcontentthree');
+$featureThreeLink = Input::get('carlinkThree');
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head>
     <title></title>
@@ -928,7 +931,7 @@ div{font-family:sans-serif}@media only screen and (min-width: 0){.wrapper .logo 
       </tbody></table>
       <table class="header centered" style="border-collapse: collapse;border-spacing: 0;Margin-left: auto;Margin-right: auto;width: 602px">
         <tbody><tr><td class="border" style="padding: 0;vertical-align: top;font-size: 1px;line-height: 1px;background-color: #ddd;width: 1px">&nbsp;</td></tr>
-        <tr><td class="logo" style="padding: 32px 0;vertical-align: top;mso-line-height-rule: at-least"><div class="logo-center" style="font-size: 26px;font-weight: 700;letter-spacing: -0.02em;line-height: 32px;color: #41637e;font-family: sans-serif;text-align: center" align="center" id="emb-email-header"><img style="border: 0;-ms-interpolation-mode: bicubic;display: block;Margin-left: auto;Margin-right: auto;max-width: 362px" src="http://buildsanctuary.com/images/logoold2.svg" alt="" width="300" height="43" /></div></td></tr>
+        <tr><td class="logo" style="padding: 32px 0;vertical-align: top;mso-line-height-rule: at-least"><div class="logo-center" style="font-size: 26px;font-weight: 700;letter-spacing: -0.02em;line-height: 32px;color: #41637e;font-family: sans-serif;text-align: center" align="center" id="emb-email-header"><img style="border: 0;-ms-interpolation-mode: bicubic;display: block;Margin-left: auto;Margin-right: auto;max-width: 362px" src="http://buildsanctuary.com/images/logowithborder.svg" alt="" width="300" height="43" /></div></td></tr>
       </tbody></table>
       
           <table class="border" style="border-collapse: collapse;border-spacing: 0;font-size: 1px;line-height: 1px;background-color: #ddd;Margin-left: auto;Margin-right: auto" width="602">
@@ -998,7 +1001,7 @@ div{font-family:sans-serif}@media only screen and (min-width: 0){.wrapper .logo 
               <table class="image" style="border-collapse: collapse;border-spacing: 0;font-size: 0;Margin-bottom: 21px;mso-line-height-rule: at-least;color: #565656;font-family: sans-serif" align="center">
                 <tbody><tr>
                   <td class="image-frame" style="padding: 4px;vertical-align: top;background-color: #dadada">
-                    <span class="image-background" style="display: inline-block;font-size: 12px;background-color: #f7f7f7"><a style="text-decoration: underline;transition: all .2s;color: #41637e" href="http://link3"><img style="border: 0;-ms-interpolation-mode: bicubic;display: block;max-width: 480px" src="<?= $featureOneImage ?>" alt="" width="144" /></a></span>
+                    <span class="image-background" style="display: inline-block;font-size: 12px;background-color: #f7f7f7"><a style="text-decoration: underline;transition: all .2s;color: #41637e" href="<?= $featureOneLink ?>"><img style="border: 0;-ms-interpolation-mode: bicubic;display: block;max-width: 480px" src="<?= $featureOneImage ?>" alt="" width="144" /></a></span>
                   </td>
                 </tr>
                 <tr><td class="border" style="padding: 0;vertical-align: top;font-size: 1px;line-height: 1px;background-color: #c8c8c8;width: 1px">&nbsp;</td></tr>
@@ -1025,7 +1028,7 @@ div{font-family:sans-serif}@media only screen and (min-width: 0){.wrapper .logo 
                             <td class="padded" style="padding: 0;vertical-align: top;padding-left: 32px;padding-right: 16px">
                               
             <div class="btn" style="Margin-bottom: 21px;padding: 2px;text-align: center">
-              <![if !mso]><a style="border: 1px solid #ffffff;display: inline-block;font-size: 12px;font-weight: bold;line-height: 14px;outline-style: solid;outline-width: 2px;padding: 8px 19px;text-align: center;text-decoration: none !important;transition: all .2s;color: #fff !important;font-family: sans-serif;background-color: #3498db;outline-color: #3498db;text-shadow: 0 1px 0 #2f89c5" href="http://google.com">View Project</a><![endif]>
+              <![if !mso]><a style="border: 1px solid #ffffff;display: inline-block;font-size: 12px;font-weight: bold;line-height: 14px;outline-style: solid;outline-width: 2px;padding: 8px 19px;text-align: center;text-decoration: none !important;transition: all .2s;color: #fff !important;font-family: sans-serif;background-color: #3498db;outline-color: #3498db;text-shadow: 0 1px 0 #2f89c5" target="_blank" href="<?= $featureOneLink ?>">View Project</a><![endif]>
             <!--[if mso]><v:rect xmlns:v="urn:schemas-microsoft-com:vml" href="http://google.com" style="width:118px" fillcolor="#3498DB" strokecolor="#3498DB" strokeweight="6px"><v:stroke linestyle="thinthin"></v:stroke><v:textbox style="mso-fit-shape-to-text:t" inset="0px,5px,0px,5px"><center style="font-size:12px;line-height:14px;color:#FFFFFF;font-family:sans-serif;font-weight:bold;mso-line-height-rule:exactly;mso-text-raise:0px">View Project</center></v:textbox></v:rect><![endif]--></div>
           
                             </td>
@@ -1045,7 +1048,7 @@ div{font-family:sans-serif}@media only screen and (min-width: 0){.wrapper .logo 
               <table class="image" style="border-collapse: collapse;border-spacing: 0;font-size: 0;Margin-bottom: 21px;mso-line-height-rule: at-least;color: #565656;font-family: sans-serif" align="center">
                 <tbody><tr>
                   <td class="image-frame" style="padding: 4px;vertical-align: top;background-color: #dadada">
-                    <span class="image-background" style="display: inline-block;font-size: 12px;background-color: #f7f7f7"><a style="text-decoration: underline;transition: all .2s;color: #41637e" href="http://link2"><img style="border: 0;-ms-interpolation-mode: bicubic;display: block;max-width: 480px" src="<?= $featureTwoImage ?>" alt="" width="144" /></a></span>
+                    <span class="image-background" style="display: inline-block;font-size: 12px;background-color: #f7f7f7"><a style="text-decoration: underline;transition: all .2s;color: #41637e" href="<?= $featureTwoLink ?>"><img style="border: 0;-ms-interpolation-mode: bicubic;display: block;max-width: 480px" src="<?= $featureTwoImage ?>" alt="" width="144" /></a></span>
                   </td>
                 </tr>
                 <tr><td class="border" style="padding: 0;vertical-align: top;font-size: 1px;line-height: 1px;background-color: #c8c8c8;width: 1px">&nbsp;</td></tr>
@@ -1072,7 +1075,7 @@ div{font-family:sans-serif}@media only screen and (min-width: 0){.wrapper .logo 
                             <td class="padded" style="padding: 0;vertical-align: top;padding-left: 24px;padding-right: 24px">
                               
             <div class="btn" style="Margin-bottom: 21px;padding: 2px;text-align: center">
-              <![if !mso]><a style="border: 1px solid #ffffff;display: inline-block;font-size: 12px;font-weight: bold;line-height: 14px;outline-style: solid;outline-width: 2px;padding: 8px 19px;text-align: center;text-decoration: none !important;transition: all .2s;color: #fff !important;font-family: sans-serif;background-color: #3498db;outline-color: #3498db;text-shadow: 0 1px 0 #2f89c5" href="http://google.com">View Project</a><![endif]>
+              <![if !mso]><a style="border: 1px solid #ffffff;display: inline-block;font-size: 12px;font-weight: bold;line-height: 14px;outline-style: solid;outline-width: 2px;padding: 8px 19px;text-align: center;text-decoration: none !important;transition: all .2s;color: #fff !important;font-family: sans-serif;background-color: #3498db;outline-color: #3498db;text-shadow: 0 1px 0 #2f89c5" target="_blank" href="<?= $featureTwoLink ?>">View Project</a><![endif]>
             <!--[if mso]><v:rect xmlns:v="urn:schemas-microsoft-com:vml" href="http://google.com" style="width:111px" fillcolor="#3498DB" strokecolor="#3498DB" strokeweight="6px"><v:stroke linestyle="thinthin"></v:stroke><v:textbox style="mso-fit-shape-to-text:t" inset="0px,5px,0px,5px"><center style="font-size:12px;line-height:14px;color:#FFFFFF;font-family:sans-serif;font-weight:bold;mso-line-height-rule:exactly;mso-text-raise:0px">View Project</center></v:textbox></v:rect><![endif]--></div>
           
                             </td>
@@ -1092,7 +1095,7 @@ div{font-family:sans-serif}@media only screen and (min-width: 0){.wrapper .logo 
               <table class="image" style="border-collapse: collapse;border-spacing: 0;font-size: 0;Margin-bottom: 21px;mso-line-height-rule: at-least;color: #565656;font-family: sans-serif" align="center">
                 <tbody><tr>
                   <td class="image-frame" style="padding: 4px;vertical-align: top;background-color: #dadada">
-                                        <span class="image-background" style="display: inline-block;font-size: 12px;background-color: #f7f7f7"><a style="text-decoration: underline;transition: all .2s;color: #41637e" href="http://link2"><img style="border: 0;-ms-interpolation-mode: bicubic;display: block;max-width: 480px" src="<?= $featureThreeImage ?>" alt="" width="144" /></a></span>
+                                        <span class="image-background" style="display: inline-block;font-size: 12px;background-color: #f7f7f7"><a style="text-decoration: underline;transition: all .2s;color: #41637e" href="<?= $featureThreeLink ?>"><img style="border: 0;-ms-interpolation-mode: bicubic;display: block;max-width: 480px" src="<?= $featureThreeImage ?>" alt="" width="144" /></a></span>
                   </td>
                 </tr>
                 <tr><td class="border" style="padding: 0;vertical-align: top;font-size: 1px;line-height: 1px;background-color: #c8c8c8;width: 1px">&nbsp;</td></tr>
@@ -1119,7 +1122,7 @@ div{font-family:sans-serif}@media only screen and (min-width: 0){.wrapper .logo 
                             <td class="padded" style="padding: 0;vertical-align: top;padding-left: 16px;padding-right: 32px">
                               
             <div class="btn" style="Margin-bottom: 21px;padding: 2px;text-align: center">
-              <![if !mso]><a style="border: 1px solid #ffffff;display: inline-block;font-size: 12px;font-weight: bold;line-height: 14px;outline-style: solid;outline-width: 2px;padding: 8px 19px;text-align: center;text-decoration: none !important;transition: all .2s;color: #fff !important;font-family: sans-serif;background-color: #3498db;outline-color: #3498db;text-shadow: 0 1px 0 #2f89c5" href="http://google.com">View Project</a><![endif]>
+              <![if !mso]><a style="border: 1px solid #ffffff;display: inline-block;font-size: 12px;font-weight: bold;line-height: 14px;outline-style: solid;outline-width: 2px;padding: 8px 19px;text-align: center;text-decoration: none !important;transition: all .2s;color: #fff !important;font-family: sans-serif;background-color: #3498db;outline-color: #3498db;text-shadow: 0 1px 0 #2f89c5" target="_blank" href="<?= $featureThreeLink ?>">View Project</a><![endif]>
             <!--[if mso]><v:rect xmlns:v="urn:schemas-microsoft-com:vml" href="http://google.com" style="width:112px" fillcolor="#3498DB" strokecolor="#3498DB" strokeweight="6px"><v:stroke linestyle="thinthin"></v:stroke><v:textbox style="mso-fit-shape-to-text:t" inset="0px,5px,0px,5px"><center style="font-size:12px;line-height:14px;color:#FFFFFF;font-family:sans-serif;font-weight:bold;mso-line-height-rule:exactly;mso-text-raise:0px">View Project</center></v:textbox></v:rect><![endif]--></div>
           
                             </td>

@@ -4208,7 +4208,8 @@ textarea.input-group-sm>.form-control,textarea.input-group-sm>.input-group-addon
 .navbar-brand {
 	float:left;
 	height:50px;
-	padding-top:12px;
+	//margin-top: -2px;
+	padding-top:0;
 	padding-left: 7px;
 	font-size:18px;
 	line-height:20px
@@ -6481,7 +6482,7 @@ button.close{
 	-webkit-transform:translate3d(0,0,0);
 	-o-transform:translate3d(0,0,0);
 	transform:translate3d(0,0,0);
-	margin-top: -90px !important;
+	//margin-top: -90px !important;
 	opacity: 0.9;
 	transition: opacity 400 ease-in-out;
   -moz-transition: opacity 400 ease-in-out;

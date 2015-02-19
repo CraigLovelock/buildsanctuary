@@ -365,6 +365,7 @@ code {
 #posts {
 	overflow: hidden;
 	width: 100%;
+	max-width: 1000px;
 	margin: auto;
 }
 
@@ -385,6 +386,15 @@ code {
 
 	.item {
 	  width: 23%;
+	  margin: 1%;
+	}
+
+}
+
+@media (min-width:1199px){
+
+	.item {
+	  width: 18%;
 	  margin: 1%;
 	}
 
@@ -521,6 +531,7 @@ code {
 	width: 100%;
 	height: 90px;
 	overflow: hidden;
+	display: none;
 }
 
 .home-header-image img {
@@ -540,7 +551,7 @@ code {
 }
 
 .pushdown-100px {
-	padding-top: 140px;
+	padding-top: 50px;
 }
 
 .navbar-inverse {
@@ -591,7 +602,7 @@ code {
 
 .full-width-container {
 	width: 100%;
-	max-width: 1000px;
+	//max-width: 1000px;
 }
 
 .full-width-container-1200max {
