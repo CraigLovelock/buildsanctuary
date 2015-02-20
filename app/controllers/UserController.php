@@ -180,7 +180,7 @@ class UserController extends BaseController
 			$data = Input::all();
 			Mail::send('emails.buildsoftheweek', $data, function($message) use ($email){
 				$message->to('emails@buildsanctuary.com', 'All Users')
-								->bcc('craiglovelock54@hotmail.co.uk', 'Craig Lovelock');
+								->bcc('craiglovelock54@hotmail.co.uk', 'Craig Lovelock')
 								->subject(Input::get('emailsubject'));
 			});
     }
