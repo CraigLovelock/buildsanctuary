@@ -183,7 +183,7 @@ class UserController extends BaseController
       }
 			$data = Input::all();
 			Mail::send('emails.buildsoftheweek', $data, function($message){
-				$message->to($emails, 'Craig Lovelock')->subject(Input::get('emailsubject'););
+				$message->to("$emails", 'Craig Lovelock')->subject(Input::get('emailsubject'));
 			});
     }
 	}
