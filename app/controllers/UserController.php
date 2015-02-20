@@ -176,11 +176,7 @@ class UserController extends BaseController
 			$data = Input::all();
       return View::make('emails/buildsoftheweek', array('pageTitle' => 'Builds of the week'))->with($data);
     } elseif(Input::get('send')) {
-    	if ( isset(Input::get('alluserscheck')) ) {
-      	$emails = 'craiglovelock@hotmail.com';
-      } else {
       	$emails = 'craiglovelock54@hotmail.co.uk';
-      }
 			$data = Input::all();
 			Mail::send('emails.buildsoftheweek', $data, function($message){
 				$message->to("$emails", 'Craig Lovelock')->subject(Input::get('emailsubject'));
