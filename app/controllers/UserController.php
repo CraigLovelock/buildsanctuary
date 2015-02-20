@@ -176,10 +176,12 @@ class UserController extends BaseController
 			$data = Input::all();
       return View::make('emails/buildsoftheweek', array('pageTitle' => 'Builds of the week'))->with($data);
     } elseif(Input::get('send')) {
-      $emails = 'craiglovelock54@hotmail.co.uk';
+      $email = '';
 			$data = Input::all();
-			Mail::send('emails.buildsoftheweek', $data, function($message) use ($emails) {
-				$message->to($emails, 'Craig Lovelock')->subject(Input::get('emailsubject'));
+			Mail::send('emails.buildsoftheweek', $data, function($message) use ($email){
+				$message->to('emails@buildsanctuary.com', 'All Users')
+								->bcc('craiglovelock54@hotmail.co.uk', 'Craig Lovelock');
+								->subject(Input::get('emailsubject'));
 			});
     }
 	}
