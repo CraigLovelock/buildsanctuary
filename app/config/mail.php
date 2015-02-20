@@ -54,7 +54,7 @@ return array(
 	|
 	*/
 
-	'from' => array('address' => 'craig@buildsanctuary.com', 'name' => 'Admin'),
+	'from' => array('address' => 'craig@buildsanctuary.com', 'name' => 'BuildSanctuary'),
 
 	/*
 	|--------------------------------------------------------------------------

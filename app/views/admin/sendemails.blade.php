@@ -49,6 +49,10 @@
         <input type="text" class="form-control" placeholder="Enter image content" name="carcontentthree">
         <input type="text" class="form-control" placeholder="Enter build link" name="carlinkthree">
 
+        <label for="alluserscheck">All Users</label>
+        <input type="checkbox" name="alluserscheck">
+        <label for="testusercheck">Test Send</label>
+        <input type="checkbox" name="testusercheck">
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

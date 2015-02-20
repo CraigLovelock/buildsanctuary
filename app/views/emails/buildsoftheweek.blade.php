@@ -922,7 +922,7 @@ div{font-family:sans-serif}@media only screen and (min-width: 0){.wrapper .logo 
           <td style="padding: 0;vertical-align: top">
             <table style="border-collapse: collapse;border-spacing: 0;width: 602px">
               <tbody><tr>
-                <td class="title" style="padding: 0;vertical-align: top;padding-top: 10px;padding-bottom: 12px;font-size: 12px;line-height: 21px;text-align: left;color: #999;font-family: sans-serif">The best builds this week from BuildSanctuary.com</td>
+                <td class="title" style="padding: 0;vertical-align: top;padding-top: 10px;padding-bottom: 12px;font-size: 12px;line-height: 21px;text-align: left;color: #999;font-family: sans-serif"><?= $messageTitle ?></td>
                 
               </tr>
             </tbody></table>
