@@ -172,6 +172,15 @@ class UserController extends BaseController
 	}
 
 	public function checkFormPost() {
+
+		$query = DB::table('users')->get();
+	  $bcclist = "";
+	  $bccnamelist = "";
+	  foreach ($query as $key=>$user) {
+	    $bcclist .= $user->email.",";
+	    $bccnamelist .= $user->username.",";
+	  }
+
 		if(Input::get('preview')) {
 			$data = Input::all();
       return View::make('emails/buildsoftheweek', array('pageTitle' => 'Builds of the week'))->with($data);
@@ -179,8 +188,8 @@ class UserController extends BaseController
       $email = '';
 			$data = Input::all();
 			Mail::send('emails.buildsoftheweek', $data, function($message) use ($email){
-				$message->to('emails@buildsanctuary.com', 'All Users')
-								->bcc('craiglovelock54@hotmail.co.uk', 'Craig Lovelock')
+				$message->to('admin@buildsanctuary.com', 'All Users')
+								->bcc("$bcclist", "$bccnamelist")
 								->subject(Input::get('emailsubject'));
 			});
     }
