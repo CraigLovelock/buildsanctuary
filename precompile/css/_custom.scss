@@ -214,8 +214,10 @@ body {
 }
 
 .upload-fake-btn {
-	margin-left: -1px;
-	margin-top: -1px;
+	margin-left: 0px;
+  margin-top: 0px;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
 .upload-btn {

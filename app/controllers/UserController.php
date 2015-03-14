@@ -174,12 +174,16 @@ class UserController extends BaseController
 	public function checkFormPost() {
 
 		$query = DB::table('users')->get();
-	  $bcclist = "";
-	  $bccnamelist = "";
+	  $bcclist = array();
+	  $bccnamelist = array();
 	  foreach ($query as $key=>$user) {
-	    $bcclist .= $user->email.",";
-	    $bccnamelist .= $user->username.",";
+	  	if (filter_var($user->email, FILTER_VALIDATE_EMAIL)) {
+		    $bcclist[] = $user->email;
+		    $bccnamelist[] = $user->username;
+	  	}
 	  }
+
+	  $tolist = array_combine($bcclist, $bccnamelist);
 
 		if(Input::get('preview')) {
 			$data = Input::all();
@@ -187,9 +191,9 @@ class UserController extends BaseController
     } elseif(Input::get('send')) {
       $email = '';
 			$data = Input::all();
-			Mail::send('emails.buildsoftheweek', $data, function($message) use ($email){
+			Mail::send('emails.buildsoftheweek', $data, function($message) use ($email, $tolist){
 				$message->to('admin@buildsanctuary.com', 'All Users')
-								->bcc("$bcclist", "$bccnamelist")
+								->bcc($tolist)
 								->subject(Input::get('emailsubject'));
 			});
     }
